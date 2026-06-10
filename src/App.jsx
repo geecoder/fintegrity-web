@@ -1,16 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 
-const Logo = ({ id }) => (
-  <svg className="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-    <rect x="1" y="1" width="30" height="30" rx="9" fill={`url(#${id})`} />
-    <path d="M9 17L14 22L23 10.5" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-    <defs>
-      <linearGradient id={id} x1="0" y1="0" x2="32" y2="32">
-        <stop stopColor="#635BFF" /><stop offset="1" stopColor="#3ECFE0" />
-      </linearGradient>
-    </defs>
-  </svg>
-)
 
 const DECISIONS = {
   ok: { badgeClass: 'allow', badge: 'ALLOW', sub: 'transaction proceeds', decision: '"ALLOW"', decisionClass: 'allowtext', actions: '["PROCEED"]', actionsClass: 'v', reasons: '[]', state: '"KYC_OK"' },
@@ -61,7 +50,7 @@ export default function App() {
     <>
       <nav>
         <div className="wrap nav-in">
-          <a className="brand" href="#top"><Logo id="g1" />Fintegrity</a>
+          <a className="brand" href="#top"><img src="/fintegrity_wm_indigo_mono.png" alt="Fintegrity" className="brand-logo" /></a>
           <div className="nav-links">
             <a href="#why">Why now</a>
             <a href="#product">Product</a>
@@ -209,7 +198,7 @@ export default function App() {
 
       <footer>
         <div className="wrap foot-in">
-          <a className="brand" href="#top"><Logo id="g2" />Fintegrity</a>
+          <a className="brand" href="#top"><img src="/fintegrity_wm_indigo_mono.png" alt="Fintegrity" className="brand-logo" /></a>
           <p>Embedded compliance decisioning for African fintechs.</p>
           <div className="foot-links">
             <a href="#why">Why now</a><a href="#product">Product</a><a href="#usecases">Use cases</a><a href="#demo">Demo</a>

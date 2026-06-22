@@ -8,7 +8,7 @@ const config: NextConfig = {
       // Non-www → canonical www
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'getfintegrity.com' }],
+        has: [{ type: 'host', value: '^getfintegrity\\.com$' }],
         destination: 'https://www.getfintegrity.com/:path*',
         permanent: true,
       },

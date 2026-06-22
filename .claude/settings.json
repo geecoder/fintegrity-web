@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/genes/fintegrity-web/src -type f -name \"*.tsx\" -o -name \"*.ts\" -o -name \"*.json\" | sort)",
+      "Read(//c/Users/genes/fintegrity-web/src/**)",
+      "Bash(ls -la /c/Users/genes/fintegrity-web/src/)",
+      "Read(//c/Users/genes/fintegrity-web/src//**)",
+      "Bash(find /c/Users/genes/fintegrity-web/src/components -type f | sort)",
+      "Read(//c/Users/genes/fintegrity-web/src/components/**)",
+      "Bash(ls -laR /c/Users/genes/fintegrity-web/src/components)",
+      "Bash(ls -la /c/Users/genes/fintegrity-web/public/)",
+      "Read(//c/Users/genes/fintegrity-web/public//**)",
+      "Bash(ls -la /c/Users/genes/fintegrity-web/ | grep -E \"config|rc|tailwind|postcss\")",
+      "Read(//c/Users/genes/fintegrity-web//**)",
+      "Bash(git add *)",
+      "Bash(git push *)"
+    ]
+  }
+}

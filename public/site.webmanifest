@@ -1,0 +1,11 @@
+{
+  "name": "Fintegrity",
+  "short_name": "Fintegrity",
+  "icons": [
+    { "src": "/favicon_180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon_512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#635BFF",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

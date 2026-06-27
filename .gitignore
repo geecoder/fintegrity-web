@@ -1,0 +1,37 @@
+# Next.js
+.next/
+out/
+
+# Vite build output (pre-migration, safe to delete)
+dist/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Debug logs
+npm-debug.log*
+
+# OS
+.DS_Store
+*.local
+
+# Claude Code workspace files (local AI session memory — never goes to repo)
+.claude/
+
+# Local media uploads — kept out of the repo; R2 is the production store
+public/media/
+!public/media/.gitkeep

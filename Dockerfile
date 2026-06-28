@@ -52,7 +52,6 @@ COPY --from=builder /app/node_modules ./node_modules
 
 # Payload resolves the config at runtime; copy the source and compiled types
 COPY --from=builder /app/payload.config.ts ./payload.config.ts
-COPY --from=builder /app/payload-types.ts ./payload-types.ts
 COPY --from=builder /app/src ./src
 
 # Prune devDependencies to reduce the final image size

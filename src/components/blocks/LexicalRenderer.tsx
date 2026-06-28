@@ -38,7 +38,7 @@ function renderNode(node: LexicalNode, key: string | number): ReactNode {
     }
 
     case 'heading': {
-      const Tag = (node.tag ?? 'h2') as keyof JSX.IntrinsicElements
+      const Tag = (node.tag ?? 'h2') as keyof React.JSX.IntrinsicElements
       return <Tag key={key}>{node.children?.map((c, i) => renderNode(c, i))}</Tag>
     }
 

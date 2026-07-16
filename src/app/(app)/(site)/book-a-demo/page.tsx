@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import BookADemoForm from '@/components/home/BookADemoForm'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
+import RevealInit from '@/components/RevealInit'
 
 export const metadata: Metadata = {
   title: 'Book a Demo',
@@ -20,10 +21,11 @@ export default function BookADemoPage() {
   return (
     <>
     <BreadcrumbJsonLd items={[{ name: 'Book a Demo', href: '/book-a-demo' }]} />
+    <RevealInit />
     <div className="demo-page">
       {/* Left panel — static, server-rendered */}
       <div className="demo-page-left">
-        <div>
+        <div className="reveal">
           <span className="sec-eyebrow">Book a demo</span>
           <h1>Let&apos;s show you Fintegrity</h1>
           <p>

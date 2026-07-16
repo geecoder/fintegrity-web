@@ -1,8 +1,6 @@
-export const dynamic = "force-dynamic"
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { BLOG_POSTS, formatDate } from '@/lib/blog'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 
@@ -13,41 +11,9 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.getfintegrity.com/blog' },
 }
 
-function formatDate(iso: string | null | undefined) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-}
-
-export default async function BlogPage() {
-  const payload = await getPayload({ config: configPromise })
-
-  // Fetch published posts — the access layer already enforces the regulatory gate,
-  // but we also make it explicit in the where clause.
-  const { docs: posts } = await payload.find({
-    collection: 'blog-posts',
-    where: {
-      and: [
-        { _status: { equals: 'published' } },
-        {
-          or: [
-            { contentType: { not_equals: 'regulatory' } },
-            {
-              and: [
-                { contentType: { equals: 'regulatory' } },
-                { reviewStatus: { equals: 'approved' } },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    sort: '-publishedAt',
-    depth: 0,
-    limit: 20,
-  })
-
-  const featured = posts[0] ?? null
-  const rest = posts.slice(1)
+export default function BlogPage() {
+  const featured = BLOG_POSTS.find((p) => p.featured) ?? BLOG_POSTS[0] ?? null
+  const rest = BLOG_POSTS.filter((p) => p !== featured)
 
   return (
     <>
@@ -73,7 +39,7 @@ export default async function BlogPage() {
       {/* ── Posts grid ───────────────────────────────────── */}
       <section style={{ padding: '64px 0 100px' }}>
         <div className="wrap">
-          {posts.length === 0 ? (
+          {BLOG_POSTS.length === 0 ? (
             <p style={{ color: 'var(--muted)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>
               No posts yet. Check back soon.
             </p>
@@ -85,30 +51,30 @@ export default async function BlogPage() {
                 <Link href={`/blog/${featured.slug}`} className="blog-card blog-featured reveal">
                   <div className="blog-featured-body">
                     <div>
-                      <div className="blog-card-cat">{featured.category as string | undefined}</div>
-                      <h3>{featured.title as string}</h3>
-                      <p className="blog-featured-excerpt">{featured.excerpt as string | undefined}</p>
+                      <div className="blog-card-cat">{featured.category}</div>
+                      <h3>{featured.title}</h3>
+                      <p className="blog-featured-excerpt">{featured.description}</p>
                     </div>
                     <div className="blog-card-meta">
-                      <span>{formatDate(featured.publishedAt as string | undefined)}</span>
+                      <span>{formatDate(featured.publishedAt)}</span>
                     </div>
                   </div>
                   <div className="blog-featured-visual">
                     <span className="blog-featured-eyebrow">Latest</span>
-                    <p>{featured.title as string}</p>
+                    <p>{featured.title}</p>
                   </div>
                 </Link>
               )}
 
               {/* Other posts */}
               {rest.map((post) => (
-                <Link href={`/blog/${post.slug}`} key={post.slug as string} className="blog-card reveal">
+                <Link href={`/blog/${post.slug}`} key={post.slug} className="blog-card reveal">
                   <div className="blog-card-body">
-                    <div className="blog-card-cat">{post.category as string | undefined}</div>
-                    <h3>{post.title as string}</h3>
-                    <p className="blog-card-excerpt">{post.excerpt as string | undefined}</p>
+                    <div className="blog-card-cat">{post.category}</div>
+                    <h3>{post.title}</h3>
+                    <p className="blog-card-excerpt">{post.description}</p>
                     <div className="blog-card-meta">
-                      <span>{formatDate(post.publishedAt as string | undefined)}</span>
+                      <span>{formatDate(post.publishedAt)}</span>
                     </div>
                     <span className="blog-card-read">Read article →</span>
                   </div>

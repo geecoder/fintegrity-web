@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import RevealInit from '@/components/RevealInit'
 
 interface StubPageProps {
   title: string
@@ -10,7 +11,8 @@ interface StubPageProps {
 export default function StubPage({ title, description, category }: StubPageProps) {
   return (
     <div className="stub-page">
-      <div className="stub-inner">
+      <RevealInit />
+      <div className="stub-inner reveal">
         {category && <div className="stub-eyebrow">{category}</div>}
         <h1>{title}</h1>
         <p>{description}</p>

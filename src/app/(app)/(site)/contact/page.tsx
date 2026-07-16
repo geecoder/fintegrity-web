@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
+import RevealInit from '@/components/RevealInit'
 import { CONTACT_EMAIL, BOOKING_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
@@ -14,9 +15,10 @@ export default function ContactPage() {
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: 'Contact', href: '/contact' }]} />
+      <RevealInit />
       <section className="page-hero">
         <div className="wrap">
-          <div className="page-hero-inner">
+          <div className="page-hero-inner reveal">
             <span className="sec-eyebrow">Contact</span>
             <h1>Get in touch</h1>
             <p className="page-hero-lead">
@@ -30,7 +32,7 @@ export default function ContactPage() {
       <section className="contact-page">
         <div className="wrap">
           <div className="contact-grid">
-            <div>
+            <div className="reveal">
               <div className="contact-method">
                 <div className="contact-method-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -83,7 +85,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div>
+            <div className="reveal">
               <div style={{ background: 'var(--bg-soft)', borderRadius: 'var(--r)', padding: '28px', border: '1px solid var(--line)' }}>
                 <div className="sec-eyebrow" style={{ marginBottom: '16px' }}>Company details</div>
                 <dl style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>

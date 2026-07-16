@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import RevealInit from '@/components/RevealInit'
 import { BOOKING_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <div className="thankyou-page">
-      <div className="thankyou-inner">
+      <RevealInit />
+      <div className="thankyou-inner reveal">
         <div className="thankyou-icon">✓</div>
         <h1>Demo request received</h1>
         <p>

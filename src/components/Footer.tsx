@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/config'
+import CookieSettingsLink from '@/components/consent/CookieSettingsLink'
 
 const FOOTER_LINKS = {
   Product: [
@@ -25,9 +26,9 @@ const FOOTER_LINKS = {
   ],
   Legal: [
     { href: '/privacy', label: 'Privacy Policy' },
-    { href: '/terms', label: 'Terms of Service' },
+    { href: '/terms', label: 'Terms of Use' },
     { href: '/cookie-policy', label: 'Cookie Policy' },
-    { href: '/security', label: 'Security' },
+    { href: '#cookie-settings', label: 'Cookie Settings' },
   ],
 }
 
@@ -71,7 +72,11 @@ export default function Footer() {
               <ul className="footer-link-list">
                 {links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
+                    {link.href === '#cookie-settings' ? (
+                      <CookieSettingsLink />
+                    ) : (
+                      <Link href={link.href}>{link.label}</Link>
+                    )}
                   </li>
                 ))}
               </ul>

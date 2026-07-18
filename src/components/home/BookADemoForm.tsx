@@ -2,15 +2,16 @@
 
 import { useState, useRef } from 'react'
 import Link from 'next/link'
-import { BOOKING_URL } from '@/lib/config'
+import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/config'
 import { trackMarketingEvent } from '@/lib/analytics'
+import { isPersonalEmail, PERSONAL_EMAIL_ERROR } from '@/lib/email-validation'
 
 const ROLES = [
   'Founder / CEO', 'CTO / Engineering Lead', 'Chief Compliance Officer',
   'Head of Risk', 'Product Manager', 'Compliance Analyst', 'Other',
 ]
 
-const PRODUCTS = [
+const USE_CASES = [
   'Digital wallet / consumer fintech', 'PSP / payment processor',
   'Remittance / cross-border', 'Lender / BNPL', 'Bank / MFB',
   'Crypto / virtual assets', 'Other',
@@ -29,10 +30,17 @@ export default function BookADemoForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setStatus('submitting')
     setError('')
 
     const data = Object.fromEntries(new FormData(e.currentTarget))
+    const email = String(data.email ?? '').trim()
+
+    if (isPersonalEmail(email)) {
+      setError(PERSONAL_EMAIL_ERROR)
+      return
+    }
+
+    setStatus('submitting')
 
     try {
       const res = await fetch('/api/demo', {
@@ -41,10 +49,10 @@ export default function BookADemoForm() {
         body: JSON.stringify({
           firstName: data.firstName,
           lastName: data.lastName,
-          email: data.email,
+          email,
           company: data.company,
           role: data.role,
-          product: data.product,
+          useCase: data.useCase,
           challenge: data.challenge,
           pageUri: window.location.href,
         }),
@@ -56,7 +64,7 @@ export default function BookADemoForm() {
       trackMarketingEvent('Demo Form Submitted', {
         company: String(data.company ?? ''),
         role: String(data.role ?? ''),
-        product_type: String(data.product ?? ''),
+        use_case: String(data.useCase ?? ''),
         crm_mode: json.mode ?? 'unknown',
       })
 
@@ -67,7 +75,7 @@ export default function BookADemoForm() {
     } catch (err) {
       setStatus('idle')
       setError(
-        err instanceof Error ? err.message : 'Something went wrong. Please email gee@getfintegrity.com.',
+        err instanceof Error ? err.message : `Something went wrong. Please email ${CONTACT_EMAIL}.`,
       )
     }
   }
@@ -121,30 +129,31 @@ export default function BookADemoForm() {
 
       <div className="form-row">
         <div className="form-field">
-          <label className="form-label" htmlFor="role">Your role</label>
-          <select id="role" name="role" className="form-select">
-            <option value="">Select role</option>
+          <label className="form-label" htmlFor="role">Your role <span className="form-required">*</span></label>
+          <select id="role" name="role" className="form-select" required defaultValue="">
+            <option value="" disabled>Select role</option>
             {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
           </select>
         </div>
         <div className="form-field">
-          <label className="form-label" htmlFor="product">Product type</label>
-          <select id="product" name="product" className="form-select">
-            <option value="">Select type</option>
-            {PRODUCTS.map((p) => <option key={p} value={p}>{p}</option>)}
+          <label className="form-label" htmlFor="useCase">Use case <span className="form-required">*</span></label>
+          <select id="useCase" name="useCase" className="form-select" required defaultValue="">
+            <option value="" disabled>Select use case</option>
+            {USE_CASES.map((u) => <option key={u} value={u}>{u}</option>)}
           </select>
         </div>
       </div>
 
       <div className="form-field">
         <label className="form-label" htmlFor="challenge">
-          What&apos;s your biggest compliance challenge right now?
+          What&apos;s your biggest compliance challenge right now? <span className="form-required">*</span>
         </label>
         <textarea
           id="challenge"
           name="challenge"
           className="form-textarea"
           rows={3}
+          required
           placeholder="e.g. We need to enforce KYC tier limits in real time, or we get alert floods with no evidence attached…"
         />
       </div>

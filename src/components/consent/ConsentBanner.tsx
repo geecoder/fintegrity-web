@@ -18,6 +18,7 @@ import {
   saveConsent,
   applyAndDispatch,
   type ConsentPreferences,
+  type ConsentAction,
 } from '@/lib/consent'
 import { initMixpanel, attachConsentListener } from '@/lib/mixpanel'
 
@@ -46,14 +47,16 @@ export default function ConsentBanner() {
     }
   }, [])
 
-  function accept(analytics: boolean, advertising: boolean) {
+  function accept(analytics: boolean, advertising: boolean, action: ConsentAction) {
     const prefs: ConsentPreferences = {
       analytics: analytics ? 'granted' : 'denied',
       advertising: advertising ? 'granted' : 'denied',
       savedAt: Date.now(),
     }
     saveConsent(prefs)
-    applyAndDispatch(prefs)
+    // Send the consent update — and the cookie_consent_updated dataLayer event —
+    // before hiding the banner or navigating anywhere.
+    applyAndDispatch(prefs, action)
     if (analytics) initMixpanel()
     setAnalyticsOn(analytics)
     setAdvertisingOn(advertising)
@@ -93,10 +96,10 @@ export default function ConsentBanner() {
               <button className="consent-btn consent-btn-customize" onClick={() => setPanel('customize')}>
                 Customize
               </button>
-              <button className="consent-btn consent-btn-reject" onClick={() => accept(false, false)}>
+              <button className="consent-btn consent-btn-reject" onClick={() => accept(false, false, 'rejected_all')}>
                 Reject non-essential
               </button>
-              <button className="consent-btn consent-btn-accept" onClick={() => accept(true, true)}>
+              <button className="consent-btn consent-btn-accept" onClick={() => accept(true, true, 'accepted_all')}>
                 Accept all
               </button>
             </div>
@@ -165,10 +168,10 @@ export default function ConsentBanner() {
               </div>
             </div>
             <div className="consent-customize-footer">
-              <button className="consent-btn consent-btn-reject" onClick={() => accept(false, false)}>
+              <button className="consent-btn consent-btn-reject" onClick={() => accept(false, false, 'rejected_all')}>
                 Reject all
               </button>
-              <button className="consent-btn consent-btn-accept" onClick={() => accept(analyticsOn, advertisingOn)}>
+              <button className="consent-btn consent-btn-accept" onClick={() => accept(analyticsOn, advertisingOn, 'customised')}>
                 Save preferences
               </button>
             </div>

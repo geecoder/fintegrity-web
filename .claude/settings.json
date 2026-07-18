@@ -31,7 +31,12 @@
       "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && npm run build 2>&1 | tail -25\")",
       "Bash(cp //wsl.localhost/Ubuntu/tmp/lockup-preview.png \"C:/Users/genes/AppData/Local/Temp/claude/--wsl-localhost-Ubuntu-home-genesis-projects-fintegrity-web/7ff6f820-5056-470d-a124-99d7c985cf68/scratchpad/lockup-preview.png\" 2>&1 || echo \"copy failed\")",
       "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && git status --porcelain=v1 | head -50\")",
-      "Bash(wsl.exe -e bash -lic 'kill $\\(cat /tmp/start.pid\\) 2>/dev/null; pkill -f \"next start\" 2>/dev/null; echo done')"
+      "Bash(wsl.exe -e bash -lic 'kill $\\(cat /tmp/start.pid\\) 2>/dev/null; pkill -f \"next start\" 2>/dev/null; echo done')",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && cat .env 2>/dev/null; echo '---'; grep -rn 'G-ZLGQFC9C79\\\\|GA_MEASUREMENT\\\\|NEXT_PUBLIC_GTM_ID\\\\|HUBSPOT' --include='*.ts' --include='*.tsx' --include='.env*' . 2>/dev/null | grep -v node_modules\")",
+      "Bash(wsl.exe -e bash -lic 'mkdir -p /home/genesis/projects/fintegrity-web/src/app/api/demo && echo ok')",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && npm run build 2>&1 | tail -40\")",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && npm run build 2>&1 | grep -i 'api/demo\\\\|Route \\(app\\)' -A2\")",
+      "Bash(wsl.exe -e bash -lic 'pkill -f \"next dev\" 2>/dev/null; echo stopped')"
     ],
     "additionalDirectories": [
       "\\\\wsl.localhost\\Ubuntu\\genesis\\projects\\fintegrity-web\\public\\brand",

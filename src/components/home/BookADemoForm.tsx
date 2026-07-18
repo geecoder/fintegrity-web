@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/config'
 import { trackMarketingEvent } from '@/lib/analytics'
 import { isPersonalEmail, PERSONAL_EMAIL_ERROR } from '@/lib/email-validation'
+import BookingLink from '@/components/analytics/BookingLink'
 
 const ROLES = [
   'Founder / CEO', 'CTO / Engineering Lead', 'Chief Compliance Officer',
@@ -69,7 +70,12 @@ export default function BookADemoForm() {
       })
 
       setStatus('done')
-      // Open booking calendar; after short delay, navigate to thank-you
+      // Open booking calendar; after short delay, navigate to thank-you.
+      // There's no webhook back from Google Calendar, so this is the closest
+      // signal we have to "the visitor was handed off to book a time" —
+      // demo_booking_completed genuinely can't be measured without a proper
+      // booking flow (see the note in lib/analytics.ts).
+      trackMarketingEvent('Demo Booking Started', { source: 'demo-form-auto-open' })
       setTimeout(() => window.open(BOOKING_URL, '_blank', 'noopener,noreferrer'), 600)
       setTimeout(() => { window.location.href = '/thank-you' }, 1400)
     } catch (err) {
@@ -87,9 +93,9 @@ export default function BookADemoForm() {
         <h2 style={{ marginBottom: '12px' }}>Request received</h2>
         <p style={{ color: 'var(--slate)', lineHeight: 1.65 }}>
           Opening the booking calendar&hellip; If it doesn&apos;t open,{' '}
-          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--indigo)' }}>
+          <BookingLink source="demo-form-fallback-link" style={{ color: 'var(--indigo)' }}>
             click here to pick a time
-          </a>.
+          </BookingLink>.
         </p>
       </div>
     )

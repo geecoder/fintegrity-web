@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import RevealInit from '@/components/RevealInit'
-import { BOOKING_URL } from '@/lib/config'
+import BookingLink from '@/components/analytics/BookingLink'
 
 export const metadata: Metadata = {
   title: 'Thank you — Demo request received',
@@ -24,14 +24,9 @@ export default function ThankYouPage() {
           below.
         </p>
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-          >
+          <BookingLink className="btn btn-primary" source="thank-you-page">
             Pick a time now →
-          </a>
+          </BookingLink>
           <Link href="/" className="btn btn-ghost">
             Back to home
           </Link>

@@ -184,7 +184,9 @@ export default function BanksPage() {
               Microfinance banks (MFBs) operate under the same CBN AML/CFT evidence requirements
               as commercial banks — but with compliance teams that may be one or two people.
               Fintegrity gives MFBs automated enforcement and evidence generation that a small
-              team can operate, at a scale that fits MFB transaction volumes and budgets.
+              team can operate, at a scale that fits MFB transaction volumes and budgets. See our{' '}
+              <Link href="/nigeria" style={{ color: 'var(--cyan)', textDecoration: 'underline' }}>Nigeria market overview</Link>{' '}
+              for the full picture.
             </p>
           </div>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { formatDate } from '@/lib/blog'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
+import ArticleJsonLd from '@/components/json-ld/ArticleJsonLd'
 import RevealInit from '@/components/RevealInit'
 
 export const metadata: Metadata = {
@@ -88,6 +89,12 @@ export default function CbnAmlBaselineStandardsPage() {
         { name: 'Blog', href: '/blog' },
         { name: 'CBN AML/CFT Baseline Standards', href: '/blog/cbnaml-baseline-standards' },
       ]} />
+      <ArticleJsonLd
+        headline="CBN AML/CFT Baseline Standards: A Technical Breakdown for Nigerian Fintechs"
+        description="The CBN's AML/CFT Baseline Standards define 12 requirements every regulated fintech must meet. Here's what each standard actually requires — and how compliance technology addresses it."
+        slug="cbnaml-baseline-standards"
+        datePublished={PUBLISHED}
+      />
       <RevealInit />
       {/* ── Article header ───────────────────────────────── */}
       <section className="article-header">

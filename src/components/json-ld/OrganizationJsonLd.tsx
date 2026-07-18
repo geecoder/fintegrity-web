@@ -8,17 +8,22 @@ const schema = {
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: 'Fintegrity Technologies Limited',
+      alternateName: 'Fintegrity',
       url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
         url: `${SITE_URL}/brand/lockup-color.svg`,
-        width: 427,
+        width: 580,
         height: 88,
       },
       sameAs: [LINKEDIN_URL],
       description:
         'Embedded compliance decisioning for regulated fintechs in Africa. Real-time AML transaction monitoring, case management, and a Compliance Decision API — built for CBN and NFIU-regulated institutions.',
       foundingDate: '2026',
+      areaServed: [
+        { '@type': 'Country', name: 'Nigeria' },
+        { '@type': 'Place', name: 'Africa' },
+      ],
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Lagos',

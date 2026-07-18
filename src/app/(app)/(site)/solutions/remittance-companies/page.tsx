@@ -60,6 +60,8 @@ export default function RemittancePage() {
             <p className="page-hero-lead">
               Sanctions and PEP screening, corridor-risk rules and dual-regime readiness —
               built for operators moving money across borders, including the UK–Nigeria corridor.
+              See how this fits across{' '}
+              <Link href="/africa" style={{ color: 'inherit', textDecoration: 'underline' }}>African cross-border markets</Link> more broadly.
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">

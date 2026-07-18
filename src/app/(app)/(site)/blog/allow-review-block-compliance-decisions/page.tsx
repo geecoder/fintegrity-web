@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { formatDate } from '@/lib/blog'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
+import ArticleJsonLd from '@/components/json-ld/ArticleJsonLd'
 import RevealInit from '@/components/RevealInit'
 
 export const metadata: Metadata = {
@@ -20,6 +21,12 @@ export default function AllowReviewBlockPage() {
         { name: 'Blog', href: '/blog' },
         { name: 'CLEAR, FLAGGED, HELD_FOR_REVIEW, BLOCKED', href: '/blog/allow-review-block-compliance-decisions' },
       ]} />
+      <ArticleJsonLd
+        headline="CLEAR, FLAGGED, HELD_FOR_REVIEW, BLOCKED: The Architecture of a Defensible Compliance Decision"
+        description="Binary pass/fail compliance checks fail at scale and under regulatory scrutiny. Here's why four decision states — with a customer risk lifecycle — is the right model, and how to wire it into your payment flow."
+        slug="allow-review-block-compliance-decisions"
+        datePublished={PUBLISHED}
+      />
       <RevealInit />
       <section className="article-header">
         <div className="wrap">
@@ -45,7 +52,7 @@ export default function AllowReviewBlockPage() {
 
       <div className="article-wrap">
         <article className="article-body">
-          <h2>Why binary compliance fails</h2>
+          <h2 id="why-binary-fails">Why binary compliance fails</h2>
           <p>
             Most transaction monitoring systems output one of two results: pass or flag. Pass means
             proceed. Flag means stop — or, in practice, drop the transaction into a queue where a
@@ -66,7 +73,7 @@ export default function AllowReviewBlockPage() {
             That question has four meaningful answers.
           </div>
 
-          <h2>Four decision states, not two</h2>
+          <h2 id="three-states">Four decision states, not two</h2>
           <p>
             The right compliance decision model has four states:
           </p>
@@ -84,7 +91,7 @@ export default function AllowReviewBlockPage() {
             responsibilities are cleanly separated.
           </p>
 
-          <h2>The customer risk lifecycle</h2>
+          <h2 id="risk-lifecycle">The customer risk lifecycle</h2>
           <p>
             Transaction-level decisions exist within a customer-level risk lifecycle. A customer
             doesn&apos;t just have a history of individual transactions — they have an overall risk
@@ -129,7 +136,7 @@ export default function AllowReviewBlockPage() {
             ))}
           </div>
 
-          <h2>Why BLOCKED must be customer-level, not transaction-level</h2>
+          <h2 id="customer-level-block">Why BLOCKED must be customer-level, not transaction-level</h2>
           <p>
             This is one of the more subtle architectural decisions in compliance system design, and
             it&apos;s often missed.
@@ -156,7 +163,7 @@ export default function AllowReviewBlockPage() {
             for that customer ID gets a hard stop before rules even run.
           </div>
 
-          <h2>What &ldquo;defensible&rdquo; means in practice</h2>
+          <h2 id="defensible">What &ldquo;defensible&rdquo; means in practice</h2>
           <p>
             A defensible compliance decision has three properties:
           </p>
@@ -172,7 +179,7 @@ export default function AllowReviewBlockPage() {
             record cannot be altered.
           </p>
 
-          <h2>Wiring compliance decisions into your payment handler</h2>
+          <h2 id="integration">Wiring compliance decisions into your payment handler</h2>
           <p>
             The integration pattern is simple: before your payment handler executes a debit or
             credit, it calls <code style={{ fontFamily: 'var(--font-mono)', background: '#EBEEF3', padding: '2px 5px', borderRadius: '3px' }}>POST /v1/decide</code> with

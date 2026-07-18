@@ -1,4 +1,8 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { trackMarketingEvent } from '@/lib/analytics'
 
 interface CTABandProps {
   headline: string
@@ -18,6 +22,7 @@ export default function CTABand({
   secondaryHref,
 }: CTABandProps) {
   const secondaryIsExternal = secondaryHref?.startsWith('http')
+  const pathname = usePathname()
 
   return (
     <section className="cta-band">
@@ -25,7 +30,11 @@ export default function CTABand({
         <h2>{headline}</h2>
         <p>{body}</p>
         <div className="cta-band-btns">
-          <Link href={primaryHref} className="btn btn-white">
+          <Link
+            href={primaryHref}
+            className="btn btn-white"
+            onClick={() => trackMarketingEvent('Primary CTA Clicked', { page: pathname, location: 'cta-band', label: primaryLabel })}
+          >
             {primaryLabel}
           </Link>
           {secondaryLabel && secondaryHref && (

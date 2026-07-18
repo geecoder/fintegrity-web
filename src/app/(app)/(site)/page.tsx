@@ -109,7 +109,8 @@ export default function HomePage() {
           </div>
           <p className="why-foot">
             Regulatory figures reflect current CBN / NFIU / MLPPA 2022 guidance and inform how
-            Fintegrity is built.
+            Fintegrity is built. See how this applies specifically to{' '}
+            <Link href="/nigeria">Nigerian fintechs</Link>.
           </p>
         </div>
       </section>

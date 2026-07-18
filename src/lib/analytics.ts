@@ -10,11 +10,30 @@
 import { getMixpanel } from './mixpanel'
 
 // ── Controlled event taxonomy ──────────────────────────────────────────────
+// Naming maps directly to the SEM brief's required dataLayer events (each
+// name here becomes snake_case in dataLayer, e.g. 'Search Ad Clicked' ->
+// 'search_ad_clicked'):
+//   - 'Search Ad Clicked' / 'Landing Page Viewed' — fired once per browser
+//     session on first load, see PageViewTracker.tsx.
+//   - 'Primary CTA Clicked' — wired on Nav's and CTABand's "Book a demo"
+//     buttons (the two highest-traffic conversion surfaces, not every single
+//     link to /book-a-demo sitewide — see the SEO/SEM brief report).
+//   - 'Demo Form Started' / 'Demo Form Submitted' — BookADemoForm.tsx.
+//   - 'Demo Booking Started' — fired wherever the raw Google Calendar link
+//     is opened (BookingLink.tsx, and BookADemoForm's auto-open).
+//   - 'Demo Booking Completed' — deliberately NEVER fired. There's no
+//     webhook back from Google Calendar, so there's no real signal that a
+//     booking was actually completed rather than just opened. Kept in the
+//     taxonomy for when a proper booking flow exists; firing it today would
+//     be measuring "the calendar tab was opened," not a completed booking.
 export const MARKETING_EVENTS = [
   'Website Page Viewed',
+  'Landing Page Viewed',
+  'Search Ad Clicked',
   'Primary CTA Clicked',
   'Demo Form Started',
   'Demo Form Submitted',
+  'Demo Booking Started',
   'Demo Booking Completed',
   'Developer Docs Viewed',
   'API Documentation CTA Clicked',
@@ -65,6 +84,7 @@ export function getUtmProperties(): EventProperties {
     utm_campaign: p.get('utm_campaign') ?? undefined,
     utm_term: p.get('utm_term') ?? undefined,
     utm_content: p.get('utm_content') ?? undefined,
+    gclid: p.get('gclid') ?? undefined,
     referrer: document.referrer || undefined,
     page: window.location.pathname,
   }

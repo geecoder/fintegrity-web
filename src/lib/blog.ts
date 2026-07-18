@@ -37,6 +37,96 @@ export const BLOG_POSTS: BlogPost[] = [
     publishedAt: '2026-05-10',
     readTime: '6 min',
   },
+  {
+    slug: 'aml-transaction-monitoring-guide-nigeria',
+    title: 'A Practical Guide to AML Transaction Monitoring for Nigerian Fintechs',
+    description:
+      'What transaction monitoring actually involves for a Nigerian fintech — from rule types to alert workflows to the evidence a regulator expects — laid out practically, not theoretically.',
+    category: 'Compliance',
+    publishedAt: '2026-05-20',
+    readTime: '9 min',
+  },
+  {
+    slug: 'transaction-monitoring-rules-digital-wallets',
+    title: 'Transaction-Monitoring Rules Every Digital Wallet Should Consider',
+    description:
+      'Mule accounts, rapid in-out, structuring, velocity gaming — the specific abuse patterns digital wallets face, and the rule types that actually catch them.',
+    category: 'Product',
+    publishedAt: '2026-05-27',
+    readTime: '7 min',
+  },
+  {
+    slug: 'transaction-screening-vs-monitoring',
+    title: "Transaction Screening vs Transaction Monitoring: What's the Difference?",
+    description:
+      'Two terms that get used interchangeably and shouldn\'t be. What each one actually does, where they overlap, and why you need both, not one or the other.',
+    category: 'Compliance',
+    publishedAt: '2026-06-03',
+    readTime: '5 min',
+  },
+  {
+    slug: 'reduce-aml-false-positives-nigerian-psps',
+    title: 'How Nigerian PSPs Can Reduce AML False Positives',
+    description:
+      'Alert fatigue is a compliance risk, not just an efficiency problem. Practical rule-tuning approaches PSPs can use to cut false positives without loosening real controls.',
+    category: 'Compliance',
+    publishedAt: '2026-06-10',
+    readTime: '7 min',
+  },
+  {
+    slug: 'regulator-ready-audit-trail-payment-decisions',
+    title: 'Building a Regulator-Ready Audit Trail for Payment Decisions',
+    description:
+      'What actually makes an audit trail defensible to an examiner — and why most transaction logs fall short of it. A technical breakdown of evidence architecture.',
+    category: 'Compliance',
+    publishedAt: '2026-06-17',
+    readTime: '8 min',
+  },
+  {
+    slug: 'aml-case-management-alert-to-disposition',
+    title: 'AML Case Management: From Alert Creation to Final Disposition',
+    description:
+      'What happens to an alert between the moment it fires and the moment a case is closed — and where most case-management workflows lose the evidence trail along the way.',
+    category: 'Product',
+    publishedAt: '2026-06-24',
+    readTime: '7 min',
+  },
+  {
+    slug: 'monitor-cross-border-remittance-transactions',
+    title: 'How to Monitor Cross-Border Remittance Transactions',
+    description:
+      'Corridor risk, dual-jurisdiction exposure, and sanctions reach — the specific monitoring challenges of cross-border remittance, and how to structure rules around them.',
+    category: 'Compliance',
+    publishedAt: '2026-07-01',
+    readTime: '7 min',
+  },
+  {
+    slug: 'build-vs-buy-transaction-monitoring-engine',
+    title: 'Build vs Buy: Should Your Fintech Build Its Own Transaction-Monitoring Engine?',
+    description:
+      'The honest tradeoffs — engineering time, ongoing rule maintenance, evidence architecture, and opportunity cost — before you commit to building AML infrastructure in-house.',
+    category: 'Engineering',
+    publishedAt: '2026-07-08',
+    readTime: '8 min',
+  },
+  {
+    slug: 'how-real-time-transaction-decisioning-works',
+    title: 'How Real-Time Transaction Decisioning Works',
+    description:
+      'What actually happens in the milliseconds between a transaction request and a CLEAR/FLAGGED/HELD_FOR_REVIEW/BLOCKED decision — a technical walkthrough of the decision pipeline.',
+    category: 'Product',
+    publishedAt: '2026-07-11',
+    readTime: '7 min',
+  },
+  {
+    slug: 'compliance-checklist-digital-wallet-launch-nigeria',
+    title: 'A Compliance Checklist for Launching a Digital Wallet in Nigeria',
+    description:
+      'The compliance infrastructure decisions to make before launch, not after — KYC tiering, monitoring, screening, case management, and evidence, in the order they actually matter.',
+    category: 'Compliance',
+    publishedAt: '2026-07-15',
+    readTime: '8 min',
+  },
 ]
 
 export function getBlogPost(slug: string): BlogPost | undefined {

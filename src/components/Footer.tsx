@@ -57,7 +57,7 @@ export default function Footer() {
                 src="/brand/lockup-black.svg"
                 alt="Fintegrity Technologies Limited"
                 className="brand-logo"
-                width={427}
+                width={580}
                 height={88}
               />
             </Link>

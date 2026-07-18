@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { formatDate } from '@/lib/blog'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
+import ArticleJsonLd from '@/components/json-ld/ArticleJsonLd'
 import RevealInit from '@/components/RevealInit'
 
 export const metadata: Metadata = {
@@ -20,6 +21,12 @@ export default function RealTimeVsBatchPage() {
         { name: 'Blog', href: '/blog' },
         { name: 'Real-time vs Batch AML', href: '/blog/real-time-vs-batch-aml' },
       ]} />
+      <ArticleJsonLd
+        headline="Why Batch AML Monitoring Fails at Nigerian Fintech Scale"
+        description="Reviewing transactions after they've already processed isn't compliance — it's archaeology. Here's the case for pre-authorisation AML monitoring and what it means for your compliance architecture."
+        slug="real-time-vs-batch-aml"
+        datePublished={PUBLISHED}
+      />
       <RevealInit />
       <section className="article-header">
         <div className="wrap">
@@ -46,7 +53,7 @@ export default function RealTimeVsBatchPage() {
 
       <div className="article-wrap">
         <article className="article-body">
-          <h2>The standard approach and why it breaks</h2>
+          <h2 id="standard-approach">The standard approach and why it breaks</h2>
           <p>
             The standard AML monitoring approach at most Nigerian fintechs looks like this:
             transactions are processed in real time, a batch job runs overnight or at intervals
@@ -90,7 +97,7 @@ export default function RealTimeVsBatchPage() {
             Batch monitoring misses it every time.
           </div>
 
-          <h2>What &ldquo;real-time&rdquo; actually means</h2>
+          <h2 id="real-time">What &ldquo;real-time&rdquo; actually means</h2>
           <p>
             Real-time monitoring in the context of AML compliance has a specific architectural
             meaning: the evaluation happens <em>before</em> the transaction is authorised, not
@@ -117,7 +124,7 @@ export default function RealTimeVsBatchPage() {
             <li><strong>Stateless evaluation.</strong> Each decision call must be self-contained. The compliance layer looks up state (customer risk state, transaction history) rather than relying on shared session state.</li>
           </ul>
 
-          <h2>The evidence argument for pre-authorisation</h2>
+          <h2 id="evidence">The evidence argument for pre-authorisation</h2>
           <p>
             Beyond preventing harm, pre-authorisation monitoring makes a stronger compliance
             argument than post-authorisation monitoring.
@@ -147,7 +154,7 @@ export default function RealTimeVsBatchPage() {
             retrospectively. For a regulator, these are different things.
           </div>
 
-          <h2>Practical migration path</h2>
+          <h2 id="migration">Practical migration path</h2>
           <p>
             If you&apos;re running batch monitoring today, moving to pre-authorisation isn&apos;t
             a one-day migration. The practical path:
@@ -177,7 +184,7 @@ export default function RealTimeVsBatchPage() {
             </li>
           </ol>
 
-          <h2>What this means for your technology stack</h2>
+          <h2 id="stack">What this means for your technology stack</h2>
           <p>
             Pre-authorisation AML monitoring requires an architecture decision: the compliance
             decision layer must be in the critical path of your payment processing. This is a

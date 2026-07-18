@@ -1,39 +1,38 @@
 import type { MetadataRoute } from 'next'
+import { STATIC_ROUTES } from '@/lib/routes'
+import { BLOG_POSTS } from '@/lib/blog'
+import { CASE_STUDIES } from '@/lib/case-studies'
+import { SITE_URL } from '@/lib/config'
 
-// Only indexable pages are included. Stub pages (robots: noindex) and /thank-you are excluded.
-// Update lastModified when page content is significantly changed.
+// Built from STATIC_ROUTES (lib/routes.ts) plus the blog and case-study
+// registries — three single sources of truth, so this file never drifts
+// out of sync with what's actually indexable. Noindexed stub pages
+// (partners, resources, fraud-monitoring, embedded-finance,
+// microfinance-banks) and /thank-you, /api/* are deliberately excluded —
+// see the comment in lib/routes.ts.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://www.getfintegrity.com'
+  const now = new Date()
 
-  return [
-    { url: base, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
+  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
+    url: `${SITE_URL}${route.path}`,
+    lastModified: now,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+  }))
 
-    // Product pages (real content)
-    { url: `${base}/transaction-monitoring`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/case-management`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/compliance-decisioning-api`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/transaction-screening`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/rules-engine`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/customer-risk-profiling`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+  const blogEntries: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: 'yearly',
+    priority: 0.7,
+  }))
 
-    // Industry/solution pages (real content)
-    { url: `${base}/solutions/digital-wallets`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/fintechs`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/payment-service-providers`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/remittance-companies`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/banks`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/crypto-businesses`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
+  const caseStudyEntries: MetadataRoute.Sitemap = CASE_STUDIES.map((study) => ({
+    url: `${SITE_URL}/case-studies/${study.slug}`,
+    lastModified: now,
+    changeFrequency: 'yearly',
+    priority: 0.65,
+  }))
 
-    // Company pages
-    { url: `${base}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/pricing`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/contact`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.6 },
-    { url: `${base}/book-a-demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-
-    // Blog
-    { url: `${base}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.75 },
-    { url: `${base}/blog/cbnaml-baseline-standards`, lastModified: new Date('2026-03-15'), changeFrequency: 'yearly', priority: 0.7 },
-    { url: `${base}/blog/allow-review-block-compliance-decisions`, lastModified: new Date('2026-04-02'), changeFrequency: 'yearly', priority: 0.7 },
-    { url: `${base}/blog/real-time-vs-batch-aml`, lastModified: new Date('2026-05-10'), changeFrequency: 'yearly', priority: 0.7 },
-  ]
+  return [...staticEntries, ...blogEntries, ...caseStudyEntries]
 }

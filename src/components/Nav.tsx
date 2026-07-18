@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { trackMarketingEvent } from '@/lib/analytics'
 
 const PRODUCT_LINKS = [
   { href: '/transaction-monitoring', label: 'Transaction Monitoring', desc: 'Real-time AML rule evaluation' },
@@ -105,7 +106,7 @@ export default function Nav() {
             src="/brand/lockup-color.svg"
             alt="Fintegrity Technologies Limited"
             className="brand-logo"
-            width={427}
+            width={580}
             height={88}
           />
         </Link>
@@ -166,7 +167,11 @@ export default function Nav() {
             About
           </Link>
 
-          <Link href="/book-a-demo" className="btn btn-primary">
+          <Link
+            href="/book-a-demo"
+            className="btn btn-primary"
+            onClick={() => trackMarketingEvent('Primary CTA Clicked', { page: pathname, location: 'nav' })}
+          >
             Book a demo
           </Link>
         </div>
@@ -212,7 +217,12 @@ export default function Nav() {
           <Link href="/contact" className="nav-mobile-link">Contact</Link>
         </div>
         <div className="nav-mobile-cta">
-          <Link href="/book-a-demo" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+          <Link
+            href="/book-a-demo"
+            className="btn btn-primary"
+            style={{ width: '100%', justifyContent: 'center' }}
+            onClick={() => trackMarketingEvent('Primary CTA Clicked', { page: pathname, location: 'nav-mobile' })}
+          >
             Book a demo →
           </Link>
         </div>

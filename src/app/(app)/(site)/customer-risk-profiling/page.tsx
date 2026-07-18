@@ -93,7 +93,7 @@ export default function CustomerRiskProfilingPage() {
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">
-                Request a demo →
+                Book a demo →
               </Link>
               <a
                 href="https://docs.getfintegrity.com"
@@ -291,7 +291,7 @@ export default function CustomerRiskProfilingPage() {
                 },
               ].map((link) => (
                 <Link key={link.href} href={link.href} className="cap-card" style={{ textDecoration: 'none', display: 'block' }}>
-                  <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, marginBottom: '6px' }}>{link.label} →</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '6px' }}>{link.label} →</div>
                   <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>{link.desc}</p>
                 </Link>
               ))}
@@ -303,7 +303,7 @@ export default function CustomerRiskProfilingPage() {
       <CTABand
         headline="See how Fintegrity evaluates transactions in real time"
         body="We'll walk through the risk state machine live — from a screening hit triggering a state change, to a case outcome resolving it, to the evidence trail that makes every decision defensible."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="Read the API docs"
         secondaryHref="https://docs.getfintegrity.com"

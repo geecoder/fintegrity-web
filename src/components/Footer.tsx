@@ -1,6 +1,14 @@
 import Link from 'next/link'
-import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/config'
+import { CONTACT_EMAIL, LINKEDIN_URL } from '@/lib/config'
 import CookieSettingsLink from '@/components/consent/CookieSettingsLink'
+
+function LinkedInIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  )
+}
 
 const FOOTER_LINKS = {
   Product: [
@@ -9,8 +17,9 @@ const FOOTER_LINKS = {
     { href: '/compliance-decisioning-api', label: 'Decision API' },
     { href: '/transaction-screening', label: 'Transaction Screening' },
     { href: '/rules-engine', label: 'Rules Engine' },
+    { href: '/customer-risk-profiling', label: 'Customer Risk Profiling' },
   ],
-  Industries: [
+  'Use cases': [
     { href: '/solutions/digital-wallets', label: 'Digital Wallets & Super Apps' },
     { href: '/solutions/fintechs', label: 'Fintechs & Digital Banks' },
     { href: '/solutions/payment-service-providers', label: 'PSPs & Processors' },
@@ -21,6 +30,7 @@ const FOOTER_LINKS = {
     { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
     { href: '/pricing', label: 'Pricing' },
+    { href: '/security', label: 'Security' },
     { href: '/contact', label: 'Contact' },
     { href: '/partners', label: 'Partners' },
   ],
@@ -44,25 +54,34 @@ export default function Footer() {
             <Link className="brand" href="/" style={{ marginBottom: '16px', display: 'inline-flex' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/fintegrity_wm_indigo_mono.png"
+                src="/brand/lockup-black.svg"
                 alt="Fintegrity Technologies Limited"
                 className="brand-logo"
-                width={180}
-                height={36}
+                width={427}
+                height={88}
               />
             </Link>
             <p style={{ color: 'var(--muted)', fontSize: '0.86rem', lineHeight: 1.65, maxWidth: '26ch', marginBottom: '20px', marginTop: '14px' }}>
               Embedded compliance decisioning for regulated African fintechs.
             </p>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary"
-              style={{ fontSize: '0.84rem', padding: '9px 16px' }}
-            >
-              Book a demo →
-            </a>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <Link
+                href="/book-a-demo"
+                className="btn btn-primary"
+                style={{ fontSize: '0.84rem', padding: '9px 16px' }}
+              >
+                Book a demo →
+              </Link>
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Fintegrity Technologies Limited on LinkedIn"
+                className="footer-social-link"
+              >
+                <LinkedInIcon />
+              </a>
+            </div>
           </div>
 
           {/* Link columns */}

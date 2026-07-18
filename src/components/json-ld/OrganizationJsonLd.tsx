@@ -1,4 +1,4 @@
-import { SITE_URL, CONTACT_EMAIL } from '@/lib/config'
+import { SITE_URL, CONTACT_EMAIL, LINKEDIN_URL } from '@/lib/config'
 
 // Organization.name must match the canonical legal name on the Certificate of Incorporation.
 const schema = {
@@ -11,10 +11,11 @@ const schema = {
       url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_URL}/fintegrity_wm_indigo_mono.png`,
-        width: 180,
-        height: 36,
+        url: `${SITE_URL}/brand/lockup-color.svg`,
+        width: 427,
+        height: 88,
       },
+      sameAs: [LINKEDIN_URL],
       description:
         'Embedded compliance decisioning for regulated fintechs in Africa. Real-time AML transaction monitoring, case management, and a Compliance Decision API — built for CBN and NFIU-regulated institutions.',
       foundingDate: '2026',

@@ -8,7 +8,7 @@ export default function CryptoFlow() {
     <div
       className="diag-wrap"
       role="img"
-      aria-label="Crypto flow diagram: on-ramp, off-ramp, and transfer events all feed into the Fintegrity decision layer, which applies screening and velocity or pattern rules tuned to crypto typologies. The layer returns a decision and customer risk state. Every decision writes immutable evidence."
+      aria-label="Crypto flow diagram: on-ramp, off-ramp, and transfer events all feed into the Fintegrity decision layer, which applies screening and velocity or pattern rules tuned to crypto typologies. The layer returns one of four decisions — Clear, Flagged, Held for review, or Blocked — and a customer risk state. Every decision writes immutable evidence."
     >
       <div className="diag-flow" aria-hidden="true">
         {/* Three event types stacked on the left */}
@@ -40,6 +40,7 @@ export default function CryptoFlow() {
           <div className="diag-decision-pills">
             <span className="diag-pill diag-pill-clear">CLEAR</span>
             <span className="diag-pill diag-pill-flag">FLAGGED</span>
+            <span className="diag-pill diag-pill-hold">HELD_FOR_REVIEW</span>
             <span className="diag-pill diag-pill-block">BLOCKED</span>
           </div>
         </div>

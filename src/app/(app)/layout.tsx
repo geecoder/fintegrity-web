@@ -1,15 +1,17 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import { Suspense } from 'react'
-import { Sora, Inter, JetBrains_Mono } from 'next/font/google'
+import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import ConsentBanner from '@/components/consent/ConsentBanner'
 import PageViewTracker from '@/components/analytics/PageViewTracker'
 import './globals.css'
 
 // ── Fonts ──────────────────────────────────────────────────────────────────
 // Self-hosted via next/font — no external CDN request, no FOUT.
-// CSS variables --font-sora, --font-inter, --font-mono are set on <html>.
-const sora = Sora({ subsets: ['latin'], variable: '--font-sora', display: 'swap', weight: ['400', '500', '600', '700'] })
+// CSS variables --font-display, --font-inter, --font-mono are set on <html>.
+// Display (headlines) is deliberately distinct from Inter (body) — a single
+// typeface everywhere is a common "AI-built" tell.
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-display', display: 'swap', weight: ['400', '500', '600', '700'] })
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap', weight: ['400', '500', '600'] })
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap', weight: ['400', '500'] })
 
@@ -38,7 +40,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 // ── Viewport ───────────────────────────────────────────────────────────────
 export const viewport: Viewport = {
-  themeColor: '#635BFF',
+  themeColor: '#0A1F44',
 }
 
 // ── Root metadata ──────────────────────────────────────────────────────────
@@ -49,7 +51,7 @@ export const metadata: Metadata = {
     template: '%s — Fintegrity Technologies Limited',
   },
   description:
-    'Fintegrity Technologies Limited is the compliance brain behind fintech money flows. One API call returns a real-time ALLOW, REVIEW, or BLOCK decision, backed by an immutable, regulator-ready audit trail. Built for the CBN and NFIU regime.',
+    'Fintegrity Technologies Limited is the compliance brain behind fintech money flows. One API call returns a real-time CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED decision, backed by an immutable, regulator-ready audit trail. Built for the CBN and NFIU regime.',
   openGraph: {
     type: 'website',
     siteName: 'Fintegrity Technologies Limited',
@@ -83,7 +85,7 @@ export const metadata: Metadata = {
 // (in src/app/(payload)/) never inherits them.
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: CONSENT_DEFAULTS_SCRIPT }} />
         {GTM_ID && (

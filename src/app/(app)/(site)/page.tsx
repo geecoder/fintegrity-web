@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import { BOOKING_URL } from '@/lib/config'
+import Link from 'next/link'
 import DecisionWidget from '@/components/home/DecisionWidget'
+import DecisionEngine from '@/components/home/DecisionEngine'
 import IcpPanel from '@/components/home/IcpPanel'
 import RevealInit from '@/components/RevealInit'
 import OrganizationJsonLd from '@/components/json-ld/OrganizationJsonLd'
@@ -36,15 +37,13 @@ export default function HomePage() {
               immutable, regulator-ready audit trail.
             </p>
             <div className="hero-cta">
-              <a
+              <Link
                 className="btn btn-primary"
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Book a product demo"
+                href="/book-a-demo"
+                aria-label="Book a demo"
               >
-                Request a demo →
-              </a>
+                Book a demo →
+              </Link>
               <a className="btn btn-ghost" href="#product">
                 See how it works
               </a>
@@ -80,10 +79,10 @@ export default function HomePage() {
               transaction by transaction.
             </p>
           </div>
-          <div className="why-grid">
+          <div className="open-list open-list-3 reveal">
             {/* NEEDS COMPLIANCE REVIEW — CBN 2024 BVN/NIN directive and tier limit specifics */}
-            <div className="why-card reveal">
-              <div className="num">01</div>
+            <div className="open-list-item">
+              <div className="open-list-num">01</div>
               <h3>Tighter KYC, by mandate</h3>
               <p>
                 The CBN&apos;s 2024 directive made BVN and NIN mandatory across account tiers,
@@ -91,16 +90,16 @@ export default function HomePage() {
               </p>
             </div>
             {/* NEEDS COMPLIANCE REVIEW — NFIU CTR thresholds (₦5M / ₦10M) and 7-day filing window */}
-            <div className="why-card reveal">
-              <div className="num">02</div>
+            <div className="open-list-item">
+              <div className="open-list-num">02</div>
               <h3>Real reporting thresholds</h3>
               <p>
                 NFIU requires currency transaction reports at ₦5M (individuals) and ₦10M
                 (corporates), filed within 7 days — and structuring to evade them is an offence.
               </p>
             </div>
-            <div className="why-card reveal">
-              <div className="num">03</div>
+            <div className="open-list-item">
+              <div className="open-list-num">03</div>
               <h3>Automated monitoring expected</h3>
               <p>
                 Regulatory direction is moving toward mandatory, real-time automated AML/CFT
@@ -115,84 +114,118 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Platform pillars ─────────────────────────────── */}
+      {/* ── Platform pillars — asymmetric: text left, step-list bleeding right ── */}
       <section id="product">
         <div className="wrap">
-          <div className="reveal">
-            <div className="sec-eyebrow">The platform</div>
-            <h2 className="sec-title">Decide. Enforce. Prove.</h2>
-            <p className="sec-intro">
-              Three capabilities, one API. Fintegrity plugs into your existing money flows and
-              returns decisions your systems act on — and your regulators can audit.
+          <div className="decide-split">
+            <div className="decide-split-text reveal">
+              <h2 className="sec-title">Decide. Enforce. Prove.</h2>
+              <p className="sec-intro">
+                Three capabilities, one API. Fintegrity plugs into your existing money flows and
+                returns decisions your systems act on — and your regulators can audit.
+              </p>
+            </div>
+
+            <div className="decide-split-steps reveal">
+              <div className="decide-step">
+                <div className="decide-step-icon-col">
+                  <div className="decide-step-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 2L3 7v6c0 5 3.5 8 9 9 5.5-1 9-4 9-9V7l-9-5z"
+                        stroke="#0A1F44"
+                        strokeWidth="1.8"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M9 12l2 2 4-4.5"
+                        stroke="#0E9F6E"
+                        strokeWidth="1.9"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div className="decide-step-line" />
+                </div>
+                <div className="decide-step-body">
+                  <div className="plabel">Decide</div>
+                  <h3>Real-time decision API</h3>
+                  <p>
+                    One synchronous call before money moves returns CLEAR, FLAGGED,
+                    HELD_FOR_REVIEW, or BLOCKED — with the reasons, the rules that fired, and the
+                    exact action your system should take.
+                  </p>
+                </div>
+              </div>
+
+              <div className="decide-step">
+                <div className="decide-step-icon-col">
+                  <div className="decide-step-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <circle cx="12" cy="12" r="9" stroke="#0A1F44" strokeWidth="1.8" />
+                      <path
+                        d="M12 7v5l3 2"
+                        stroke="#0E9F6E"
+                        strokeWidth="1.9"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div className="decide-step-line" />
+                </div>
+                <div className="decide-step-body">
+                  <div className="plabel">Enforce</div>
+                  <h3>One risk state per customer</h3>
+                  <p>
+                    A single authoritative risk status per customer, with enforced, audited
+                    transitions. KYC tiers, screening hits, and monitoring alerts converge into
+                    one lifecycle.
+                  </p>
+                </div>
+              </div>
+
+              <div className="decide-step">
+                <div className="decide-step-icon-col">
+                  <div className="decide-step-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <rect x="4" y="3" width="16" height="18" rx="2" stroke="#0A1F44" strokeWidth="1.8" />
+                      <path
+                        d="M8 8h8M8 12h8M8 16h5"
+                        stroke="#0E9F6E"
+                        strokeWidth="1.9"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <div className="decide-step-line" />
+                </div>
+                <div className="decide-step-body">
+                  <div className="plabel">Prove</div>
+                  <h3>Regulator-ready evidence</h3>
+                  <p>
+                    Every decision, state change, and alert is written to an append-only audit
+                    trail. Generate a complete evidence pack for any customer or transaction on
+                    demand.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Decision engine — signature visual ───────────── */}
+      <section className="engine-section">
+        <div className="wrap">
+          <div className="reveal" style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 48px' }}>
+            <h2 className="sec-title" style={{ margin: '0 auto' }}>See a decision happen.</h2>
+            <p className="sec-intro" style={{ margin: '16px auto 0' }}>
+              The same four steps run on every transaction — in milliseconds, before money moves.
             </p>
           </div>
-          <div className="pillars-grid">
-            <div className="pillar reveal">
-              <div className="picon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d="M12 2L3 7v6c0 5 3.5 8 9 9 5.5-1 9-4 9-9V7l-9-5z"
-                    stroke="#635BFF"
-                    strokeWidth="1.8"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M9 12l2 2 4-4.5"
-                    stroke="#3ECFE0"
-                    strokeWidth="1.9"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div className="plabel">Decide</div>
-              <h3>Real-time decision API</h3>
-              <p>
-                One synchronous call before money moves returns ALLOW, REVIEW, or BLOCK — with
-                the reasons, the rules that fired, and the exact action your system should take.
-              </p>
-            </div>
-            <div className="pillar reveal">
-              <div className="picon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" stroke="#635BFF" strokeWidth="1.8" />
-                  <path
-                    d="M12 7v5l3 2"
-                    stroke="#3ECFE0"
-                    strokeWidth="1.9"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div className="plabel">Enforce</div>
-              <h3>One risk state per customer</h3>
-              <p>
-                A single authoritative risk status per customer, with enforced, audited
-                transitions. KYC tiers, screening hits, and monitoring alerts converge into one
-                lifecycle.
-              </p>
-            </div>
-            <div className="pillar reveal">
-              <div className="picon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="4" y="3" width="16" height="18" rx="2" stroke="#635BFF" strokeWidth="1.8" />
-                  <path
-                    d="M8 8h8M8 12h8M8 16h5"
-                    stroke="#3ECFE0"
-                    strokeWidth="1.9"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-              <div className="plabel">Prove</div>
-              <h3>Regulator-ready evidence</h3>
-              <p>
-                Every decision, state change, and alert is written to an append-only audit trail.
-                Generate a complete evidence pack for any customer or transaction on demand.
-              </p>
-            </div>
-          </div>
+          <DecisionEngine />
         </div>
       </section>
 
@@ -213,17 +246,20 @@ export default function HomePage() {
 
           {/* Tab selector + panel — interactive, client component */}
           <IcpPanel />
+        </div>
+      </section>
 
-          <div className="boundary reveal">
-            <h3>We decide. Your system moves the money.</h3>
-            <p>
-              Fintegrity is the{' '}
-              <span className="hl">compliance decision and evidence layer</span> — not a payment
-              processor. When a transaction must be declined and reversed, Fintegrity says so and
-              records why. Your rails execute it. That separation keeps you in control and keeps
-              Fintegrity focused on one job: defensible compliance.
-            </p>
-          </div>
+      {/* ── Statement — full-bleed dark field, no card, one sentence ── */}
+      <section className="statement">
+        <div className="statement-inner reveal">
+          <h2>We decide. Your system moves the money.</h2>
+          <p>
+            Fintegrity is the{' '}
+            <span className="hl">compliance decision and evidence layer</span> — not a payment
+            processor. When a transaction must be declined and reversed, Fintegrity says so and
+            records why. Your rails execute it. That separation keeps you in control and keeps
+            Fintegrity focused on one job: defensible compliance.
+          </p>
         </div>
       </section>
 
@@ -238,24 +274,20 @@ export default function HomePage() {
               infrastructure ahead of the curve.
             </p>
             <div className="cta-row">
-              <a
+              <Link
                 className="btn btn-white"
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Book a product demo"
+                href="/book-a-demo"
+                aria-label="Book a demo"
               >
-                Request a demo →
-              </a>
-              <a
+                Book a demo →
+              </Link>
+              <Link
                 className="btn btn-outline-w"
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/book-a-demo"
                 aria-label="Talk to the founder"
               >
                 Talk to the founder
-              </a>
+              </Link>
             </div>
             <p className="cta-note">Design partnerships are free. Limited spots.</p>
           </div>

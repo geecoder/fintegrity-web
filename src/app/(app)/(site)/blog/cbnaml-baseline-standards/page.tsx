@@ -303,7 +303,7 @@ export default function CbnAmlBaselineStandardsPage() {
             <h4>See the platform</h4>
             <p>Explore how Fintegrity addresses S-04 through S-09 in a live demo.</p>
             <Link href="/book-a-demo" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '0.88rem', padding: '10px 16px' }}>
-              Request a demo →
+              Book a demo →
             </Link>
           </div>
         </aside>

@@ -8,11 +8,11 @@ import SoftwareAppJsonLd from '@/components/json-ld/SoftwareAppJsonLd'
 export const metadata: Metadata = {
   title: 'Compliance Decision API',
   description:
-    'POST a transaction, get back ALLOW, REVIEW, or BLOCK — with the customer risk state, rules that fired, required actions, and an immutable evidence reference. One synchronous API call before money moves.',
+    'POST a transaction, get back CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED — with the customer risk state, rules that fired, required actions, and an immutable evidence reference. One synchronous API call before money moves.',
   alternates: { canonical: 'https://www.getfintegrity.com/compliance-decisioning-api' },
   openGraph: {
     title: 'Compliance Decision API — Fintegrity Technologies Limited',
-    description: 'One API call. ALLOW, REVIEW, or BLOCK. Complete evidence. Under 50ms P99.',
+    description: 'One API call. CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED. Complete evidence. Under 50ms P99.',
     url: 'https://www.getfintegrity.com/compliance-decisioning-api',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630 }],
   },
@@ -37,7 +37,7 @@ const RESPONSE_CODE = `HTTP/1.1 200 OK
 X-Fintegrity-Latency: 14ms
 
 {
-  "decision": "REVIEW",
+  "decision": "HELD_FOR_REVIEW",
   "requiredActions": [
     "HOLD_FOR_REVIEW"
   ],
@@ -65,14 +65,14 @@ export default function ComplianceDecisioningApiPage() {
             <span className="sec-eyebrow">Compliance Decision API</span>
             <h1>One API call. A defensible compliance decision.</h1>
             <p className="page-hero-lead">
-              POST a transaction to <code style={{ fontFamily: 'var(--font-mono)', background: '#F4F3FF', padding: '2px 6px', borderRadius: '4px', fontSize: '0.9em' }}>/v1/decide</code> before
-              money moves. Get back ALLOW, REVIEW, or BLOCK — with the customer risk state, every
-              rule that fired, the required actions for your system, and a reference to the
-              immutable evidence. Synchronous. Under 50ms P99.
+              POST a transaction to <code style={{ fontFamily: 'var(--font-mono)', background: '#EBEEF3', padding: '2px 6px', borderRadius: '4px', fontSize: '0.9em' }}>/v1/decide</code> before
+              money moves. Get back CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED — with the
+              customer risk state, every rule that fired, the required actions for your system,
+              and a reference to the immutable evidence. Synchronous. Under 50ms P99.
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">
-                Request a demo →
+                Book a demo →
               </Link>
               <Link href="/transaction-monitoring" className="btn btn-ghost">
                 See what feeds the decision
@@ -83,7 +83,7 @@ export default function ComplianceDecisioningApiPage() {
                 <big>&lt;50ms</big><span>P99 response latency</span>
               </div>
               <div className="page-hero-stat">
-                <big>3 states</big><span>ALLOW · REVIEW · BLOCK</span>
+                <big>4 states</big><span>CLEAR · FLAGGED · HELD_FOR_REVIEW · BLOCKED</span>
               </div>
               <div className="page-hero-stat">
                 <big>100%</big><span>Decisions evidenced</span>
@@ -102,7 +102,7 @@ export default function ComplianceDecisioningApiPage() {
             <p className="sec-intro">
               Send the transaction context. Receive a structured decision your system can act on
               immediately. Every call is logged to the append-only evidence store — whether the
-              decision was ALLOW, REVIEW, or BLOCK.
+              decision was CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED.
             </p>
           </div>
           <div className="api-demo reveal">
@@ -133,7 +133,7 @@ export default function ComplianceDecisioningApiPage() {
                 <div className="api-pane-label">Response · 14ms</div>
                 <pre className="api-code" dangerouslySetInnerHTML={{
                   __html: RESPONSE_CODE
-                    .replace('"REVIEW"', '<span class="dec-review">"REVIEW"</span>')
+                    .replace('"HELD_FOR_REVIEW"', '<span class="dec-review">"HELD_FOR_REVIEW"</span>')
                     .replace('"HOLD_FOR_REVIEW"', '<span class="as">"HOLD_FOR_REVIEW"</span>')
                     .replace('"VELOCITY_24H_EXCEEDED"', '<span class="as">"VELOCITY_24H_EXCEEDED"</span>')
                     .replace('"PROFILE_ANOMALY"', '<span class="as">"PROFILE_ANOMALY"</span>')
@@ -167,7 +167,7 @@ export default function ComplianceDecisioningApiPage() {
               </p>
               <ul className="feature-list">
                 {[
-                  ['decision', 'ALLOW, REVIEW, or BLOCK. Always one of these three. No ambiguity.'],
+                  ['decision', 'CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED. Always one of these four. No ambiguity.'],
                   ['requiredActions', 'What your system should do: PROCEED, HOLD_FOR_REVIEW, or DECLINE_AND_REVERSE. Maps directly to your payment rail commands.'],
                   ['reasons', 'Which rules fired or patterns matched. Array of typed reason codes, not free text.'],
                   ['customerRiskState', 'The customer\'s risk state after this decision: ACTIVE, UNDER_REVIEW, or BLOCKED.'],
@@ -189,11 +189,11 @@ export default function ComplianceDecisioningApiPage() {
               <h2 className="sec-title" style={{ fontSize: 'clamp(1.3rem,2.4vw,1.7rem)' }}>A composite decision from multiple inputs</h2>
               <div className="process-steps" style={{ marginTop: '28px' }}>
                 {[
-                  ['Customer state first', 'A BLOCKED customer gets an immediate BLOCK. No rules run. This prevents compliance bypass via new devices or accounts.'],
+                  ['Customer state first', 'A BLOCKED customer gets an immediate BLOCKED decision. No rules run. This prevents compliance bypass via new devices or accounts.'],
                   ['Transaction context evaluated', 'Amount, type, channel, counterparty, and timing are all passed to the rule engine.'],
                   ['Rule library fires', 'Your configured rules — velocity, thresholds, structuring, new-account, profile — all evaluate in parallel.'],
                   ['Screening consulted', 'If transaction screening is configured, your sanctions/PEP provider is queried and the result is factored in.'],
-                  ['Most restrictive wins', 'If any input returns BLOCK, the decision is BLOCK. If any returns REVIEW and none returns BLOCK, the decision is REVIEW.'],
+                  ['Most restrictive wins', 'The most severe input wins: BLOCKED beats HELD_FOR_REVIEW, which beats FLAGGED, which beats CLEAR. If any input returns BLOCKED, the decision is BLOCKED.'],
                 ].map(([title, body], i) => (
                   <div className="process-step" key={i}>
                     <div className="process-step-left">
@@ -242,7 +242,7 @@ export default function ComplianceDecisioningApiPage() {
               <span className="state-badge state-badge-blocked">BLOCKED</span>
               <div className="state-item-text">
                 <h4>All transactions declined</h4>
-                <p>Every transaction for this customer returns BLOCK before any rules run. Account is frozen pending investigation resolution. State is set by a compliance case disposition or by a rule that reaches a hard-block threshold.</p>
+                <p>Every transaction for this customer returns a BLOCKED decision before any rules run. Account is frozen pending investigation resolution. State is set by a compliance case disposition or by a rule that reaches a hard-block threshold.</p>
               </div>
             </div>
           </div>
@@ -257,7 +257,7 @@ export default function ComplianceDecisioningApiPage() {
               <span className="sec-eyebrow">Integration</span>
               <h2 className="sec-title">Designed for pre-authorisation hooks</h2>
               <p style={{ color: 'var(--slate)', lineHeight: 1.7, fontSize: '1rem', marginTop: '16px', maxWidth: '50ch' }}>
-                Call <code style={{ fontFamily: 'var(--font-mono)', background: '#F4F3FF', padding: '2px 5px', borderRadius: '4px' }}>/v1/decide</code> at
+                Call <code style={{ fontFamily: 'var(--font-mono)', background: '#EBEEF3', padding: '2px 5px', borderRadius: '4px' }}>/v1/decide</code> at
                 the point in your payment handler where you would normally execute the debit or
                 credit. Act on the decision. Your rails execute — or don&apos;t — based on
                 Fintegrity&apos;s response.
@@ -267,7 +267,7 @@ export default function ComplianceDecisioningApiPage() {
                   ['RESTful JSON', 'Standard HTTP + JSON. No proprietary SDKs required. Works with any stack that can make an HTTP request.'],
                   ['Synchronous', 'The decision is in the response body. No webhooks required for the primary flow. Sub-50ms P99 means no user-visible latency.'],
                   ['Idempotent', 'Pass an idempotencyKey to guarantee exactly-once decision processing, even across retries.'],
-                  ['Webhooks for async events', 'Customer state changes, case updates, and REVIEW resolutions can optionally be pushed to your endpoint.'],
+                  ['Webhooks for async events', 'Customer state changes, case updates, and FLAGGED or HELD_FOR_REVIEW resolutions can optionally be pushed to your endpoint.'],
                 ].map(([title, body]) => (
                   <li className="feature-item" key={title}>
                     <span className="feature-check">✓</span>
@@ -281,7 +281,7 @@ export default function ComplianceDecisioningApiPage() {
                 <div className="sec-eyebrow" style={{ marginBottom: '14px' }}>Explore further</div>
                 {[
                   { href: '/transaction-monitoring', label: 'Transaction Monitoring', desc: 'The rule engine and pattern detection that feeds decisions.' },
-                  { href: '/case-management', label: 'Case Management', desc: 'Every REVIEW opens a structured case for your compliance team.' },
+                  { href: '/case-management', label: 'Case Management', desc: 'Every FLAGGED or HELD_FOR_REVIEW result opens a structured case for your compliance team.' },
                   { href: '/developer-api', label: 'Developer API docs', desc: 'Full endpoint reference, auth guide, error codes, and SDKs.' },
                 ].map((link) => (
                   <Link key={link.href} href={link.href} style={{ display: 'flex', flexDirection: 'column', padding: '14px 0', borderBottom: '1px solid var(--line-2)', textDecoration: 'none', color: 'inherit', transition: 'color .14s' }} className="blog-card" /* borrowing hover */>
@@ -298,7 +298,7 @@ export default function ComplianceDecisioningApiPage() {
       <CTABand
         headline="See a live decision in your context"
         body="We'll demonstrate a decision call using transaction patterns from your business model — with real rules, real states, and real evidence."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="Explore the Developer API"
         secondaryHref="/developer-api"

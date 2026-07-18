@@ -62,7 +62,7 @@ export default function CryptoBusinessesPage() {
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">
-                Request a demo →
+                Book a demo →
               </Link>
               <Link href="/transaction-monitoring" className="btn btn-ghost">
                 See transaction monitoring
@@ -177,7 +177,7 @@ export default function CryptoBusinessesPage() {
               { href: '/rules-engine', label: 'Rules Engine', desc: 'No-code rule builder with version history and simulation mode. Update crypto-typology rules in hours, not sprints, as the regulatory picture shifts.' },
             ].map((link) => (
               <Link key={link.href} href={link.href} className="cap-card reveal" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
                 <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>{link.desc}</p>
               </Link>
             ))}
@@ -188,7 +188,7 @@ export default function CryptoBusinessesPage() {
       <CTABand
         headline="See how Fintegrity evaluates transactions in real time"
         body="We'll show you a live crypto configuration — on/off-ramp decision flow, BYO screening, crypto-tuned rules, and immutable evidence — built around your platform's transaction typologies."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="See transaction monitoring"
         secondaryHref="/transaction-monitoring"

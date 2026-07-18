@@ -3,12 +3,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { BOOKING_URL } from '@/lib/config'
 
 const PRODUCT_LINKS = [
   { href: '/transaction-monitoring', label: 'Transaction Monitoring', desc: 'Real-time AML rule evaluation' },
   { href: '/case-management', label: 'Case Management', desc: 'Investigation and evidence workflows' },
-  { href: '/compliance-decisioning-api', label: 'Compliance Decision API', desc: 'ALLOW / REVIEW / BLOCK in one call' },
+  { href: '/compliance-decisioning-api', label: 'Compliance Decision API', desc: 'CLEAR / FLAGGED / HELD_FOR_REVIEW / BLOCKED in one call' },
   { href: '/transaction-screening', label: 'Transaction Screening', desc: 'Sanctions, PEP, and watchlist checks' },
   { href: '/rules-engine', label: 'Rules Engine', desc: 'Configurable compliance logic' },
   { href: '/customer-risk-profiling', label: 'Customer Risk Profiling', desc: 'Dynamic risk scoring per customer' },
@@ -103,11 +102,11 @@ export default function Nav() {
         <Link className="brand" href="/">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/fintegrity_wm_indigo_mono.png"
+            src="/brand/lockup-color.svg"
             alt="Fintegrity Technologies Limited"
             className="brand-logo"
-            width={180}
-            height={36}
+            width={427}
+            height={88}
           />
         </Link>
 
@@ -143,10 +142,10 @@ export default function Nav() {
               className={`nav-drop-btn${openDrop === 'solutions' ? ' open' : ''}`}
               aria-expanded={openDrop === 'solutions'}
               aria-haspopup="menu"
-              aria-label="Industries menu"
+              aria-label="Use cases menu"
               onClick={() => toggleDrop('solutions')}
             >
-              Industries <ChevronDown />
+              Use cases <ChevronDown />
             </button>
             <div className={`nav-drop-menu${openDrop === 'solutions' ? ' open' : ''}`} role="menu">
               {SOLUTION_LINKS.map((l) => (
@@ -197,7 +196,7 @@ export default function Nav() {
           ))}
         </div>
         <div className="nav-mobile-section">
-          <span className="nav-mobile-label">Industries</span>
+          <span className="nav-mobile-label">Use cases</span>
           {SOLUTION_LINKS.map((l) => (
             <Link key={l.href} href={l.href} className="nav-mobile-link">
               {l.label}
@@ -209,6 +208,7 @@ export default function Nav() {
           <Link href="/blog" className="nav-mobile-link">Blog</Link>
           <Link href="/pricing" className="nav-mobile-link">Pricing</Link>
           <Link href="/about" className="nav-mobile-link">About</Link>
+          <Link href="/security" className="nav-mobile-link">Security</Link>
           <Link href="/contact" className="nav-mobile-link">Contact</Link>
         </div>
         <div className="nav-mobile-cta">

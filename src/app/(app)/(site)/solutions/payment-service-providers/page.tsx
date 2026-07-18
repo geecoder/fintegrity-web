@@ -62,7 +62,7 @@ export default function PspsPage() {
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">
-                Request a demo →
+                Book a demo →
               </Link>
               <Link href="/transaction-monitoring" className="btn btn-ghost">
                 See transaction monitoring
@@ -177,7 +177,7 @@ export default function PspsPage() {
               { href: '/audit-trail-and-reporting', label: 'Audit Trail & Reporting', desc: 'Every decision across onboarding and transaction flows is evidenced and queryable — one query answers any sponsor-bank request.' },
             ].map((link) => (
               <Link key={link.href} href={link.href} className="cap-card reveal" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
                 <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>{link.desc}</p>
               </Link>
             ))}
@@ -188,7 +188,7 @@ export default function PspsPage() {
       <CTABand
         headline="See how Fintegrity evaluates transactions in real time"
         body="We'll demonstrate a live PSP configuration — merchant risk profiling, velocity monitoring, settlement pattern rules, and evidence generation in one session."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="See transaction monitoring"
         secondaryHref="/transaction-monitoring"

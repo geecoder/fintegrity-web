@@ -21,9 +21,9 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'allow-review-block-compliance-decisions',
-    title: 'ALLOW, REVIEW, BLOCK: The Architecture of a Defensible Compliance Decision',
+    title: 'CLEAR, FLAGGED, HELD_FOR_REVIEW, BLOCKED: The Architecture of a Defensible Compliance Decision',
     description:
-      'Binary pass/fail compliance checks fail at scale and under regulatory scrutiny. Here\'s why three decision states — with a customer risk lifecycle — is the right model, and how to build it.',
+      'Binary pass/fail compliance checks fail at scale and under regulatory scrutiny. Here\'s why four decision states — with a customer risk lifecycle — is the right model, and how to build it.',
     category: 'Product',
     publishedAt: '2026-04-02',
     readTime: '8 min',

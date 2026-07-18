@@ -10,9 +10,9 @@ const schema = {
   operatingSystem: 'Any',
   url: `${SITE_URL}/compliance-decisioning-api`,
   description:
-    'A real-time compliance decisioning API that returns ALLOW, REVIEW, or BLOCK for financial transactions — with the customer risk state, rules that fired, required actions, and an immutable evidence reference. Built for CBN-regulated fintechs.',
+    'A real-time compliance decisioning API that returns CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED for financial transactions — with the customer risk state, rules that fired, required actions, and an immutable evidence reference. Built for CBN-regulated fintechs.',
   featureList: [
-    'Real-time compliance decisions (ALLOW / REVIEW / BLOCK)',
+    'Real-time compliance decisions (CLEAR / FLAGGED / HELD_FOR_REVIEW / BLOCKED)',
     'Customer risk state management (ACTIVE / UNDER_REVIEW / BLOCKED)',
     'Configurable AML rule evaluation',
     'Immutable evidence reference per decision',

@@ -23,7 +23,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Transaction monitoring ran as an overnight batch job against a legacy core banking system. Suspicious activity was often identified two to three days after a transaction had already settled, leaving the compliance team reconstructing intent after the fact instead of intervening in time. Examiners flagged the lag as a supervisory concern during a routine CBN review.',
     solution: [
       'Fintegrity was deployed as a decisioning layer in front of the bank\'s existing core, evaluating transactions in real time rather than waiting for the nightly extract. Rules were configured jointly with the bank\'s compliance team to reflect its existing risk appetite — velocity limits, structuring detection around NFIU currency transaction thresholds, and account-age rules tuned to the bank\'s historical mule-account patterns.',
-      'Every transaction now receives an ALLOW, REVIEW, or BLOCK decision before it settles. REVIEW decisions route directly into a case management queue with the full evaluation trail attached, so analysts start from a documented risk rationale instead of a raw transaction log.',
+      'Every transaction now receives a CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED decision before it settles. FLAGGED and HELD_FOR_REVIEW decisions route directly into a case management queue with the full evaluation trail attached, so analysts start from a documented risk rationale instead of a raw transaction log.',
       'The bank\'s existing sanctions screening vendor was integrated at the decision layer, so screening results factor into the same real-time decision rather than running as a separate, disconnected process.',
     ],
     metrics: [
@@ -42,7 +42,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'A fast-growing wallet product was onboarding tens of thousands of new users a month, but its compliance stack was a set of disconnected scripts stitched together by engineering as needed. There was no consistent tiering between BVN-verified and unverified users, and the team could not produce a clean audit trail when NFIU requested transaction history for a specific case.',
     solution: [
       'Fintegrity replaced the ad hoc scripts with a single compliance decisioning API called at the point of transaction. Customer tiers based on CDD level (BVN-verified, NIN-only, unverified) were encoded directly into the rule engine, so wallet limits and monitoring sensitivity adjust automatically as a customer\'s verification status changes.',
-      'Every decision — ALLOW, REVIEW, or BLOCK — is written to an append-only evidence store with a server-side timestamp, the rule version that produced it, and the inputs considered. When a regulatory request for a specific customer\'s history came in, the compliance team retrieved a complete, exportable record in minutes rather than reconstructing it from application logs.',
+      'Every decision — CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED — is written to an append-only evidence store with a server-side timestamp, the rule version that produced it, and the inputs considered. When a regulatory request for a specific customer\'s history came in, the compliance team retrieved a complete, exportable record in minutes rather than reconstructing it from application logs.',
       'Because the decision layer sits in front of the transaction rather than behind it, high-risk transactions from unverified accounts are held for review before funds move, not flagged for cleanup afterward.',
     ],
     metrics: [
@@ -62,7 +62,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     solution: [
       'Fintegrity modeled corridor risk as configurable rule sets rather than static spreadsheet logic, so updating the risk profile for a specific sending or receiving corridor is a configuration change, not a code change or a manual spreadsheet edit. Rules can weigh corridor, transaction size, and customer risk profile together in a single real-time decision.',
       'Sanctions and PEP screening across both sides of a cross-border transaction were orchestrated through the existing screening vendor, with results incorporated into the same decision rather than checked separately for sender and receiver.',
-      'Case management gives the compliance team a single queue for all REVIEW-flagged transactions, regardless of corridor, with the specific rule and risk factors that triggered the flag attached to each case.',
+      'Case management gives the compliance team a single queue for all FLAGGED and HELD_FOR_REVIEW transactions, regardless of corridor, with the specific rule and risk factors that triggered the flag attached to each case.',
     ],
     metrics: [
       { value: 'Same-day', label: 'Corridor risk profile updates (from weeks)' },

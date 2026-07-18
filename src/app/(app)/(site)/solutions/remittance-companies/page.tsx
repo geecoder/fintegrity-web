@@ -63,7 +63,7 @@ export default function RemittancePage() {
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">
-                Request a demo →
+                Book a demo →
               </Link>
               <Link href="/transaction-screening" className="btn btn-ghost">
                 See transaction screening
@@ -183,7 +183,7 @@ export default function RemittancePage() {
               { href: '/compliance-decisioning-api', label: 'Compliance Decision API', desc: 'The synchronous call that returns CLEAR/FLAGGED/HELD_FOR_REVIEW/BLOCKED with full evidence before a cross-border payment executes.' },
             ].map((link) => (
               <Link key={link.href} href={link.href} className="cap-card reveal" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
                 <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>{link.desc}</p>
               </Link>
             ))}
@@ -194,7 +194,7 @@ export default function RemittancePage() {
       <CTABand
         headline="See how Fintegrity evaluates transactions in real time"
         body="We'll walk through a live cross-border configuration — corridor-risk rules, BYO screening orchestration, and dual-regime evidence — built around your routes."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="See transaction screening"
         secondaryHref="/transaction-screening"

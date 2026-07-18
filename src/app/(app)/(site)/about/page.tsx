@@ -3,7 +3,7 @@ import Link from 'next/link'
 import CTABand from '@/components/ui/CTABand'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
-import { CONTACT_EMAIL, BOOKING_URL } from '@/lib/config'
+import { CONTACT_EMAIL } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'About Fintegrity',
@@ -88,7 +88,7 @@ export default function AboutPage() {
                     <span style={{ fontSize: '0.84rem', color: item.highlight ? 'var(--indigo-d)' : 'var(--slate)', fontWeight: item.highlight ? 600 : 400 }}>{item.label}</span>
                   </div>
                 ))}
-                <div style={{ marginTop: '18px', padding: '14px', background: '#F4F3FF', borderRadius: '10px', fontSize: '0.82rem', color: 'var(--slate)', lineHeight: 1.6 }}>
+                <div style={{ marginTop: '18px', padding: '14px', background: '#EBEEF3', borderRadius: '10px', fontSize: '0.82rem', color: 'var(--slate)', lineHeight: 1.6 }}>
                   Fintegrity decides. Your rails execute. Your compliance team investigates. Your regulator audits.
                 </div>
               </div>
@@ -214,10 +214,10 @@ export default function AboutPage() {
             <span className="sec-eyebrow">Our values</span>
             <h2 className="sec-title">Four principles that shape every product decision</h2>
           </div>
-          <div className="diff-grid" style={{ marginTop: '40px' }}>
+          <div className="open-list open-list-4 reveal">
             {VALUES.map((v) => (
-              <div className="diff-card reveal" key={v.num}>
-                <div className="diff-card-num">{v.num}</div>
+              <div className="open-list-item" key={v.num}>
+                <div className="open-list-num">{v.num}</div>
                 <h3>{v.title}</h3>
                 <p>{v.body}</p>
               </div>
@@ -245,9 +245,9 @@ export default function AboutPage() {
               building the right product with the right partners.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              <Link href="/book-a-demo" className="btn btn-primary">
                 Apply to be a design partner →
-              </a>
+              </Link>
               <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-outline-w">
                 Email the founder
               </a>

@@ -169,8 +169,8 @@ export default function TransactionScreeningPage() {
                 style={{
                   marginTop: '20px',
                   padding: '14px 18px',
-                  background: '#F4F3FF',
-                  border: '1px solid #DDD9FF',
+                  background: '#EBEEF3',
+                  border: '1px solid #D8DFE8',
                   borderRadius: '10px',
                   fontSize: '0.86rem',
                   color: 'var(--slate)',
@@ -211,7 +211,7 @@ export default function TransactionScreeningPage() {
               },
             ].map((link) => (
               <Link key={link.href} href={link.href} className="cap-card reveal" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, marginBottom: '8px' }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>
                   {link.label} →
                 </div>
                 <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>
@@ -226,7 +226,7 @@ export default function TransactionScreeningPage() {
       <CTABand
         headline="See how Fintegrity evaluates transactions in real time"
         body="We&apos;ll walk through a live screening configuration using transaction patterns from your business — orchestrated into the decision, evidence written by default."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="Read the API docs"
         secondaryHref="https://docs.getfintegrity.com"

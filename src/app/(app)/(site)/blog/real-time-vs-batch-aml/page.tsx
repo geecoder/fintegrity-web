@@ -100,7 +100,7 @@ export default function RealTimeVsBatchPage() {
             The implementation pattern: before your payment handler executes a debit or credit,
             it makes a synchronous call to the compliance decision layer. The compliance layer
             evaluates the transaction — customer state, rules, patterns — and returns a decision.
-            The payment handler acts on the decision. If the decision is BLOCK, the transaction
+            The payment handler acts on the decision. If the decision is BLOCKED, the transaction
             never executes.
           </p>
           <p>
@@ -167,7 +167,7 @@ export default function RealTimeVsBatchPage() {
             <li>
               <strong>Define your response to each decision state upfront.</strong> Before going
               live, your engineering and product teams need clear, agreed behaviour for each
-              decision state (ALLOW/REVIEW/BLOCK) in every transaction flow.
+              decision state (CLEAR/FLAGGED/HELD_FOR_REVIEW/BLOCKED) in every transaction flow.
             </li>
             <li>
               <strong>Tune, don&apos;t just deploy.</strong> Default rule configurations are a
@@ -214,7 +214,7 @@ export default function RealTimeVsBatchPage() {
               Transaction monitoring →
             </Link>
             <Link href="/book-a-demo" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '0.88rem', padding: '10px 16px' }}>
-              Request a demo →
+              Book a demo →
             </Link>
           </div>
         </aside>

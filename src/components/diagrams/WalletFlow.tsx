@@ -1,25 +1,21 @@
-/**
- * fintech_inline_flow — shows Fintegrity sitting in-line between the
- * fintech app and the money rails, returning a decision + writing evidence.
- */
-export default function FintechInlineFlow() {
+export default function WalletFlow() {
   return (
     <div
       className="diag-wrap"
       role="img"
-      aria-label="Inline placement diagram: Your app — covering onboarding, payments, and withdrawals — calls the Fintegrity Decision API in-line in under 100ms, which returns Clear, Flagged, Held for review, or Blocked. A side branch writes the customer risk state and immutable evidence after every call."
+      aria-label="Wallet integration diagram: a customer taps Send in the wallet app, the wallet's backend calls Fintegrity's /v1/decide endpoint in under 50 milliseconds, and Fintegrity returns Clear, Flagged, Held for review, or Blocked. A side branch writes the customer risk state and immutable evidence after every call."
     >
       <div className="diag-flow" aria-hidden="true">
         <div className="diag-node">
-          <div className="diag-node-label">Your app</div>
-          <div className="diag-node-sub">onboarding · payments · withdrawals</div>
+          <div className="diag-node-label">Customer taps Send</div>
+          <div className="diag-node-sub">wallet app · transfer intent</div>
         </div>
 
         <div className="diag-arrow">→</div>
 
         <div className="diag-node diag-node-primary">
-          <div className="diag-node-label">Fintegrity Decision API</div>
-          <div className="diag-node-sub">in-line · &lt;100ms</div>
+          <div className="diag-node-label">POST /v1/decide</div>
+          <div className="diag-node-sub">pre-authorisation · &lt;50ms</div>
         </div>
 
         <div className="diag-arrow">→</div>
@@ -40,7 +36,7 @@ export default function FintechInlineFlow() {
         <div className="diag-branch-node">
           <div className="diag-branch-title">Risk state + immutable evidence</div>
           <div className="diag-branch-meta">
-            customer risk state · decision · rules fired · timestamp · evidence reference
+            KYC tier · velocity window · rules fired · timestamp · evidence reference
           </div>
         </div>
       </div>

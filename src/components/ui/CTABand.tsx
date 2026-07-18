@@ -12,7 +12,7 @@ interface CTABandProps {
 export default function CTABand({
   headline,
   body,
-  primaryLabel = 'Request a demo →',
+  primaryLabel = 'Book a demo →',
   primaryHref = '/book-a-demo',
   secondaryLabel,
   secondaryHref,

@@ -19,9 +19,9 @@ interface DecisionState {
 const DECISIONS: Record<DecisionKey, DecisionState> = {
   ok: {
     badgeClass: 'allow',
-    badge: 'ALLOW',
+    badge: 'CLEAR',
     sub: 'transaction proceeds',
-    decision: '"ALLOW"',
+    decision: '"CLEAR"',
     decisionClass: 'allowtext',
     actions: '["PROCEED"]',
     actionsClass: 'v',
@@ -30,9 +30,9 @@ const DECISIONS: Record<DecisionKey, DecisionState> = {
   },
   blocked: {
     badgeClass: 'block',
-    badge: 'BLOCK',
+    badge: 'BLOCKED',
     sub: 'declined — funds reversed',
-    decision: '"BLOCK"',
+    decision: '"BLOCKED"',
     decisionClass: 'blocktext',
     actions: '["DECLINE_AND_REVERSE"]',
     actionsClass: 'blocktext',

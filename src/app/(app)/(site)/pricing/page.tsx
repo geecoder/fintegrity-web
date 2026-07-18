@@ -95,7 +95,7 @@ export default function PricingPage() {
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">
-                Request a quote →
+                Book a demo →
               </Link>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function PricingPage() {
                   ))}
                 </ul>
                 <Link href="/book-a-demo" className={`btn ${tier.featured ? 'btn-primary' : 'btn-ghost'}`} style={{ textAlign: 'center', justifyContent: 'center' }}>
-                  Request a quote →
+                  Book a demo →
                 </Link>
               </div>
             ))}
@@ -156,7 +156,7 @@ export default function PricingPage() {
       <CTABand
         headline="Get a quote for your specific configuration"
         body="Tell us your transaction volumes, your compliance team size, and which modules you need. We'll come back with a number built around your actual business."
-        primaryLabel="Request a quote →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
       />
     </>

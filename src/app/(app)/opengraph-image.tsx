@@ -16,25 +16,25 @@ export default function OpengraphImage() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          background: 'linear-gradient(135deg, #1a1840 0%, #2a2270 60%, #1e1650 100%)',
+          background: 'linear-gradient(135deg, #0A1F44 0%, #081733 60%, #061024 100%)',
           padding: '60px 64px',
           fontFamily: 'system-ui, -apple-system, sans-serif',
           position: 'relative',
           overflow: 'hidden',
         }}
       >
-        {/* Cyan glow — top right */}
+        {/* Emerald glow — top right */}
         <div style={{
           position: 'absolute', top: '-140px', right: '-80px',
           width: '520px', height: '520px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(62,207,224,0.18), transparent 62%)',
+          background: 'radial-gradient(circle, rgba(47,190,143,0.18), transparent 62%)',
           display: 'flex',
         }} />
-        {/* Indigo glow — bottom left */}
+        {/* Navy glow — bottom left */}
         <div style={{
           position: 'absolute', bottom: '-120px', left: '-60px',
           width: '420px', height: '420px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(99,91,255,0.22), transparent 62%)',
+          background: 'radial-gradient(circle, rgba(10,31,68,0.35), transparent 62%)',
           display: 'flex',
         }} />
 
@@ -45,7 +45,7 @@ export default function OpengraphImage() {
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '44px' }}>
             <div style={{
               width: '48px', height: '48px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #635BFF, #9E7CFF)',
+              background: 'linear-gradient(135deg, #0A1F44, #0E9F6E)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               marginRight: '16px', fontSize: '22px', fontWeight: 800, color: '#fff',
             }}>
@@ -94,9 +94,10 @@ export default function OpengraphImage() {
             </span>
             <div style={{ display: 'flex', gap: '10px' }}>
               {[
-                { label: 'ALLOW', bg: 'rgba(31,174,111,0.22)', color: '#4ADE80' },
-                { label: 'REVIEW', bg: 'rgba(245,158,11,0.22)', color: '#FBBF24' },
-                { label: 'BLOCK', bg: 'rgba(229,72,77,0.22)', color: '#F87171' },
+                { label: 'CLEAR', bg: 'rgba(14,159,110,0.22)', color: '#4ADE80' },
+                { label: 'FLAGGED', bg: 'rgba(245,158,11,0.22)', color: '#FBBF24' },
+                { label: 'HELD_FOR_REVIEW', bg: 'rgba(148,163,184,0.22)', color: '#CBD5E1' },
+                { label: 'BLOCKED', bg: 'rgba(229,72,77,0.22)', color: '#F87171' },
               ].map((d) => (
                 <div key={d.label} style={{
                   padding: '6px 14px', borderRadius: '7px',

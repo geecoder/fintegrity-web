@@ -3,6 +3,7 @@ import Link from 'next/link'
 import CTABand from '@/components/ui/CTABand'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
+import WalletFlow from '@/components/diagrams/WalletFlow'
 
 export const metadata: Metadata = {
   title: 'AML Compliance for Digital Wallets & Super Apps',
@@ -44,7 +45,7 @@ const HOW_IT_FITS = [
   { num: '01', title: 'Customer initiates transfer', body: 'User taps Send in your wallet app. Your backend receives the transaction intent.' },
   { num: '02', title: 'You call /v1/decide', body: 'Before your payment handler executes, you POST the transaction context to Fintegrity. This takes less than 50ms.' },
   { num: '03', title: 'Fintegrity evaluates', body: 'Customer risk state, KYC tier limits, velocity rules, structuring patterns, and account-age logic all run in parallel.' },
-  { num: '04', title: 'Decision returned', body: 'ALLOW: proceed. REVIEW: hold and open a case. BLOCK: decline and reverse. Your handler acts on the response.' },
+  { num: '04', title: 'Decision returned', body: 'CLEAR: proceed. FLAGGED: proceed, case opened. HELD_FOR_REVIEW: hold and open a case. BLOCKED: decline and reverse. Your handler acts on the response.' },
   { num: '05', title: 'Evidence written', body: 'Every decision is logged to the append-only audit store with the full transaction context. Evidence is available instantly for any regulator query.' },
 ]
 
@@ -117,6 +118,9 @@ export default function DigitalWalletsPage() {
               Fintegrity doesn&apos;t require changes to your product UX or your payment rails.
               One API call before each transaction executes is all it takes.
             </p>
+          </div>
+          <div className="reveal">
+            <WalletFlow />
           </div>
           <div className="process-steps" style={{ maxWidth: '640px', marginTop: '44px' }}>
             {HOW_IT_FITS.map((step) => (
@@ -207,14 +211,14 @@ export default function DigitalWalletsPage() {
                 before money moved.
               </p>
               <p style={{ color: 'var(--slate)', lineHeight: 1.7, fontSize: '1rem', maxWidth: '52ch', marginBottom: '24px' }}>
-                Fintegrity writes every decision — including every ALLOW — to an immutable
+                Fintegrity writes every decision — including every CLEAR — to an immutable
                 evidence store. A regulator asking &ldquo;how was this transaction handled?&rdquo;
                 gets a complete answer: what rules ran, what the customer&apos;s state was, what
                 decision was made, and when.
               </p>
               <ul className="feature-list">
                 {[
-                  ['Every ALLOW is evidenced', 'Not just flags and blocks. Every decision is logged. Showing compliance for a clean transaction is as important as showing it for a flagged one.'],
+                  ['Every CLEAR is evidenced', 'Not just flags and blocks. Every decision is logged. Showing compliance for a clean transaction is as important as showing it for a flagged one.'],
                   ['Point-in-time state capture', 'The customer\'s risk state, KYC tier, and rule configuration at the exact moment of decision — frozen in the evidence record.'],
                   ['On-demand evidence packs', 'Any transaction or customer can produce a complete evidence pack. No reconstruction required.'],
                 ].map(([title, body]) => (
@@ -226,7 +230,7 @@ export default function DigitalWalletsPage() {
               </ul>
             </div>
             <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ background: '#F4F3FF', border: '1px solid #DDD9FF', borderRadius: 'var(--r)', padding: '24px' }}>
+              <div style={{ background: '#EBEEF3', border: '1px solid #D8DFE8', borderRadius: 'var(--r)', padding: '24px' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--indigo-d)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '16px' }}>
                   What Fintegrity stores per decision
                 </div>
@@ -236,7 +240,7 @@ export default function DigitalWalletsPage() {
                   'Customer risk state at time of decision',
                   'KYC tier and applicable limits',
                   'Every rule evaluated and its result',
-                  'Final decision: ALLOW / REVIEW / BLOCK',
+                  'Final decision: CLEAR / FLAGGED / HELD_FOR_REVIEW / BLOCKED',
                   'Required action issued to your system',
                   'Timestamp (server-side, immutable)',
                   'Rule version configuration used',
@@ -278,7 +282,7 @@ export default function DigitalWalletsPage() {
       <CTABand
         headline="See Fintegrity configured for your wallet"
         body="We'll walk through a live configuration with transaction patterns, KYC tier limits, and monitoring rules tuned to your specific product and volumes."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="See transaction monitoring"
         secondaryHref="/transaction-monitoring"

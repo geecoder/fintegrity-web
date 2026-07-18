@@ -80,11 +80,11 @@ const STEPS = [
   },
   {
     title: 'Decision and alert issued',
-    body: 'The result is ALLOW, REVIEW, or BLOCK — with the rules that fired, the required action for your system, and the customer risk state after this transaction.',
+    body: 'The result is CLEAR, FLAGGED, HELD_FOR_REVIEW, or BLOCKED — with the rules that fired, the required action for your system, and the customer risk state after this transaction.',
   },
   {
     title: 'Evidence written',
-    body: 'Every decision is written to the append-only audit trail. If a REVIEW or alert fires, a structured case opens automatically in Case Management with the evidence pre-assembled.',
+    body: 'Every decision is written to the append-only audit trail. If a FLAGGED or HELD_FOR_REVIEW result or alert fires, a structured case opens automatically in Case Management with the evidence pre-assembled.',
   },
 ]
 
@@ -108,7 +108,7 @@ export default function TransactionMonitoringPage() {
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">
-                Request a demo →
+                Book a demo →
               </Link>
               <Link href="/compliance-decisioning-api" className="btn btn-ghost">
                 How decisions work
@@ -215,7 +215,7 @@ export default function TransactionMonitoringPage() {
             </div>
             <div>
               <div style={{
-                background: 'linear-gradient(135deg, #1a1840, #2a2270)',
+                background: 'linear-gradient(135deg, #0A1F44, #081733)',
                 borderRadius: '18px',
                 padding: '32px',
                 color: '#fff',
@@ -224,10 +224,10 @@ export default function TransactionMonitoringPage() {
                   Alert → Case pipeline
                 </div>
                 {[
-                  { label: 'Pattern fires', desc: 'Velocity threshold exceeded in 24h window', badge: 'ALERT', badgeStyle: { background: '#FBBF24', color: '#1a1840' } },
-                  { label: 'Case auto-created', desc: 'Evidence assembled, analyst assigned', badge: 'CASE', badgeStyle: { background: '#818CF8', color: '#fff' } },
+                  { label: 'Pattern fires', desc: 'Velocity threshold exceeded in 24h window', badge: 'ALERT', badgeStyle: { background: '#FBBF24', color: '#0A1F44' } },
+                  { label: 'Case auto-created', desc: 'Evidence assembled, analyst assigned', badge: 'CASE', badgeStyle: { background: '#5EEAD4', color: '#fff' } },
                   { label: 'Investigation', desc: 'Analyst reviews timeline and profile', badge: 'REVIEW', badgeStyle: { background: '#0F1117', color: '#67E8F9', border: '1px solid rgba(255,255,255,.2)' } },
-                  { label: 'Disposition', desc: 'Cleared, escalated, or SAR filed', badge: 'CLOSED', badgeStyle: { background: '#4ADE80', color: '#1a1840' } },
+                  { label: 'Disposition', desc: 'Cleared, escalated, or SAR filed', badge: 'CLOSED', badgeStyle: { background: '#4ADE80', color: '#0A1F44' } },
                 ].map((item, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: i < 3 ? '14px' : '0' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'rgba(255,255,255,.35)', paddingTop: '3px', minWidth: '20px' }}>0{i + 1}</span>
@@ -282,7 +282,7 @@ export default function TransactionMonitoringPage() {
                 { href: '/audit-trail-and-reporting', label: 'Audit Trail & Reporting', desc: 'Every monitoring event and decision is written to the append-only evidence store, ready for regulators.' },
               ].map((link) => (
                 <Link key={link.href} href={link.href} style={{ display: 'block', padding: '20px', background: '#fff', border: '1px solid var(--line)', borderRadius: 'var(--r)', textDecoration: 'none', transition: 'border-color .18s' }} className="cap-card">
-                  <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 600, fontSize: '0.97rem', marginBottom: '8px', color: 'var(--ink)' }}>{link.label} →</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.97rem', marginBottom: '8px', color: 'var(--ink)' }}>{link.label} →</div>
                   <p style={{ fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.6, margin: 0 }}>{link.desc}</p>
                 </Link>
               ))}
@@ -294,7 +294,7 @@ export default function TransactionMonitoringPage() {
       <CTABand
         headline="See Fintegrity monitor transactions in your business"
         body="We'll walk you through a live configuration tuned to your transaction volumes, customer segments, and regulatory exposure."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="See how decisions work"
         secondaryHref="/compliance-decisioning-api"

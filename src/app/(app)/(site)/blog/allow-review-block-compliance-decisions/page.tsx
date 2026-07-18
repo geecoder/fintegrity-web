@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import RevealInit from '@/components/RevealInit'
 
 export const metadata: Metadata = {
-  title: 'ALLOW, REVIEW, BLOCK: The Architecture of a Defensible Compliance Decision',
+  title: 'CLEAR, FLAGGED, HELD_FOR_REVIEW, BLOCKED: The Architecture of a Defensible Compliance Decision',
   description:
-    'Binary pass/fail compliance checks fail at scale and under regulatory scrutiny. Here\'s why three decision states — with a customer risk lifecycle — is the right model, and how to wire it into your payment flow.',
+    'Binary pass/fail compliance checks fail at scale and under regulatory scrutiny. Here\'s why four decision states — with a customer risk lifecycle — is the right model, and how to wire it into your payment flow.',
   alternates: { canonical: 'https://www.getfintegrity.com/blog/allow-review-block-compliance-decisions' },
 }
 
@@ -18,18 +18,18 @@ export default function AllowReviewBlockPage() {
     <>
       <BreadcrumbJsonLd items={[
         { name: 'Blog', href: '/blog' },
-        { name: 'ALLOW, REVIEW, BLOCK', href: '/blog/allow-review-block-compliance-decisions' },
+        { name: 'CLEAR, FLAGGED, HELD_FOR_REVIEW, BLOCKED', href: '/blog/allow-review-block-compliance-decisions' },
       ]} />
       <RevealInit />
       <section className="article-header">
         <div className="wrap">
           <div className="article-header-inner reveal">
             <div className="article-cat">Product</div>
-            <h1>ALLOW, REVIEW, BLOCK: The Architecture of a Defensible Compliance Decision</h1>
+            <h1>CLEAR, FLAGGED, HELD_FOR_REVIEW, BLOCKED: The Architecture of a Defensible Compliance Decision</h1>
             <p className="article-header-desc">
               Most compliance systems make a binary choice: pass or fail, proceed or stop. That
               binary model breaks at fintech scale, produces too many false positives, and can&apos;t
-              represent the nuance regulators expect. Here&apos;s the case for three decision states
+              represent the nuance regulators expect. Here&apos;s the case for four decision states
               and a customer risk lifecycle.
             </p>
             <div className="article-meta">
@@ -63,23 +63,25 @@ export default function AllowReviewBlockPage() {
           <div className="article-callout">
             <strong>The real question isn&apos;t &ldquo;did this transaction pass?&rdquo;</strong> It&apos;s
             &ldquo;what should my system do with this transaction, right now, before money moves?&rdquo;
-            That question has three meaningful answers.
+            That question has four meaningful answers.
           </div>
 
-          <h2>Three decision states, not two</h2>
+          <h2>Four decision states, not two</h2>
           <p>
-            The right compliance decision model has three states:
+            The right compliance decision model has four states:
           </p>
           <ul>
-            <li><strong>ALLOW:</strong> The transaction matches no suspicious patterns, the customer is in good standing, and all rules pass. The payment handler should proceed. This decision is still evidenced — every ALLOW is logged.</li>
-            <li><strong>REVIEW:</strong> Something about this transaction warrants a closer look, but not an immediate stop. The transaction can be held for manual review while your compliance team investigates. A case is created automatically with the evidence assembled.</li>
-            <li><strong>BLOCK:</strong> The transaction meets the criteria for an immediate decline. The customer may be in a BLOCKED state, a rule may have reached a hard threshold, or a sanctions screening hit may have returned. Your payment handler should decline and, where appropriate, reverse any funds.</li>
+            <li><strong>CLEAR:</strong> The transaction matches no suspicious patterns, the customer is in good standing, and all rules pass. The payment handler should proceed. This decision is still evidenced — every CLEAR is logged.</li>
+            <li><strong>FLAGGED:</strong> Something about this transaction is worth a second look, but not severe enough to stop it. The transaction proceeds, and a case is created automatically so your compliance team can review it after the fact with the evidence already assembled.</li>
+            <li><strong>HELD_FOR_REVIEW:</strong> Something about this transaction warrants a stop before it completes. The transaction is held while your compliance team investigates. A case is created automatically with the evidence assembled.</li>
+            <li><strong>BLOCKED:</strong> The transaction meets the criteria for an immediate decline. The customer may be in a BLOCKED state, a rule may have reached a hard threshold, or a sanctions screening hit may have returned. Your payment handler should decline and, where appropriate, reverse any funds.</li>
           </ul>
           <p>
-            This three-state model has a direct mapping to actions your payment handler takes:
-            ALLOW → PROCEED, REVIEW → HOLD_FOR_REVIEW, BLOCK → DECLINE_AND_REVERSE. The compliance
-            layer returns a decision; the payment handler executes it. The two responsibilities are
-            cleanly separated.
+            This four-state model has a direct mapping to actions your payment handler takes:
+            CLEAR and FLAGGED both → PROCEED (a FLAGGED decision also opens a case, but doesn&apos;t
+            hold the money), HELD_FOR_REVIEW → HOLD_FOR_REVIEW, BLOCKED → DECLINE_AND_REVERSE. The
+            compliance layer returns a decision; the payment handler executes it. The two
+            responsibilities are cleanly separated.
           </p>
 
           <h2>The customer risk lifecycle</h2>
@@ -112,7 +114,7 @@ export default function AllowReviewBlockPage() {
                 color: 'var(--block)',
                 bg: 'var(--block-bg)',
                 title: 'All transactions declined',
-                body: 'Every transaction for this customer returns BLOCK before rules run. This prevents compliance bypass through new devices, new channels, or transaction splitting.',
+                body: 'Every transaction for this customer returns a BLOCKED decision before rules run. This prevents compliance bypass through new devices, new channels, or transaction splitting.',
               },
             ].map((state) => (
               <div key={state.badge} style={{ display: 'flex', gap: '16px', padding: '18px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
@@ -127,20 +129,20 @@ export default function AllowReviewBlockPage() {
             ))}
           </div>
 
-          <h2>Why BLOCK must be customer-level, not transaction-level</h2>
+          <h2>Why BLOCKED must be customer-level, not transaction-level</h2>
           <p>
             This is one of the more subtle architectural decisions in compliance system design, and
             it&apos;s often missed.
           </p>
           <p>
-            If BLOCK is only a transaction-level decision, a bad actor can simply try a different
-            channel, a different device, or a slightly different transaction to get an ALLOW. The
-            block is trivially circumvented by trying again.
+            If BLOCKED is only a transaction-level decision, a bad actor can simply try a different
+            channel, a different device, or a slightly different transaction to get a CLEAR result.
+            The block is trivially circumvented by trying again.
           </p>
           <p>
             Customer-level blocking prevents this. When a customer is BLOCKED, every transaction
-            for that customer ID returns BLOCK immediately — before any rules run. The pattern
-            can&apos;t be gamed by changing the transaction parameters.
+            for that customer ID returns a BLOCKED decision immediately — before any rules run. The
+            pattern can&apos;t be gamed by changing the transaction parameters.
           </p>
           <p>
             The corollary is that transitioning a customer to BLOCKED (or back to ACTIVE) must be
@@ -149,7 +151,7 @@ export default function AllowReviewBlockPage() {
           </p>
 
           <div className="article-callout">
-            <strong>If BLOCK is only transaction-level, it can be circumvented.</strong> A BLOCKED
+            <strong>If BLOCKED is only transaction-level, it can be circumvented.</strong> A BLOCKED
             customer must be blocked at the customer-state layer, so every subsequent transaction
             for that customer ID gets a hard stop before rules even run.
           </div>
@@ -170,19 +172,20 @@ export default function AllowReviewBlockPage() {
             record cannot be altered.
           </p>
 
-          <h2>Wiring three-state decisions into your payment handler</h2>
+          <h2>Wiring compliance decisions into your payment handler</h2>
           <p>
             The integration pattern is simple: before your payment handler executes a debit or
-            credit, it calls <code style={{ fontFamily: 'var(--font-mono)', background: '#F4F3FF', padding: '2px 5px', borderRadius: '3px' }}>POST /v1/decide</code> with
+            credit, it calls <code style={{ fontFamily: 'var(--font-mono)', background: '#EBEEF3', padding: '2px 5px', borderRadius: '3px' }}>POST /v1/decide</code> with
             the transaction context. The decision comes back synchronously. The handler acts on it.
           </p>
           <p>
-            The handler has three paths:
+            The handler has four paths:
           </p>
           <ul>
-            <li><strong>decision: ALLOW, requiredActions: [&quot;PROCEED&quot;]</strong> → execute the transaction normally</li>
-            <li><strong>decision: REVIEW, requiredActions: [&quot;HOLD_FOR_REVIEW&quot;]</strong> → hold the transaction, notify the customer if applicable, log the hold for the compliance team to resolve</li>
-            <li><strong>decision: BLOCK, requiredActions: [&quot;DECLINE_AND_REVERSE&quot;]</strong> → decline the transaction, reverse any reserved funds, notify the customer per your product policy</li>
+            <li><strong>decision: CLEAR, requiredActions: [&quot;PROCEED&quot;]</strong> → execute the transaction normally</li>
+            <li><strong>decision: FLAGGED, requiredActions: [&quot;PROCEED&quot;]</strong> → execute the transaction normally; a case opens automatically for your compliance team to review afterward</li>
+            <li><strong>decision: HELD_FOR_REVIEW, requiredActions: [&quot;HOLD_FOR_REVIEW&quot;]</strong> → hold the transaction, notify the customer if applicable, log the hold for the compliance team to resolve</li>
+            <li><strong>decision: BLOCKED, requiredActions: [&quot;DECLINE_AND_REVERSE&quot;]</strong> → decline the transaction, reverse any reserved funds, notify the customer per your product policy</li>
           </ul>
           <p>
             The key point is that the compliance layer tells your system what to do. Your system
@@ -202,7 +205,7 @@ export default function AllowReviewBlockPage() {
             <span className="article-toc-label">In this article</span>
             <ul className="article-toc-list">
               <li><a href="#why-binary-fails">Why binary compliance fails</a></li>
-              <li><a href="#three-states">Three decision states</a></li>
+              <li><a href="#three-states">Four decision states</a></li>
               <li><a href="#risk-lifecycle">Customer risk lifecycle</a></li>
               <li><a href="#customer-level-block">Customer-level blocking</a></li>
               <li><a href="#defensible">What &ldquo;defensible&rdquo; means</a></li>
@@ -211,12 +214,12 @@ export default function AllowReviewBlockPage() {
           </div>
           <div className="article-sidebar-cta">
             <h4>See the Decision API</h4>
-            <p>Explore the three-state model in a live Fintegrity demo.</p>
+            <p>Explore the four-state decision model in a live Fintegrity demo.</p>
             <Link href="/compliance-decisioning-api" className="btn btn-ghost" style={{ width: '100%', justifyContent: 'center', fontSize: '0.88rem', padding: '10px 16px', marginBottom: '10px' }}>
               API overview →
             </Link>
             <Link href="/book-a-demo" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '0.88rem', padding: '10px 16px' }}>
-              Request a demo →
+              Book a demo →
             </Link>
           </div>
         </aside>

@@ -13,7 +13,29 @@
       "Bash(ls -la /c/Users/genes/fintegrity-web/ | grep -E \"config|rc|tailwind|postcss\")",
       "Read(//c/Users/genes/fintegrity-web//**)",
       "Bash(git add *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && grep -n '\\\\\"dev\\\\\"' package.json\")",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && nohup npm run dev > /tmp/nextdev.log 2>&1 & echo \\\\$! > /tmp/dev.pid; sleep 1; cat /tmp/dev.pid\")",
+      "Bash(wsl.exe -e bash -lic \"timeout 40 bash -c 'until curl -sf http://localhost:3000 >/dev/null; do sleep 1; done' && echo SERVER_UP || \\(echo SERVER_FAILED; cat /tmp/nextdev.log | tail -40\\)\")",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && node verify-dengine.mjs\")",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && npx -p playwright node verify-dengine.mjs\")",
+      "Bash(wsl.exe -e bash -lic \"mkdir -p /tmp/verify-scratch && cd /tmp/verify-scratch && npm init -y >/dev/null 2>&1 && npm install playwright@1.61.1 2>&1 | tail -15\")",
+      "WebFetch(domain:unsplash.com)",
+      "WebSearch",
+      "Bash(wsl.exe -e bash -lic ' *)",
+      "Bash(wsl.exe -e bash -lic 'which convert cwebp magick 2>/dev/null; echo \"---\"; command -v npx && npx --yes sharp-cli --version 2>&1 | tail -5')",
+      "Bash(wsl.exe -e bash -lic 'npx --yes sharp-cli --help 2>&1 | head -60')",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && npm run build 2>&1 | tail -15\")",
+      "Bash(wsl.exe -e bash -lic 'cd /home/genesis/projects/fintegrity-web/public/media && rm -f lagos-coding.jpg team-discussion.jpg group-women.jpg portrait-man.jpg && ls -la')",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && npm run build 2>&1 | tail -20\")",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && npm run build 2>&1 | tail -25\")",
+      "Bash(cp //wsl.localhost/Ubuntu/tmp/lockup-preview.png \"C:/Users/genes/AppData/Local/Temp/claude/--wsl-localhost-Ubuntu-home-genesis-projects-fintegrity-web/7ff6f820-5056-470d-a124-99d7c985cf68/scratchpad/lockup-preview.png\" 2>&1 || echo \"copy failed\")",
+      "Bash(wsl.exe -e bash -lic \"cd /home/genesis/projects/fintegrity-web && git status --porcelain=v1 | head -50\")",
+      "Bash(wsl.exe -e bash -lic 'kill $\\(cat /tmp/start.pid\\) 2>/dev/null; pkill -f \"next start\" 2>/dev/null; echo done')"
+    ],
+    "additionalDirectories": [
+      "\\\\wsl.localhost\\Ubuntu\\genesis\\projects\\fintegrity-web\\public\\brand",
+      "\\\\wsl.localhost\\Ubuntu\\tmp"
     ]
   }
 }

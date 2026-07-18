@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
+import { CONTACT_EMAIL } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Careers',
@@ -30,6 +31,25 @@ export default function CareersPage() {
         </div>
       </section>
 
+      <section className="about-section">
+        <div className="wrap">
+          <div className="about-two-col">
+            <div className="about-col-label">
+              <span className="sec-eyebrow">Why Fintegrity</span>
+            </div>
+            <div>
+              <h2 className="about-section-h">Small team, real ownership</h2>
+              <p className="about-section-p">
+                We&apos;re early — which means whoever joins shapes the product and the company,
+                not just executes a spec. You&apos;d be working directly with the founder and a
+                small group of design-partner fintechs on a problem that actually matters to
+                Nigeria&apos;s financial system.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section style={{ padding: '64px 0 100px' }}>
         <div className="wrap">
           <div style={{ textAlign: 'center', padding: '48px 0', color: 'var(--muted)' }}>
@@ -38,7 +58,7 @@ export default function CareersPage() {
             </p>
             <p style={{ fontSize: '0.95rem' }}>
               We hire occasionally and move fast when we do.{' '}
-              <a href="mailto:gee@getfintegrity.com" style={{ color: 'var(--indigo)' }}>
+              <a href={`mailto:${CONTACT_EMAIL}`} style={{ color: 'var(--indigo)' }}>
                 Send a note
               </a>{' '}
               if you think you can contribute.

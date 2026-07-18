@@ -80,7 +80,7 @@ export default function CaseManagementPage() {
                 { icon: '✓', title: 'With Fintegrity', items: ['Case opens automatically with evidence assembled', 'Full transaction context and customer history in the case', 'Timestamped investigation notes in the case record', 'Disposition logged with reasoning, not just outcome', 'Complete evidence pack generated on demand, any time'] },
               ].map((col) => (
                 <div key={col.title} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: 'var(--r)', padding: '22px' }}>
-                  <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, fontSize: '0.88rem', marginBottom: '14px', color: col.icon === '✓' ? 'var(--allow)' : 'var(--block)' }}>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.88rem', marginBottom: '14px', color: col.icon === '✓' ? 'var(--allow)' : 'var(--block)' }}>
                     {col.icon} {col.title}
                   </div>
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -216,11 +216,11 @@ export default function CaseManagementPage() {
             </div>
             <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <Link href="/transaction-monitoring" className="cap-card" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, marginBottom: '6px' }}>Transaction Monitoring →</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '6px' }}>Transaction Monitoring →</div>
                 <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>Cases start here. Monitoring detects patterns and generates the structured alerts that become cases automatically.</p>
               </Link>
               <Link href="/compliance-decisioning-api" className="cap-card" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, marginBottom: '6px' }}>Compliance Decision API →</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '6px' }}>Compliance Decision API →</div>
                 <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>Case outcomes update the customer&apos;s risk state in the decision engine. Blocking a customer through a case blocks them in real-time transactions.</p>
               </Link>
             </div>

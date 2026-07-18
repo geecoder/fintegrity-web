@@ -61,7 +61,7 @@ export default function RulesEnginePage() {
             </p>
             <div className="page-hero-cta">
               <Link href="/book-a-demo" className="btn btn-primary">
-                Request a demo →
+                Book a demo →
               </Link>
               <a
                 href="https://docs.getfintegrity.com"
@@ -212,7 +212,7 @@ export default function RulesEnginePage() {
             <div className="reveal">
               <div
                 style={{
-                  background: 'linear-gradient(135deg,#1a1840,#2a2270)',
+                  background: 'linear-gradient(135deg,#0A1F44,#081733)',
                   borderRadius: '18px',
                   padding: '28px',
                   color: '#fff',
@@ -297,7 +297,7 @@ export default function RulesEnginePage() {
               },
             ].map((link) => (
               <Link key={link.href} href={link.href} className="cap-card reveal" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ fontFamily: 'var(--font-sora)', fontWeight: 700, marginBottom: '8px' }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>
                   {link.label} →
                 </div>
                 <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>
@@ -312,7 +312,7 @@ export default function RulesEnginePage() {
       <CTABand
         headline="See how Fintegrity evaluates transactions in real time"
         body="We'll show you the policy builder, run a live simulation against transaction history, and demonstrate a rule going from draft to active without a single engineering change."
-        primaryLabel="Request a demo →"
+        primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="Read the API docs"
         secondaryHref="https://docs.getfintegrity.com"

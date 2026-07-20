@@ -4,6 +4,7 @@ import CTABand from '@/components/ui/CTABand'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import RuleLifecycle from '@/components/diagrams/RuleLifecycle'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata: Metadata = {
   title: 'Compliance Rules Engine — Author, Simulate, Deploy',
@@ -63,14 +64,16 @@ export default function RulesEnginePage() {
               <Link href="/book-a-demo" className="btn btn-primary">
                 Book a demo →
               </Link>
-              <a
+              <TrackedLink
                 href="https://docs.getfintegrity.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-ghost"
+                event="API Documentation CTA Clicked"
+                eventProps={{ location: 'rules-engine-hero' }}
               >
                 API docs
-              </a>
+              </TrackedLink>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import { CONTACT_EMAIL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata: Metadata = {
   title: 'Careers',
@@ -58,9 +59,14 @@ export default function CareersPage() {
             </p>
             <p style={{ fontSize: '0.95rem' }}>
               We hire occasionally and move fast when we do.{' '}
-              <a href={`mailto:${CONTACT_EMAIL}`} style={{ color: 'var(--indigo)' }}>
+              <TrackedLink
+                href={`mailto:${CONTACT_EMAIL}`}
+                style={{ color: 'var(--indigo)' }}
+                event="Contact Link Clicked"
+                eventProps={{ method: 'email', location: 'careers-page' }}
+              >
                 Send a note
-              </a>{' '}
+              </TrackedLink>{' '}
               if you think you can contribute.
             </p>
           </div>

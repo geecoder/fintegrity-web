@@ -3,6 +3,7 @@ import RevealInit from '@/components/RevealInit'
 import CTABand from '@/components/ui/CTABand'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import { CONTACT_EMAIL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata: Metadata = {
   title: 'Security',
@@ -114,7 +115,13 @@ export default function SecurityPage() {
             <p className="sec-intro">
               If you believe you&apos;ve found a security issue in our platform or website, tell
               us before telling anyone else. Email{' '}
-              <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> with what you found and how
+              <TrackedLink
+                href={`mailto:${CONTACT_EMAIL}`}
+                event="Contact Link Clicked"
+                eventProps={{ method: 'email', location: 'security-disclosure' }}
+              >
+                {CONTACT_EMAIL}
+              </TrackedLink> with what you found and how
               to reproduce it, and give us a reasonable window to investigate and fix it before
               any public disclosure. Please don&apos;t access, modify, or exfiltrate data that
               isn&apos;t yours while testing.

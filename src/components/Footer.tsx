@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { CONTACT_EMAIL, LINKEDIN_URL } from '@/lib/config'
 import CookieSettingsLink from '@/components/consent/CookieSettingsLink'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 function LinkedInIcon() {
   return (
@@ -72,15 +73,17 @@ export default function Footer() {
               >
                 Book a demo →
               </Link>
-              <a
+              <TrackedLink
                 href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Fintegrity Technologies Limited on LinkedIn"
                 className="footer-social-link"
+                event="Outbound Link Clicked"
+                eventProps={{ destination: 'linkedin', location: 'footer' }}
               >
                 <LinkedInIcon />
-              </a>
+              </TrackedLink>
             </div>
           </div>
 
@@ -107,7 +110,14 @@ export default function Footer() {
           <p className="fine" style={{ margin: 0 }}>
             © {year} Fintegrity Technologies Limited. Registered in Nigeria. Lagos, Nigeria.{' '}
             Regulatory references are not legal advice.{' '}
-            <a href={`mailto:${CONTACT_EMAIL}`} style={{ color: 'var(--indigo)' }}>{CONTACT_EMAIL}</a>
+            <TrackedLink
+              href={`mailto:${CONTACT_EMAIL}`}
+              style={{ color: 'var(--indigo)' }}
+              event="Contact Link Clicked"
+              eventProps={{ method: 'email', location: 'footer' }}
+            >
+              {CONTACT_EMAIL}
+            </TrackedLink>
           </p>
           <p className="fine" style={{ margin: 0, fontStyle: 'italic' }}>
             We don&apos;t sell checks. We sell defensible compliance decisions.

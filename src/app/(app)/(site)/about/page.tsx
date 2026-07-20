@@ -4,6 +4,7 @@ import CTABand from '@/components/ui/CTABand'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import { CONTACT_EMAIL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata: Metadata = {
   title: 'About Fintegrity',
@@ -67,9 +68,14 @@ export default function AboutPage() {
                 <Link href="/book-a-demo" className="btn btn-primary">
                   Become a design partner →
                 </Link>
-                <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-ghost">
+                <TrackedLink
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="btn btn-ghost"
+                  event="Contact Link Clicked"
+                  eventProps={{ method: 'email', location: 'about-hero' }}
+                >
                   Email us
-                </a>
+                </TrackedLink>
               </div>
             </div>
             <div className="about-hero-visual">
@@ -248,9 +254,14 @@ export default function AboutPage() {
               <Link href="/book-a-demo" className="btn btn-primary">
                 Apply to be a design partner →
               </Link>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-outline-w">
+              <TrackedLink
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="btn btn-outline-w"
+                event="Contact Link Clicked"
+                eventProps={{ method: 'email', location: 'about-design-partner' }}
+              >
                 Email the founder
-              </a>
+              </TrackedLink>
             </div>
           </div>
         </div>

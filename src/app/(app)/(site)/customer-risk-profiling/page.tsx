@@ -4,6 +4,7 @@ import CTABand from '@/components/ui/CTABand'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import RiskStateMachine from '@/components/diagrams/RiskStateMachine'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata: Metadata = {
   title: 'Customer Risk Profiling — One Authoritative Risk State',
@@ -95,14 +96,16 @@ export default function CustomerRiskProfilingPage() {
               <Link href="/book-a-demo" className="btn btn-primary">
                 Book a demo →
               </Link>
-              <a
+              <TrackedLink
                 href="https://docs.getfintegrity.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-ghost"
+                event="API Documentation CTA Clicked"
+                eventProps={{ location: 'customer-risk-profiling-hero' }}
               >
                 API docs
-              </a>
+              </TrackedLink>
             </div>
           </div>
         </div>

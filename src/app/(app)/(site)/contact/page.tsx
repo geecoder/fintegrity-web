@@ -3,6 +3,7 @@ import Link from 'next/link'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import RevealInit from '@/components/RevealInit'
 import { CONTACT_EMAIL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -44,7 +45,13 @@ export default function ContactPage() {
                   <h3>General enquiries</h3>
                   <p>
                     For partnerships, press, and general questions:{' '}
-                    <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+                    <TrackedLink
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      event="Contact Link Clicked"
+                      eventProps={{ method: 'email', location: 'contact-page', purpose: 'general' }}
+                    >
+                      {CONTACT_EMAIL}
+                    </TrackedLink>
                   </p>
                 </div>
               </div>
@@ -76,7 +83,14 @@ export default function ContactPage() {
                 <div>
                   <h3>Press and media</h3>
                   <p>
-                    Press enquiries: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                    Press enquiries:{' '}
+                    <TrackedLink
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      event="Contact Link Clicked"
+                      eventProps={{ method: 'email', location: 'contact-page', purpose: 'press' }}
+                    >
+                      {CONTACT_EMAIL}
+                    </TrackedLink>.
                     Please include your publication and deadline.
                   </p>
                 </div>

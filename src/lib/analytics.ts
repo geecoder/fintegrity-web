@@ -26,11 +26,24 @@ import { getMixpanel } from './mixpanel'
 //     booking was actually completed rather than just opened. Kept in the
 //     taxonomy for when a proper booking flow exists; firing it today would
 //     be measuring "the calendar tab was opened," not a completed booking.
+//   - 'Secondary CTA Clicked' / 'API Documentation CTA Clicked' /
+//     'Contact Link Clicked' / 'Outbound Link Clicked' — CTABand.tsx's
+//     secondary button and TrackedLink.tsx wrap every mailto/external/docs
+//     link that isn't already covered by a more specific event, keyed off
+//     the href: mailto: -> Contact Link Clicked, docs.getfintegrity.com ->
+//     API Documentation CTA Clicked, other external -> Outbound Link
+//     Clicked, internal -> Secondary CTA Clicked.
+//   - 'Developer Docs Viewed' / 'Pricing Viewed' — TrackOnMount on
+//     /developer-api and /pricing.
+//   - 'Resource Viewed' / 'Resource Downloaded' — reserved for when
+//     /resources ships real downloadable content; not fired yet (the page
+//     is a stub today, see resources/page.tsx).
 export const MARKETING_EVENTS = [
   'Website Page Viewed',
   'Landing Page Viewed',
   'Search Ad Clicked',
   'Primary CTA Clicked',
+  'Secondary CTA Clicked',
   'Demo Form Started',
   'Demo Form Submitted',
   'Demo Booking Started',
@@ -75,8 +88,18 @@ export function trackMarketingEvent(
 }
 
 // ── UTM + referrer capture ─────────────────────────────────────────────────
-export function getUtmProperties(): EventProperties {
-  if (typeof window === 'undefined') return {}
+// Campaign attribution (utm_*, gclid) only lives in the URL of the landing
+// page itself — the moment a visitor clicks through to another internal
+// page, the query string is gone. Without persisting it, every event after
+// the first pageview (a demo form submit, a booking click) would silently
+// lose the ad/campaign that drove the visit. So: cache the most recent set
+// of attribution params in sessionStorage and fall back to it whenever the
+// current URL has none. A fresh utm/gclid in the URL always overwrites the
+// cached one — if a visitor arrives via a second campaign link mid-session,
+// that's the attribution that should stick for what follows.
+const UTM_STORAGE_KEY = 'fintegrity_utm_session'
+
+function readUtmFromUrl(): EventProperties {
   const p = new URLSearchParams(window.location.search)
   return {
     utm_source: p.get('utm_source') ?? undefined,
@@ -85,6 +108,28 @@ export function getUtmProperties(): EventProperties {
     utm_term: p.get('utm_term') ?? undefined,
     utm_content: p.get('utm_content') ?? undefined,
     gclid: p.get('gclid') ?? undefined,
+  }
+}
+
+export function getUtmProperties(): EventProperties {
+  if (typeof window === 'undefined') return {}
+
+  const fromUrl = readUtmFromUrl()
+  let attribution: EventProperties = fromUrl
+
+  try {
+    if (Object.values(fromUrl).some(Boolean)) {
+      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(fromUrl))
+    } else {
+      const stored = sessionStorage.getItem(UTM_STORAGE_KEY)
+      if (stored) attribution = JSON.parse(stored) as EventProperties
+    }
+  } catch {
+    // sessionStorage unavailable — fall back to URL-only attribution for this call
+  }
+
+  return {
+    ...attribution,
     referrer: document.referrer || undefined,
     page: window.location.pathname,
   }

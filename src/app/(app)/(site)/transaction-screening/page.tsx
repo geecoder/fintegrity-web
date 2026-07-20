@@ -4,6 +4,7 @@ import CTABand from '@/components/ui/CTABand'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import ScreeningFlow from '@/components/diagrams/ScreeningFlow'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata: Metadata = {
   title: 'Transaction Screening API — Sanctions, PEP & Watchlist',
@@ -63,14 +64,16 @@ export default function TransactionScreeningPage() {
               <Link href="/book-a-demo" className="btn btn-primary">
                 See how Fintegrity evaluates transactions →
               </Link>
-              <a
+              <TrackedLink
                 href="https://docs.getfintegrity.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-ghost"
+                event="API Documentation CTA Clicked"
+                eventProps={{ location: 'transaction-screening-hero' }}
               >
                 API docs
-              </a>
+              </TrackedLink>
             </div>
           </div>
         </div>

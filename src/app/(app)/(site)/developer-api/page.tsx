@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import StubPage from '@/components/ui/StubPage'
+import TrackOnMount from '@/components/analytics/TrackOnMount'
 
 export const metadata: Metadata = {
   title: 'Developer API',
@@ -10,11 +11,14 @@ export const metadata: Metadata = {
 
 export default function DeveloperApiPage() {
   return (
-    <StubPage
-      category="Developers"
-      title="Developer API Documentation"
-      description="Full API reference, authentication guide, error codes, and SDKs. The full documentation site is at docs.getfintegrity.com. Full content for this page is coming soon."
-    />
+    <>
+      <TrackOnMount event="Developer Docs Viewed" props={{ page: '/developer-api' }} />
+      <StubPage
+        category="Developers"
+        title="Developer API Documentation"
+        description="Full API reference, authentication guide, error codes, and SDKs. The full documentation site is at docs.getfintegrity.com. Full content for this page is coming soon."
+      />
+    </>
   )
   // CONTENT TODO
 }

@@ -4,6 +4,8 @@ import CTABand from '@/components/ui/CTABand'
 import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import SoftwareAppJsonLd from '@/components/json-ld/SoftwareAppJsonLd'
+import { API_DOCS_URL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata: Metadata = {
   title: 'Compliance Decision API',
@@ -282,12 +284,28 @@ export default function ComplianceDecisioningApiPage() {
                 {[
                   { href: '/transaction-monitoring', label: 'Transaction Monitoring', desc: 'The rule engine and pattern detection that feeds decisions.' },
                   { href: '/case-management', label: 'Case Management', desc: 'Every FLAGGED or HELD_FOR_REVIEW result opens a structured case for your compliance team.' },
-                  { href: '/developer-api', label: 'Developer API docs', desc: 'Full endpoint reference, auth guide, error codes, and SDKs.' },
+                  { href: API_DOCS_URL, label: 'Developer API docs', desc: 'Full endpoint reference, auth guide, error codes, and SDKs.', external: true },
                 ].map((link) => (
-                  <Link key={link.href} href={link.href} style={{ display: 'flex', flexDirection: 'column', padding: '14px 0', borderBottom: '1px solid var(--line-2)', textDecoration: 'none', color: 'inherit', transition: 'color .14s' }} className="blog-card" /* borrowing hover */>
-                    <span style={{ fontWeight: 600, fontSize: '0.93rem', color: 'var(--ink)', marginBottom: '4px' }}>{link.label} →</span>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--muted)', lineHeight: 1.5 }}>{link.desc}</span>
-                  </Link>
+                  link.external ? (
+                    <TrackedLink
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ display: 'flex', flexDirection: 'column', padding: '14px 0', borderBottom: '1px solid var(--line-2)', textDecoration: 'none', color: 'inherit', transition: 'color .14s' }}
+                      className="blog-card"
+                      event="API Documentation CTA Clicked"
+                      eventProps={{ location: 'compliance-decisioning-api-sidebar' }}
+                    >
+                      <span style={{ fontWeight: 600, fontSize: '0.93rem', color: 'var(--ink)', marginBottom: '4px' }}>{link.label} →</span>
+                      <span style={{ fontSize: '0.85rem', color: 'var(--muted)', lineHeight: 1.5 }}>{link.desc}</span>
+                    </TrackedLink>
+                  ) : (
+                    <Link key={link.href} href={link.href} style={{ display: 'flex', flexDirection: 'column', padding: '14px 0', borderBottom: '1px solid var(--line-2)', textDecoration: 'none', color: 'inherit', transition: 'color .14s' }} className="blog-card" /* borrowing hover */>
+                      <span style={{ fontWeight: 600, fontSize: '0.93rem', color: 'var(--ink)', marginBottom: '4px' }}>{link.label} →</span>
+                      <span style={{ fontSize: '0.85rem', color: 'var(--muted)', lineHeight: 1.5 }}>{link.desc}</span>
+                    </Link>
+                  )
                 ))}
               </div>
             </div>
@@ -301,7 +319,7 @@ export default function ComplianceDecisioningApiPage() {
         primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="Explore the Developer API"
-        secondaryHref="/developer-api"
+        secondaryHref={API_DOCS_URL}
       />
     </>
   )

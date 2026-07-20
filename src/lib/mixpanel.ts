@@ -34,6 +34,20 @@ async function loadAndInit(): Promise<void> {
     debug: process.env.NODE_ENV === 'development',
   })
 
+  // There's no login on this site, so there's no real identity to attach —
+  // but Mixpanel's People profiles need at least one people.set_once() call
+  // to exist at all, otherwise the anonymous distinct_id never surfaces in
+  // the Users view. set_once so a returning visitor's first-touch data is
+  // never overwritten by a later session. Same non-PII fields already sent
+  // as event properties elsewhere (lib/analytics.ts) — nothing new collected.
+  const p = new URLSearchParams(window.location.search)
+  mixpanel.people.set_once({
+    'First Referrer': document.referrer || 'direct',
+    'First Landing Page': window.location.pathname,
+    'First UTM Source': p.get('utm_source') ?? undefined,
+    'First UTM Campaign': p.get('utm_campaign') ?? undefined,
+  })
+
   initialised = true
   ;(window as Window & { __mp?: typeof mixpanel }).__mp = mixpanel
 }

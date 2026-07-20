@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { trackMarketingEvent } from '@/lib/analytics'
+import { API_DOCS_URL } from '@/lib/config'
 
 const PRODUCT_LINKS = [
   { href: '/transaction-monitoring', label: 'Transaction Monitoring', desc: 'Real-time AML rule evaluation' },
@@ -131,9 +132,16 @@ export default function Nav() {
                 </Link>
               ))}
               <div className="nav-menu-divider" />
-              <Link href="/developer-api" className="nav-menu-all" role="menuitem">
+              <a
+                href={API_DOCS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-menu-all"
+                role="menuitem"
+                onClick={() => trackMarketingEvent('API Documentation CTA Clicked', { location: 'nav-menu' })}
+              >
                 Developer API docs →
-              </Link>
+              </a>
             </div>
           </div>
 

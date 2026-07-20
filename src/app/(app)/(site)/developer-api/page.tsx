@@ -16,7 +16,7 @@ export default function DeveloperApiPage() {
       <StubPage
         category="Developers"
         title="Developer API Documentation"
-        description="Full API reference, authentication guide, error codes, and SDKs. The full documentation site is at api.dev.getfintegrity.com. Full content for this page is coming soon."
+        description="Full API reference, authentication guide, error codes, and SDKs. The full documentation site is at www.api.getfintegrity.com. Full content for this page is coming soon."
       />
     </>
   )

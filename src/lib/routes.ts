@@ -6,8 +6,8 @@
 //
 // Excluded on purpose (do not add): /thank-you, /api/*, and the noindexed
 // stub pages (partners, resources, fraud-monitoring, solutions/embedded-finance,
-// solutions/microfinance-banks) — each of those already sets `robots: { index: false }`
-// on its own metadata export.
+// solutions/microfinance-banks, developer-api) — each of those already sets
+// `robots: { index: false }` on its own metadata export.
 
 export interface StaticRoute {
   path: string
@@ -26,7 +26,6 @@ export const STATIC_ROUTES: StaticRoute[] = [
   { path: '/rules-engine', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/customer-risk-profiling', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/audit-trail-and-reporting', priority: 0.9, changeFrequency: 'monthly' },
-  { path: '/developer-api', priority: 0.85, changeFrequency: 'monthly' },
 
   // Geo / market pages
   { path: '/nigeria', priority: 0.9, changeFrequency: 'monthly' },

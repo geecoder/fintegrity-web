@@ -5,6 +5,8 @@ import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import FaqJsonLd from '@/components/json-ld/FaqJsonLd'
 import { buildMetadata } from '@/lib/seo'
+import { API_DOCS_URL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 
 export const metadata = buildMetadata({
   title: 'AML Transaction Monitoring Software in Nigeria',
@@ -235,12 +237,28 @@ export default function NigeriaPage() {
               { href: '/case-management', label: 'Case Management', desc: 'Structured investigation workflows with evidence pre-assembled per case.' },
               { href: '/customer-risk-profiling', label: 'Customer Risk Profiling', desc: 'One authoritative risk state per customer, with audited transitions.' },
               { href: '/audit-trail-and-reporting', label: 'Audit Trail & Reporting', desc: 'Immutable, examiner-ready evidence packs generated on demand.' },
-              { href: '/developer-api', label: 'Developer API docs', desc: 'Full API reference for integrating the Compliance Decision API.' },
+              { href: API_DOCS_URL, label: 'Developer API docs', desc: 'Full API reference for integrating the Compliance Decision API.', external: true },
             ].map((link) => (
-              <Link key={link.href} href={link.href} className="cap-card reveal" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
-                <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>{link.desc}</p>
-              </Link>
+              link.external ? (
+                <TrackedLink
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cap-card reveal"
+                  style={{ textDecoration: 'none', display: 'block' }}
+                  event="API Documentation CTA Clicked"
+                  eventProps={{ location: 'nigeria-capabilities' }}
+                >
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
+                  <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>{link.desc}</p>
+                </TrackedLink>
+              ) : (
+                <Link key={link.href} href={link.href} className="cap-card reveal" style={{ textDecoration: 'none', display: 'block' }}>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>{link.label} →</div>
+                  <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--muted)', lineHeight: 1.55 }}>{link.desc}</p>
+                </Link>
+              )
             ))}
           </div>
         </div>

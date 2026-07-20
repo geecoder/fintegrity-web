@@ -5,6 +5,7 @@ import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import RiskStateMachine from '@/components/diagrams/RiskStateMachine'
 import TrackedLink from '@/components/analytics/TrackedLink'
+import { API_DOCS_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Customer Risk Profiling — One Authoritative Risk State',
@@ -97,7 +98,7 @@ export default function CustomerRiskProfilingPage() {
                 Book a demo →
               </Link>
               <TrackedLink
-                href="https://docs.getfintegrity.com"
+                href={API_DOCS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-ghost"
@@ -309,7 +310,7 @@ export default function CustomerRiskProfilingPage() {
         primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="Read the API docs"
-        secondaryHref="https://docs.getfintegrity.com"
+        secondaryHref={API_DOCS_URL}
       />
     </>
   )

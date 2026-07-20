@@ -155,7 +155,7 @@ not appear in the sitemap or search results until real content replaces the stub
 - `/rules-engine` — custom rule authoring interface
 - `/customer-risk-profiling` — dynamic risk scoring
 - `/audit-trail-and-reporting` — evidence store and reporting
-- `/developer-api` — full API reference (links to `docs.getfintegrity.com`)
+- `/developer-api` — full API reference (links to `api.dev.getfintegrity.com`)
 
 **Solution stubs:**
 - `/solutions/fintechs`

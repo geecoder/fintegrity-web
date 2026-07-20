@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { trackMarketingEvent } from '@/lib/analytics'
+import { API_DOCS_URL } from '@/lib/config'
 
 interface CTABandProps {
   headline: string
@@ -32,7 +33,7 @@ export default function CTABand({
     const base = { page: pathname, location: 'cta-band', label: secondaryLabel }
     if (secondaryHref.startsWith('mailto:')) {
       trackMarketingEvent('Contact Link Clicked', { ...base, method: 'email' })
-    } else if (secondaryHref.includes('docs.getfintegrity.com')) {
+    } else if (secondaryHref.startsWith(API_DOCS_URL)) {
       trackMarketingEvent('API Documentation CTA Clicked', base)
     } else if (secondaryIsExternal) {
       trackMarketingEvent('Outbound Link Clicked', { ...base, destination: secondaryHref })

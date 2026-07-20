@@ -5,6 +5,7 @@ import RevealInit from '@/components/RevealInit'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import ScreeningFlow from '@/components/diagrams/ScreeningFlow'
 import TrackedLink from '@/components/analytics/TrackedLink'
+import { API_DOCS_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Transaction Screening API — Sanctions, PEP & Watchlist',
@@ -65,7 +66,7 @@ export default function TransactionScreeningPage() {
                 See how Fintegrity evaluates transactions →
               </Link>
               <TrackedLink
-                href="https://docs.getfintegrity.com"
+                href={API_DOCS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-ghost"
@@ -232,7 +233,7 @@ export default function TransactionScreeningPage() {
         primaryLabel="Book a demo →"
         primaryHref="/book-a-demo"
         secondaryLabel="Read the API docs"
-        secondaryHref="https://docs.getfintegrity.com"
+        secondaryHref={API_DOCS_URL}
       />
     </>
   )

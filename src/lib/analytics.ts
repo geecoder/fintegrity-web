@@ -30,7 +30,7 @@ import { getMixpanel } from './mixpanel'
 //     'Contact Link Clicked' / 'Outbound Link Clicked' — CTABand.tsx's
 //     secondary button and TrackedLink.tsx wrap every mailto/external/docs
 //     link that isn't already covered by a more specific event, keyed off
-//     the href: mailto: -> Contact Link Clicked, docs.getfintegrity.com ->
+//     the href: mailto: -> Contact Link Clicked, API_DOCS_URL (lib/config) ->
 //     API Documentation CTA Clicked, other external -> Outbound Link
 //     Clicked, internal -> Secondary CTA Clicked.
 //   - 'Developer Docs Viewed' / 'Pricing Viewed' — TrackOnMount on

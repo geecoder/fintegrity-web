@@ -36,6 +36,7 @@ export default function Nav() {
   const pathname = usePathname() ?? ''
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDrop, setOpenDrop] = useState<'product' | 'solutions' | null>(null)
+  const [mobileSection, setMobileSection] = useState<'product' | 'solutions' | null>(null)
   const navRef = useRef<HTMLElement>(null)
 
   // Close everything on route change
@@ -43,6 +44,12 @@ export default function Nav() {
     setMobileOpen(false)
     setOpenDrop(null)
   }, [pathname])
+
+  // Collapse mobile accordion sections whenever the mobile menu itself closes,
+  // so it always reopens to the collapsed state rather than wherever it was left.
+  useEffect(() => {
+    if (!mobileOpen) setMobileSection(null)
+  }, [mobileOpen])
 
   // Close dropdowns on outside click
   const handleOutside = useCallback((e: MouseEvent) => {
@@ -96,6 +103,9 @@ export default function Nav() {
 
   const toggleDrop = (key: 'product' | 'solutions') =>
     setOpenDrop((prev) => (prev === key ? null : key))
+
+  const toggleMobileSection = (key: 'product' | 'solutions') =>
+    setMobileSection((prev) => (prev === key ? null : key))
 
   return (
     <nav ref={navRef}>
@@ -199,25 +209,54 @@ export default function Nav() {
 
       {/* Mobile overlay */}
       <div className={`nav-mobile-overlay${mobileOpen ? ' open' : ''}`} role="dialog" aria-label="Navigation menu">
-        <div className="nav-mobile-section">
-          <span className="nav-mobile-label">Product</span>
-          {PRODUCT_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="nav-mobile-link">
-              {l.label}
-              <span className="nav-mobile-sub">{l.desc}</span>
-            </Link>
-          ))}
+        {/* Product — collapsed by default, expands on tap (mirrors the desktop dropdown) */}
+        <div className="nav-mobile-group">
+          <button
+            className={`nav-mobile-toggle${mobileSection === 'product' ? ' open' : ''}`}
+            aria-expanded={mobileSection === 'product'}
+            onClick={() => toggleMobileSection('product')}
+          >
+            Product <ChevronDown />
+          </button>
+          <div className={`nav-mobile-panel${mobileSection === 'product' ? ' open' : ''}`}>
+            {PRODUCT_LINKS.map((l) => (
+              <Link key={l.href} href={l.href} className="nav-mobile-link">
+                {l.label}
+                <span className="nav-mobile-sub">{l.desc}</span>
+              </Link>
+            ))}
+            <div className="nav-menu-divider" />
+            <a
+              href={API_DOCS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-menu-all"
+              onClick={() => trackMarketingEvent('API Documentation CTA Clicked', { location: 'nav-menu-mobile' })}
+            >
+              Developer API docs →
+            </a>
+          </div>
         </div>
-        <div className="nav-mobile-section">
-          <span className="nav-mobile-label">Use cases</span>
-          {SOLUTION_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="nav-mobile-link">
-              {l.label}
-            </Link>
-          ))}
+
+        {/* Use cases — same collapsed-by-default pattern */}
+        <div className="nav-mobile-group">
+          <button
+            className={`nav-mobile-toggle${mobileSection === 'solutions' ? ' open' : ''}`}
+            aria-expanded={mobileSection === 'solutions'}
+            onClick={() => toggleMobileSection('solutions')}
+          >
+            Use cases <ChevronDown />
+          </button>
+          <div className={`nav-mobile-panel${mobileSection === 'solutions' ? ' open' : ''}`}>
+            {SOLUTION_LINKS.map((l) => (
+              <Link key={l.href} href={l.href} className="nav-mobile-link">
+                {l.label}
+              </Link>
+            ))}
+          </div>
         </div>
-        <div className="nav-mobile-section">
-          <span className="nav-mobile-label">Company</span>
+
+        <div className="nav-mobile-flat">
           <Link href="/blog" className="nav-mobile-link">Blog</Link>
           <Link href="/pricing" className="nav-mobile-link">Pricing</Link>
           <Link href="/about" className="nav-mobile-link">About</Link>

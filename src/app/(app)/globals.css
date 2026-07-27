@@ -774,11 +774,6 @@ em{font-style:italic}
    iOS Safari where overflow:hidden alone does not stop momentum scrolling. */
 body.nav-open{overflow:hidden;position:fixed;width:100%;}
 
-.nav-mobile-section{margin-bottom:32px}
-.nav-mobile-label{
-  font-family:var(--font-mono);font-size:0.66rem;text-transform:uppercase;
-  letter-spacing:0.09em;color:var(--muted);margin-bottom:8px;display:block;
-}
 .nav-mobile-link{
   display:block;
   /* minimum 44px tap target via padding */
@@ -792,6 +787,26 @@ body.nav-open{overflow:hidden;position:fixed;width:100%;}
 .nav-mobile-link:hover,.nav-mobile-link:active{color:var(--indigo)}
 .nav-mobile-sub{display:block;font-size:0.78rem;color:var(--muted);font-weight:400;margin-top:3px}
 .nav-mobile-cta{margin-top:28px}
+
+/* Mobile accordion groups (Product / Use cases) — collapsed by default,
+   expand on tap instead of dumping every sub-link into the list at once. */
+.nav-mobile-group{border-bottom:1px solid var(--line-2)}
+.nav-mobile-toggle{
+  display:flex;width:100%;align-items:center;justify-content:space-between;gap:8px;
+  background:none;border:none;cursor:pointer;text-align:left;
+  padding:14px 0;color:var(--ink);font-size:1rem;font-weight:500;
+  font-family:var(--font-inter),sans-serif;
+  -webkit-tap-highlight-color:rgba(10,31,68,.06);
+}
+.nav-mobile-toggle.open{color:var(--indigo)}
+.nav-mobile-toggle svg{color:var(--muted);flex-shrink:0;transition:transform .2s}
+.nav-mobile-toggle.open svg{transform:rotate(180deg)}
+.nav-mobile-panel{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.nav-mobile-panel.open{max-height:640px}
+.nav-mobile-panel .nav-mobile-link{padding-left:4px}
+.nav-mobile-panel .nav-menu-all{padding-left:4px}
+.nav-mobile-flat{margin-top:8px;margin-bottom:32px}
+.nav-mobile-flat .nav-mobile-link:last-child{border-bottom:none}
 /* Desktop dropdown */
 .nav-item{position:relative}
 .nav-drop-btn{display:inline-flex;align-items:center;gap:4px;color:var(--slate);font-size:0.93rem;font-weight:500;background:none;border:none;cursor:pointer;padding:0;font-family:var(--font-inter),sans-serif;transition:color .15s}
@@ -1099,7 +1114,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 img,video,canvas,svg{max-width:100%;height:auto}
 
 /* Minimum touch target height (WCAG 2.5.8) */
-.btn,.tab,.nav-mobile-link,.nav-menu-item,.consent-btn,.accord-trigger,
+.btn,.tab,.nav-mobile-link,.nav-mobile-toggle,.nav-menu-item,.consent-btn,.accord-trigger,
 .form-input,.form-select,.form-textarea,.form-btn,.pricing-tier a.btn{
   min-height:44px
 }
@@ -1108,7 +1123,7 @@ img,video,canvas,svg{max-width:100%;height:auto}
 /* ── Tablet (≤1024px): mobile overlay two-column layout for wider screens ── */
 @media(min-width:641px) and (max-width:1024px){
   .nav-mobile-overlay.open{padding:32px 40px 52px}
-  .nav-mobile-section{max-width:600px}
+  .nav-mobile-group,.nav-mobile-flat{max-width:600px}
 }
 
 /* ── Tablet (≤860px) ─────────────────────────── */
@@ -1346,7 +1361,7 @@ img,video,canvas,svg{max-width:100%;height:auto}
 }
 @media(max-width:480px){
   .nav-mobile-overlay.open{padding:20px 16px 36px}
-  .nav-mobile-label{font-size:0.64rem}
+  .nav-mobile-toggle{font-size:0.9rem}
   .nav-mobile-link{font-size:0.9rem;padding:12px 0}
 }
 

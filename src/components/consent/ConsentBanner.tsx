@@ -88,6 +88,13 @@ export default function ConsentBanner() {
     setShowAffordance(false)
   }
 
+  // Lets the footer's "Cookie Settings" link (and any other page) reopen the
+  // customize panel without lifting this component's state elsewhere.
+  useEffect(() => {
+    window.addEventListener('open-cookie-settings', openSettings)
+    return () => window.removeEventListener('open-cookie-settings', openSettings)
+  }, [])
+
   return (
     <>
       {/* ── Consent banner ── */}

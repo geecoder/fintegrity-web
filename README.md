@@ -1,43 +1,37 @@
-# Fintegrity — Landing Page
+# Fintegrity Web
 
-Marketing site for Fintegrity, the embedded compliance-decisioning platform for African fintechs.
-Built with Vite + React. Light, Stripe/Wise-inspired design with an interactive decision demo and an ICP use-case section.
+Marketing site and CMS for [Fintegrity Technologies Limited](https://www.getfintegrity.com) — embedded compliance decisioning for African fintechs.
 
-## Run locally
+## Stack
+
+- **Framework:** Next.js 16 (App Router, webpack — not Turbopack)
+- **CMS:** Payload CMS 3.x (headless, Postgres adapter)
+- **Database:** Neon serverless Postgres (dev/staging) → AWS Aurora PostgreSQL af-south-1 (prod)
+- **Media storage:** Local filesystem (dev) → Cloudflare R2 (prod, activated by `R2_BUCKET` env var)
+- **Node:** 20.18.3 (pinned via `.nvmrc`)
+
+## Local development
 
 ```bash
+cp .env.example .env        # fill in DATABASE_URI and PAYLOAD_SECRET
+nvm use                      # pin to Node 20.18.3
 npm install
-npm run dev
+npm run dev                  # starts on http://localhost:3000
 ```
 
-Open the URL Vite prints (usually http://localhost:5173).
+Admin CMS: `http://localhost:3000/admin`
 
-## Build
+## Important constraints
 
-```bash
-npm run build      # outputs to /dist
-npm run preview    # preview the production build
-```
+- **Turbopack is disabled** — run `next dev --webpack` only (the `dev` script already does this). Payload admin breaks under Turbopack.
+- **Import map is hand-maintained** — `src/app/(payload)/admin/importMap.ts`. The auto-generation CLI is broken on this stack. Any new admin client component must be added there manually.
+- **Regulatory gate** — Blog Posts with `contentType: regulatory` cannot be published without `reviewStatus: approved`. This is a hard block enforced in code and must remain intact.
+- **Canonical domain** — always `https://www.getfintegrity.com`.
 
-## Deploy to Vercel
+## Deployment
 
-1. Push this folder to a GitHub repo.
-2. In Vercel, "Add New Project" → import the repo.
-3. Vercel auto-detects Vite (build: `npm run build`, output: `dist`). Just click Deploy.
+See [DEPLOY.md](./DEPLOY.md) for the full deployment guide, environment variable reference, and database promotion path.
 
-Or from the CLI:
+## Environment variables
 
-```bash
-npm i -g vercel
-vercel
-```
-
-## Edit content
-
-- Copy, hero, pillars, and the ICP use-case data live in `src/App.jsx` (see the `ICP` and `DECISIONS` objects at the top).
-- Design tokens (colors, spacing) live at the top of `src/styles.css` under `:root`.
-- Replace the placeholder email `hello@fintegrity.africa` in `src/App.jsx` with your real contact address.
-
-## Notes
-
-This site presents Fintegrity as an early-stage platform seeking design partners. It intentionally avoids fake customer logos or invented metrics. Regulatory figures reflect current CBN / NFIU / MLPPA 2022 guidance and are not legal advice.
+See [.env.example](./.env.example) for all required variables and their descriptions. Never commit `.env` to git.

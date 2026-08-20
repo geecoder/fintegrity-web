@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
+import { BLOG_POSTS } from '@/lib/blog'
 
-// Only indexable pages are included. Stub pages (robots: noindex) and /thank-you are excluded.
+// Only indexable pages are included. Stub/coming-soon pages (robots: noindex)
+// and /thank-you, /cookie-settings are excluded.
 // Update lastModified when page content is significantly changed.
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://www.getfintegrity.com'
@@ -8,32 +10,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: base, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
 
-    // Product pages (real content)
-    { url: `${base}/transaction-monitoring`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/case-management`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/compliance-decisioning-api`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/transaction-screening`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/rules-engine`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/customer-risk-profiling`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    // Products
+    { url: `${base}/products/transaction-monitoring`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/products/transaction-monitoring/decision-api`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${base}/products/payment-screening`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/products/customer-lifecycle`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
 
-    // Industry/solution pages (real content)
-    { url: `${base}/solutions/digital-wallets`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/fintechs`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/payment-service-providers`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/remittance-companies`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/banks`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/solutions/crypto-businesses`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
+    // Use cases
+    { url: `${base}/solutions`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
 
     // Company pages
     { url: `${base}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/pricing`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/security`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/contact`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.6 },
-    { url: `${base}/book-a-demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${base}/demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${base}/case-studies`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+
+    // Legal
+    { url: `${base}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${base}/terms`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${base}/cookie-policy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
 
     // Blog
     { url: `${base}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.75 },
-    { url: `${base}/blog/cbnaml-baseline-standards`, lastModified: new Date('2026-03-15'), changeFrequency: 'yearly', priority: 0.7 },
-    { url: `${base}/blog/allow-review-block-compliance-decisions`, lastModified: new Date('2026-04-02'), changeFrequency: 'yearly', priority: 0.7 },
-    { url: `${base}/blog/real-time-vs-batch-aml`, lastModified: new Date('2026-05-10'), changeFrequency: 'yearly', priority: 0.7 },
+    ...BLOG_POSTS.map((post) => ({
+      url: `${base}/blog/${post.slug}`,
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: 'yearly' as const,
+      priority: 0.7,
+    })),
   ]
 }

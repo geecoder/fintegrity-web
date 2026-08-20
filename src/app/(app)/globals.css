@@ -1,0 +1,46 @@
+/* Fintegrity — global stylesheet.
+   Fonts self-hosted via next/font (layout.tsx): --font-fraunces, --font-inter-tight, --font-mono.
+   Design tokens, resets and the keyframe library live in src/styles/tokens.css —
+   ported verbatim from the approved design handoff. Every colour, radius, size
+   and duration in the codebase should trace back to a token there.
+   Per-page and per-component styling lives in co-located CSS Modules. */
+
+@import '../../styles/tokens.css';
+
+:root {
+  --fg-font-display: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  --fg-font-ui:      var(--font-inter-tight), system-ui, -apple-system, sans-serif;
+  --fg-font-mono:    var(--font-mono), ui-monospace, 'SF Mono', monospace;
+}
+
+.fg-container {
+  max-width: var(--fg-container);
+  margin-inline: auto;
+  padding-inline: var(--fg-gutter);
+}
+
+.fg-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.fg-skip-link {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  z-index: 1000;
+  background: var(--fg-navy);
+  color: var(--fg-bone);
+  padding: 10px 16px;
+  border-radius: var(--fg-r-3);
+  font-size: var(--fg-ui-sm);
+  transition: transform var(--fg-t-fast) var(--fg-ease);
+}
+
+.fg-skip-link:focus {
+  transform: translate(-50%, 12px);
+}

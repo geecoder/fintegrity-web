@@ -1,0 +1,80 @@
+.hero {
+  position: relative;
+  background: var(--fg-paper);
+  border-bottom: 1px solid var(--fg-line);
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: clamp(40px, 5vw, 72px);
+  align-items: start;
+  padding: clamp(56px, 6.5vw, 88px) var(--fg-gutter) clamp(72px, 8vw, 104px);
+}
+
+.content { max-width: 460px; }
+
+.eyebrow {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-green-700);
+}
+
+.h1 {
+  margin: 20px 0 0;
+  font-family: var(--fg-font-display);
+  font-size: var(--fg-h1-page);
+  line-height: 1.03;
+  font-weight: 600;
+  letter-spacing: -0.032em;
+  color: var(--fg-navy);
+  animation: fgRise 650ms var(--fg-ease) both;
+}
+
+.lede {
+  margin: 22px 0 0;
+  font-size: var(--fg-lede);
+  line-height: 1.55;
+  color: var(--fg-ink-500);
+  animation: fgRise 700ms var(--fg-ease) 90ms both;
+}
+
+.reassuranceList {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 40px 0 0;
+  background: var(--fg-line);
+  border: 1px solid var(--fg-line);
+  border-radius: var(--fg-r-5);
+  overflow: hidden;
+}
+
+.reassuranceItem {
+  display: grid;
+  gap: 5px;
+  background: var(--fg-paper-dim);
+  padding: 20px 22px;
+}
+
+.reassuranceTitle {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--fg-navy);
+}
+
+.reassuranceBody {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--fg-ink-400);
+}
+
+.formCol { min-width: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .h1, .lede { animation: none; opacity: 1; }
+}

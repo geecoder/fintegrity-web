@@ -1,0 +1,116 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 40px;
+  border-bottom: 1px solid var(--fg-line-strong);
+}
+
+.tab, .tabActive {
+  padding: 13px 16px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: -1px;
+  transition: color var(--fg-t-fast), border-color var(--fg-t-fast);
+}
+
+.tab { color: var(--fg-ink-400); }
+
+.tabActive {
+  color: var(--fg-navy);
+  border-bottom-color: var(--fg-green);
+}
+
+.panel {
+  padding-top: 40px;
+  animation: fgRise 380ms var(--fg-ease) both;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.modelName {
+  font-family: var(--fg-font-display);
+  font-size: var(--fg-h4);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--fg-navy);
+  margin: 0;
+}
+
+.modelSummary {
+  margin: 6px 0 0;
+  font-size: var(--fg-ui);
+  font-weight: 500;
+  color: var(--fg-green-700);
+}
+
+.risks {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.risks li {
+  display: flex;
+  gap: 11px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--fg-navy-700);
+}
+
+.risks li span {
+  color: var(--fg-crimson);
+  flex: none;
+}
+
+.rulesLabel {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-ink-300);
+}
+
+.rulesStack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 16px;
+  background: var(--fg-line);
+  border: 1px solid var(--fg-line);
+  border-radius: var(--fg-r-4);
+  overflow: hidden;
+}
+
+.ruleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: var(--fg-paper);
+  padding: 16px 18px;
+}
+
+.ruleRow span:first-child {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-lg);
+  color: var(--fg-navy);
+}
+
+.ruleNote {
+  font-size: var(--fg-meta);
+  color: var(--fg-ink-400);
+  text-align: right;
+}

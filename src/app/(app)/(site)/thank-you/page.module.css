@@ -1,0 +1,105 @@
+.wrap {
+  min-height: 62vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fg-bone);
+  padding: 96px var(--fg-gutter);
+}
+
+.inner { max-width: 540px; text-align: center; }
+
+.icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fg-clear-bg);
+  color: var(--fg-clear-fg);
+  border: 1px solid rgba(14, 159, 110, 0.26);
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.h1 {
+  font-family: var(--fg-font-display);
+  font-size: var(--fg-h2-sm);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  color: var(--fg-navy);
+}
+
+.body {
+  margin: 16px 0 0;
+  font-size: var(--fg-lede-sm);
+  line-height: 1.6;
+  color: var(--fg-ink-500);
+}
+
+.note {
+  margin: 10px 0 28px;
+  font-size: var(--fg-meta);
+  color: var(--fg-ink-300);
+}
+
+.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 46px;
+  padding: 0 22px;
+  background: var(--fg-navy);
+  color: var(--fg-bone);
+  font-size: 15.5px;
+  font-weight: 500;
+  border-radius: var(--fg-r-3);
+  text-decoration: none;
+  transition: background var(--fg-t-fast) var(--fg-ease);
+}
+
+.btnPrimary:hover { background: var(--fg-green-700); color: var(--fg-bone); }
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
+  padding: 0 20px;
+  background: transparent;
+  color: var(--fg-navy);
+  font-size: 15.5px;
+  font-weight: 500;
+  border: 1px solid var(--fg-line-strong);
+  border-radius: var(--fg-r-3);
+  text-decoration: none;
+  transition: border-color var(--fg-t-fast);
+}
+
+.btnGhost:hover { border-color: rgba(10, 31, 68, 0.34); color: var(--fg-navy); }
+
+.whileCard {
+  margin-top: 40px;
+  padding: 22px 24px;
+  background: var(--fg-paper);
+  border: 1px solid var(--fg-line);
+  border-radius: var(--fg-r-5);
+  text-align: left;
+}
+
+.whileLabel {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-ink-300);
+  margin-bottom: 14px;
+}
+
+.whileLinks { display: flex; flex-direction: column; gap: 10px; }
+
+.whileLinks a { font-size: var(--fg-ui-sm); font-weight: 500; color: var(--fg-green-700); }
+.whileLinks a:hover { color: var(--fg-navy); }

@@ -72,3 +72,12 @@ export function applyAndDispatch(prefs: ConsentPreferences): void {
   applyConsentMode(prefs)
   dispatchConsentEvent(prefs)
 }
+
+// Name of the DOM event ConsentBanner listens for to open its "customize"
+// panel from anywhere in the app (e.g. the /cookie-settings page), without
+// a second parallel consent UI.
+export const OPEN_COOKIE_SETTINGS_EVENT = 'fintegrity:open-cookie-settings'
+
+export function openCookieSettings(): void {
+  window.dispatchEvent(new Event(OPEN_COOKIE_SETTINGS_EVENT))
+}

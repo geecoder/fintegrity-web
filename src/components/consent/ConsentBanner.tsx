@@ -17,9 +17,11 @@ import {
   getStoredConsent,
   saveConsent,
   applyAndDispatch,
+  OPEN_COOKIE_SETTINGS_EVENT,
   type ConsentPreferences,
 } from '@/lib/consent'
 import { initMixpanel, attachConsentListener } from '@/lib/mixpanel'
+import styles from './ConsentBanner.module.css'
 
 type Panel = 'banner' | 'customize' | 'hidden'
 
@@ -44,6 +46,18 @@ export default function ConsentBanner() {
     } else {
       setPanel('banner')
     }
+  }, [])
+
+  // Let other parts of the app (e.g. the /cookie-settings page) open the
+  // same customize panel this banner already owns, instead of building a
+  // second consent UI.
+  useEffect(() => {
+    function handleOpenRequest() {
+      openSettings()
+    }
+    window.addEventListener(OPEN_COOKIE_SETTINGS_EVENT, handleOpenRequest)
+    return () => window.removeEventListener(OPEN_COOKIE_SETTINGS_EVENT, handleOpenRequest)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function accept(analytics: boolean, advertising: boolean) {
@@ -75,21 +89,21 @@ export default function ConsentBanner() {
     <>
       {/* ── Consent banner ── */}
       {panel === 'banner' && (
-        <div className="consent-banner" role="dialog" aria-label="Cookie consent" aria-modal="true">
-          <div className="wrap consent-inner">
-            <p className="consent-text">
+        <div className={styles.banner} role="dialog" aria-label="Cookie consent" aria-modal="true">
+          <div className={`${styles.inner} ${styles.bannerInner}`}>
+            <p className={styles.text}>
               We use cookies to understand how people use Fintegrity and to improve the site.
               Non-essential cookies are only used with your consent.{' '}
-              <Link href="/cookie-policy" className="consent-link">Cookie Policy</Link>
+              <Link href="/cookie-policy" className={styles.link}>Cookie Policy</Link>
             </p>
-            <div className="consent-btns">
-              <button className="consent-btn consent-btn-customize" onClick={() => setPanel('customize')}>
+            <div className={styles.btns}>
+              <button className={styles.btn} onClick={() => setPanel('customize')}>
                 Customize
               </button>
-              <button className="consent-btn consent-btn-reject" onClick={() => accept(false, false)}>
+              <button className={styles.btn} onClick={() => accept(false, false)}>
                 Reject non-essential
               </button>
-              <button className="consent-btn consent-btn-accept" onClick={() => accept(true, true)}>
+              <button className={`${styles.btn} ${styles.btnAccept}`} onClick={() => accept(true, true)}>
                 Accept all
               </button>
             </div>
@@ -99,12 +113,12 @@ export default function ConsentBanner() {
 
       {/* ── Customize panel ── */}
       {panel === 'customize' && (
-        <div className="consent-banner consent-customize" role="dialog" aria-label="Cookie preferences" aria-modal="true">
-          <div className="wrap">
-            <div className="consent-customize-head">
-              <span className="consent-customize-title">Cookie preferences</span>
+        <div className={`${styles.banner} ${styles.customize}`} role="dialog" aria-label="Cookie preferences" aria-modal="true">
+          <div className={styles.inner}>
+            <div className={styles.head}>
+              <span className={styles.title}>Cookie preferences</span>
               <button
-                className="consent-close"
+                className={styles.close}
                 aria-label="Close cookie preferences"
                 onClick={() => {
                   const stored = getStoredConsent()
@@ -115,53 +129,53 @@ export default function ConsentBanner() {
                 ✕
               </button>
             </div>
-            <div className="consent-toggles">
+            <div className={styles.toggles}>
               {/* Essential — always on */}
-              <div className="consent-toggle-row">
+              <div className={styles.toggleRow}>
                 <div>
-                  <div className="consent-toggle-label">Essential cookies</div>
-                  <div className="consent-toggle-desc">Required for the site to function. Cannot be disabled.</div>
+                  <div className={styles.toggleLabel}>Essential cookies</div>
+                  <div className={styles.toggleDesc}>Required for the site to function. Cannot be disabled.</div>
                 </div>
-                <div className="consent-toggle-on" aria-label="Essential cookies always active">Always on</div>
+                <div className={styles.toggleOn} aria-label="Essential cookies always active">Always on</div>
               </div>
               {/* Analytics */}
-              <div className="consent-toggle-row">
+              <div className={styles.toggleRow}>
                 <div>
-                  <div className="consent-toggle-label">Analytics cookies</div>
-                  <div className="consent-toggle-desc">Help us understand how visitors use Fintegrity (Mixpanel, GA4 via GTM).</div>
+                  <div className={styles.toggleLabel}>Analytics cookies</div>
+                  <div className={styles.toggleDesc}>Help us understand how visitors use Fintegrity (Mixpanel, GA4 via GTM).</div>
                 </div>
                 <button
                   role="switch"
                   aria-checked={analyticsOn}
-                  className={`consent-switch${analyticsOn ? ' on' : ''}`}
+                  className={`${styles.switch}${analyticsOn ? ` ${styles.on}` : ''}`}
                   onClick={() => setAnalyticsOn((v) => !v)}
                   aria-label="Toggle analytics cookies"
                 >
-                  <span className="consent-switch-thumb" />
+                  <span className={styles.switchThumb} />
                 </button>
               </div>
               {/* Advertising */}
-              <div className="consent-toggle-row">
+              <div className={styles.toggleRow}>
                 <div>
-                  <div className="consent-toggle-label">Advertising cookies</div>
-                  <div className="consent-toggle-desc">Used for targeted ads and conversion measurement (Google Ads, LinkedIn, Clarity via GTM).</div>
+                  <div className={styles.toggleLabel}>Advertising cookies</div>
+                  <div className={styles.toggleDesc}>Used for targeted ads and conversion measurement (Google Ads, LinkedIn, Clarity via GTM).</div>
                 </div>
                 <button
                   role="switch"
                   aria-checked={advertisingOn}
-                  className={`consent-switch${advertisingOn ? ' on' : ''}`}
+                  className={`${styles.switch}${advertisingOn ? ` ${styles.on}` : ''}`}
                   onClick={() => setAdvertisingOn((v) => !v)}
                   aria-label="Toggle advertising cookies"
                 >
-                  <span className="consent-switch-thumb" />
+                  <span className={styles.switchThumb} />
                 </button>
               </div>
             </div>
-            <div className="consent-customize-footer">
-              <button className="consent-btn consent-btn-reject" onClick={() => accept(false, false)}>
+            <div className={styles.customizeFooter}>
+              <button className={styles.btn} onClick={() => accept(false, false)}>
                 Reject all
               </button>
-              <button className="consent-btn consent-btn-accept" onClick={() => accept(analyticsOn, advertisingOn)}>
+              <button className={`${styles.btn} ${styles.btnAccept}`} onClick={() => accept(analyticsOn, advertisingOn)}>
                 Save preferences
               </button>
             </div>
@@ -171,7 +185,7 @@ export default function ConsentBanner() {
 
       {/* ── Persistent Cookie Settings affordance ── */}
       {showAffordance && panel === 'hidden' && (
-        <button className="consent-affordance" onClick={openSettings} aria-label="Open cookie preferences">
+        <button className={styles.affordance} onClick={openSettings} aria-label="Open cookie preferences">
           Cookie preferences
         </button>
       )}

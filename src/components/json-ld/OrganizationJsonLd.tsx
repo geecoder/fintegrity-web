@@ -11,12 +11,12 @@ const schema = {
       url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_URL}/fintegrity_wm_indigo_mono.png`,
+        url: `${SITE_URL}/brand/wordmark-color.svg`,
         width: 180,
         height: 36,
       },
       description:
-        'Embedded compliance decisioning for regulated fintechs in Africa. Real-time AML transaction monitoring, case management, and a Compliance Decision API — built for CBN and NFIU-regulated institutions.',
+        "We don't sell checks. We sell defensible compliance decisions. Fintegrity is the compliance decision and evidence layer for regulated African fintechs — real-time transaction monitoring, payment screening, and a Compliance Decision API, built for CBN and NFIU-regulated institutions.",
       foundingDate: '2026',
       address: {
         '@type': 'PostalAddress',

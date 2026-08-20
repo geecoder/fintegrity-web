@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import styles from './StubPage.module.css'
 
 interface StubPageProps {
   title: string
@@ -6,23 +7,21 @@ interface StubPageProps {
   category?: string
 }
 
-// Placeholder component for noindex routes. Replace when real content is ready.
+// Placeholder page shell for genuinely-not-built-yet routes (currently only
+// /partners). Replace with real content when it exists.
 export default function StubPage({ title, description, category }: StubPageProps) {
   return (
-    <div className="stub-page">
-      <div className="stub-inner">
-        {category && <div className="stub-eyebrow">{category}</div>}
-        <h1>{title}</h1>
-        <p>{description}</p>
-        {/* CONTENT TODO */}
-        <p style={{ fontSize: '0.84rem', color: 'var(--muted)', marginBottom: '28px' }}>
-          This page is in development. Explore what Fintegrity already offers.
-        </p>
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/compliance-decisioning-api" className="btn btn-primary">
-            See the Decision API →
+    <div className={styles.wrap}>
+      <div className={styles.inner}>
+        {category && <div className={styles.eyebrow}>{category}</div>}
+        <h1 className={styles.h1}>{title}</h1>
+        <p className={styles.body}>{description}</p>
+        <p className={styles.note}>This page is in development. Explore what Fintegrity already offers.</p>
+        <div className={styles.actions}>
+          <Link href="/products/transaction-monitoring" className={styles.btnPrimary}>
+            See the decision API <span aria-hidden="true">→</span>
           </Link>
-          <Link href="/" className="btn btn-ghost">
+          <Link href="/" className={styles.btnGhost}>
             Back to home
           </Link>
         </div>

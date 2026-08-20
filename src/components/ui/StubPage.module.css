@@ -1,0 +1,85 @@
+.wrap {
+  min-height: 52vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fg-bone);
+  padding: 96px var(--fg-gutter);
+}
+
+.inner {
+  max-width: 560px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-green-700);
+  margin-bottom: 16px;
+}
+
+.h1 {
+  font-family: var(--fg-font-display);
+  font-size: var(--fg-h2-sm);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  color: var(--fg-navy);
+}
+
+.body {
+  margin: 16px 0 0;
+  font-size: var(--fg-lede-sm);
+  line-height: 1.6;
+  color: var(--fg-ink-500);
+}
+
+.note {
+  margin: 12px 0 28px;
+  font-size: var(--fg-meta);
+  color: var(--fg-ink-300);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 44px;
+  padding: 0 20px;
+  background: var(--fg-navy);
+  color: var(--fg-bone);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: var(--fg-r-3);
+  text-decoration: none;
+  transition: background var(--fg-t-fast) var(--fg-ease);
+}
+
+.btnPrimary:hover { background: var(--fg-green-700); color: var(--fg-bone); }
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 18px;
+  background: transparent;
+  color: var(--fg-navy);
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--fg-line-strong);
+  border-radius: var(--fg-r-3);
+  text-decoration: none;
+  transition: border-color var(--fg-t-fast);
+}
+
+.btnGhost:hover { border-color: rgba(10, 31, 68, 0.34); color: var(--fg-navy); }

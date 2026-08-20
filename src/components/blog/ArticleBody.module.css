@@ -1,0 +1,206 @@
+/* ── Prose rhythm ─────────────────────────────────────────────────────── */
+.prose > * + * { margin-top: 22px; }
+.prose > h2 { margin-top: 64px; }
+.prose > h2:first-child { margin-top: 0; }
+
+.h2 {
+  margin: 0;
+  font-family: var(--fg-font-display);
+  font-size: clamp(25px, 2.7vw, 32px);
+  line-height: 1.14;
+  font-weight: 600;
+  letter-spacing: -0.026em;
+  color: var(--fg-navy);
+  scroll-margin-top: 96px;
+}
+
+.p {
+  margin: 0;
+  font-size: var(--fg-body);
+  line-height: 1.7;
+  color: var(--fg-navy-700);
+}
+
+.inlineCode {
+  font-family: var(--fg-font-mono);
+  font-size: 0.9em;
+  padding: 2px 6px;
+  background: var(--fg-bone);
+  border: 1px solid var(--fg-line);
+  border-radius: var(--fg-r-2);
+}
+
+/* ── Numbered points — mono 01/02/03 gutter ──────────────────────────── */
+.numberedList { display: flex; flex-direction: column; gap: 18px; }
+
+.numberedRow { display: grid; grid-template-columns: 26px 1fr; gap: 12px; }
+
+.numberedIndex {
+  font-family: var(--fg-font-mono);
+  font-size: 12.5px;
+  color: var(--fg-green);
+  padding-top: 6px;
+}
+
+.numberedText { margin: 0; font-size: 17px; line-height: 1.65; color: var(--fg-navy-700); }
+.numberedText strong { font-weight: 600; color: var(--fg-navy); }
+
+/* ── Plain bullet list ────────────────────────────────────────────────── */
+.bulletList { display: flex; flex-direction: column; gap: 18px; list-style: none; padding: 0; margin: 0; }
+
+.bulletRow { display: grid; grid-template-columns: 26px 1fr; gap: 12px; }
+
+.bulletMarker {
+  width: 6px;
+  height: 6px;
+  margin-top: 9px;
+  border-radius: 50%;
+  background: var(--fg-green);
+}
+
+.bulletText { margin: 0; font-size: 17px; line-height: 1.65; color: var(--fg-navy-700); }
+.bulletText strong { font-weight: 600; color: var(--fg-navy); }
+
+/* ── Pull-quotes — alternating bone / navy ───────────────────────────── */
+.quoteBone {
+  margin: 0;
+  padding: 30px 34px;
+  background: var(--fg-bone);
+  border-left: 2px solid var(--fg-green);
+  border-radius: 0 var(--fg-r-3) var(--fg-r-3) 0;
+}
+
+.quoteBone p {
+  margin: 0;
+  font-family: var(--fg-font-display);
+  font-size: var(--fg-quote);
+  line-height: 1.34;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  color: var(--fg-navy);
+}
+
+.quoteBone p strong { font-weight: 600; }
+
+.quoteNavy {
+  margin: 0;
+  padding: 30px 34px;
+  background: var(--fg-navy);
+  border-radius: var(--fg-r-3);
+}
+
+.quoteNavy p {
+  margin: 0;
+  font-family: var(--fg-font-display);
+  font-size: var(--fg-quote);
+  line-height: 1.34;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  color: var(--fg-paper);
+}
+
+.quoteNavy p strong { font-weight: 600; color: var(--fg-green-300); }
+
+/* ── Tinted-container stack — decision states & labeled cards ───────── */
+.tintedStack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--fg-line);
+  border: 1px solid var(--fg-line);
+  border-radius: var(--fg-r-4);
+  overflow: hidden;
+}
+
+.tintedRow { background: var(--fg-paper-dim); padding: 22px 24px; }
+
+.tintedBody { margin: 12px 0 0; font-size: 16.5px; line-height: 1.65; color: var(--fg-navy-700); }
+
+.labelHeading { font-size: 15.5px; font-weight: 600; color: var(--fg-navy); }
+
+.stateChip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: var(--fg-r-1);
+  font-family: var(--fg-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.stateClear { background: var(--fg-clear-bg); color: var(--fg-clear-fg); }
+.stateFlagged { background: var(--fg-flagged-bg); color: var(--fg-flagged-fg); }
+.stateHeld { background: var(--fg-held-bg); color: var(--fg-held-fg); }
+.stateBlocked { background: var(--fg-blocked-bg); color: var(--fg-blocked-fg); }
+
+/* ── Customer risk-state cards (3-up) ─────────────────────────────────── */
+.stateCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(214px, 1fr));
+  gap: 12px;
+}
+
+.stateCard {
+  background: var(--fg-white);
+  border: 1px solid var(--fg-line);
+  border-top: 2px solid var(--fg-line-strong);
+  border-radius: 0 0 var(--fg-r-3) var(--fg-r-3);
+  padding: 20px 18px;
+}
+
+.cardClear { border-top-color: var(--fg-green); }
+.cardFlagged { border-top-color: var(--fg-ochre); }
+.cardBlocked { border-top-color: var(--fg-crimson); }
+
+.stateCardBadge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--fg-font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  background: none;
+  padding: 0;
+  height: auto;
+}
+
+.stateCardTitle { margin-top: 8px; font-size: 14.5px; font-weight: 600; color: var(--fg-navy); }
+.stateCardBody { margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-ink-400); }
+
+/* ── Handler paths — decision / requiredActions rows ─────────────────── */
+.handlerList { display: flex; flex-direction: column; gap: 10px; }
+
+.handlerRow {
+  display: grid;
+  grid-template-columns: minmax(170px, 210px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  padding: 18px 20px;
+  background: var(--fg-paper-dim);
+  border: 1px solid var(--fg-line);
+  border-radius: var(--fg-r-3);
+}
+
+.handlerCode {
+  font-family: var(--fg-font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--fg-ink-400);
+}
+
+.handlerText { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--fg-navy-700); }
+
+/* ── Standalone code block ────────────────────────────────────────────── */
+.codeBlock {
+  margin: 0;
+  padding: 18px 20px;
+  background: var(--fg-navy-900);
+  color: var(--fg-green-100);
+  border-radius: var(--fg-r-4);
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-lg);
+  line-height: 1.8;
+  overflow-x: auto;
+}

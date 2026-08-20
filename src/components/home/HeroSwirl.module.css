@@ -1,0 +1,85 @@
+.container {
+  position: absolute;
+  right: -12%;
+  top: -18%;
+  bottom: -26%;
+  width: min(66%, 1120px);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    102deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0.55) 38%,
+    rgba(0, 0, 0, 1) 58%
+  );
+  mask-image: linear-gradient(
+    102deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0.55) 38%,
+    rgba(0, 0, 0, 1) 58%
+  );
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.drift1 { animation: fgDrift1 26s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
+.drift2 { animation: fgDrift2 34s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
+.drift3 { animation: fgDrift3 30s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
+.drift2Reverse { animation: fgDrift2 40s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate-reverse; }
+
+.dashFast { animation: fgDash 3.4s linear infinite; }
+.dashSlow { animation: fgDash 4.6s linear infinite; }
+
+@keyframes fgDrift1 {
+  from { transform: translate(0, 0) rotate(0deg); }
+  to   { transform: translate(-42px, 34px) rotate(-3.2deg); }
+}
+@keyframes fgDrift2 {
+  from { transform: translate(0, 0) rotate(0deg); }
+  to   { transform: translate(36px, -30px) rotate(2.6deg); }
+}
+@keyframes fgDrift3 {
+  from { transform: translate(0, 0) rotate(1.6deg); }
+  to   { transform: translate(-28px, -22px) rotate(-2deg); }
+}
+@keyframes fgDash {
+  to { stroke-dashoffset: -172; }
+}
+
+/* Responsive — HERO-SPEC.md §7 */
+@media (max-width: 899px) {
+  .container {
+    width: 100%;
+    right: -30%;
+    opacity: 0.55;
+    -webkit-mask-image: linear-gradient(
+      150deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0.55) 38%,
+      rgba(0, 0, 0, 1) 58%
+    );
+    mask-image: linear-gradient(
+      150deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0.55) 38%,
+      rgba(0, 0, 0, 1) 58%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drift1, .drift2, .drift3, .drift2Reverse, .dashFast, .dashSlow {
+    animation: none;
+  }
+  .particle {
+    visibility: hidden;
+  }
+}

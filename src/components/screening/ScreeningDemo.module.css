@@ -1,0 +1,265 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tab, .tabActive {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--fg-r-1);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background var(--fg-t-fast) var(--fg-ease), color var(--fg-t-fast), border-color var(--fg-t-fast);
+}
+
+.tab {
+  background: transparent;
+  color: var(--fg-ink-200);
+  border: 1px solid rgba(247, 243, 236, 0.28);
+}
+
+.tabActive {
+  background: var(--fg-bone);
+  color: var(--fg-navy);
+  border: 1px solid var(--fg-bone);
+}
+
+.panel {
+  position: relative;
+  margin-top: 32px;
+  transition: opacity 400ms var(--fg-ease);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  align-items: start;
+}
+
+@media (max-width: 780px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* ── Fields card ─────────────────────────────────────────────────────── */
+.fieldsCard {
+  background: var(--fg-white);
+  border-radius: var(--fg-r-5);
+  overflow: hidden;
+}
+
+.fieldsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--fg-line);
+  background: var(--fg-paper-dim);
+}
+
+.fieldsHeaderMono {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono);
+  color: var(--fg-ink-400);
+}
+
+.fieldsBody { display: flex; flex-direction: column; }
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: minmax(96px, 132px) minmax(0, 1fr) 68px;
+  gap: 12px;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--fg-line-soft);
+}
+
+.fieldRow:last-child { border-bottom: 0; }
+
+.fieldName {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-ink-300);
+}
+
+.fieldValue { font-size: 14.5px; color: var(--fg-navy); }
+.fieldValueMono { font-family: var(--fg-font-mono); font-size: 13.5px; }
+
+.fieldState {
+  justify-self: end;
+  font-family: var(--fg-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 3px 7px;
+  border-radius: var(--fg-r-1);
+}
+
+.fieldStateClear { background: var(--fg-clear-bg); color: var(--fg-clear-fg); }
+.fieldStateReview { background: var(--fg-held-bg); color: var(--fg-held-fg); }
+.fieldStateHit { background: var(--fg-blocked-bg); color: var(--fg-blocked-fg); }
+
+/* ── Result column ─────────────────────────────────────────────────────── */
+.resultColumn { display: flex; flex-direction: column; gap: 12px; }
+
+.resultCard {
+  background: var(--fg-tint-on-navy);
+  border: 1px solid var(--fg-line-on-navy);
+  border-radius: var(--fg-r-5);
+  padding: 24px;
+}
+
+.resultHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.resultLabel {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-ink-300);
+}
+
+.actionPill {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 9px;
+  border-radius: var(--fg-r-1);
+  font-family: var(--fg-font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.actionRelease { background: var(--fg-clear-bg); color: var(--fg-clear-fg); }
+.actionHold { background: var(--fg-held-bg); color: var(--fg-held-fg); }
+.actionReject { background: var(--fg-blocked-bg); color: var(--fg-blocked-fg); }
+
+.headline { margin: 18px 0 0; font-size: 16.5px; line-height: 1.55; color: var(--fg-bone); }
+.detail { margin: 10px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-ink-200); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--fg-line-on-navy);
+}
+
+.statLabel {
+  font-family: var(--fg-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-ink-300);
+}
+
+.statValue {
+  margin-top: 6px;
+  font-family: var(--fg-font-mono);
+  font-size: 15px;
+  color: var(--fg-bone);
+}
+
+/* ── Case card ─────────────────────────────────────────────────────────── */
+.caseCard {
+  background: var(--fg-tint-on-navy);
+  border: 1px solid var(--fg-line-on-navy);
+  border-radius: var(--fg-r-5);
+  padding: 20px 24px;
+  animation: fgRise 320ms var(--fg-ease) both;
+}
+
+.caseHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.caseRef { font-family: var(--fg-font-mono); font-size: 11.5px; color: var(--fg-green-100); }
+
+.caseStatusPending {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--fg-font-mono);
+  font-size: 11px;
+  color: var(--fg-ink-300);
+}
+
+.caseDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--fg-ochre);
+  animation: fgPulse 2.2s var(--fg-ease-inout) infinite;
+}
+
+.caseStatusFrozen {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--fg-font-mono);
+  font-size: 11px;
+  color: var(--fg-crimson-on-navy);
+}
+
+.caseActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.caseActionRelease, .caseActionReject, .caseActionEscalate {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--fg-r-2);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.caseActionRelease {
+  background: rgba(14, 159, 110, 0.18);
+  border: 1px solid rgba(61, 220, 160, 0.4);
+  color: var(--fg-green-300);
+}
+
+.caseActionReject {
+  background: rgba(155, 44, 44, 0.2);
+  border: 1px solid rgba(232, 139, 139, 0.4);
+  color: var(--fg-crimson-on-navy);
+}
+
+.caseActionEscalate {
+  border: 1px solid var(--fg-line-on-navy-2);
+  color: var(--fg-ink-200);
+}
+
+.caseNote { margin: 14px 0 0; font-size: 13px; line-height: 1.55; color: var(--fg-ink-300); }
+
+.liveRegion {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caseDot { animation: none; opacity: 1; }
+  .caseCard { animation: none; opacity: 1; }
+}

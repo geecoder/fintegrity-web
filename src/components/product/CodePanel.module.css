@@ -1,0 +1,113 @@
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.tab, .tabActive {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--fg-r-1);
+  cursor: pointer;
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono);
+  transition: background var(--fg-t-fast) var(--fg-ease), color var(--fg-t-fast), border-color var(--fg-t-fast);
+}
+
+.tab {
+  background: transparent;
+  color: var(--fg-ink-200);
+  border: 1px solid rgba(247, 243, 236, 0.28);
+}
+
+.tabActive {
+  background: var(--fg-bone);
+  color: var(--fg-navy);
+  border: 1px solid var(--fg-bone);
+}
+
+.panel {
+  background: var(--fg-navy-900);
+  border: 1px solid var(--fg-line-on-navy-2);
+  border-radius: var(--fg-r-5);
+  overflow: hidden;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--fg-line-on-navy);
+}
+
+.panelHeaderLink {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono);
+  color: var(--fg-ink-200);
+  text-decoration: none;
+}
+
+.panelHeaderLink:hover { color: var(--fg-green-300); }
+
+.panelHeaderMeta {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-xs);
+  color: var(--fg-ink-300);
+}
+
+.codeBlock {
+  margin: 0;
+  padding: 20px 18px;
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono-lg);
+  line-height: 1.8;
+  color: var(--fg-green-100);
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.codeKey { color: var(--fg-ink-300); }
+.codeKeyDim { color: var(--fg-ink-300); }
+.codeString { color: var(--fg-ink-200); }
+
+.stateFlagged { color: var(--fg-ochre); }
+
+.statusBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--fg-line-on-navy);
+  background: rgba(247, 243, 236, 0.03);
+}
+
+.statusDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--fg-green-300);
+  animation: fgPulse 2s var(--fg-ease-inout) infinite;
+}
+
+.statusText {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono);
+  color: var(--fg-green-300);
+}
+
+.statusSep {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono);
+  color: var(--fg-ink-300);
+}
+
+.statusLatency {
+  font-family: var(--fg-font-mono);
+  font-size: var(--fg-mono);
+  color: var(--fg-ink-200);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statusDot { animation: none; opacity: 1; }
+}

@@ -1,0 +1,102 @@
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(20px, 3vw, 44px);
+  margin-top: clamp(56px, 7vw, 96px);
+  padding-top: 22px;
+  border-top: 1px solid rgba(10, 31, 68, 0.12);
+  animation: fgFade 800ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
+}
+
+.cell {}
+
+.counterRow {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.counter {
+  font-family: var(--fg-font-display);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.026em;
+  color: #0A1F44;
+  font-variant-numeric: tabular-nums;
+}
+
+.counterArrow {
+  font-family: var(--fg-font-mono);
+  font-size: 11px;
+  color: #0E9F6E;
+}
+
+.caption {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: #536478;
+}
+
+.captionFigure {
+  font-family: var(--fg-font-mono);
+  font-size: 12px;
+  color: #0A1F44;
+}
+
+.divider {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(10, 31, 68, 0.12);
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 30px;
+}
+
+/* Every bar carries a static height (set inline, 40%) — mandatory. Without
+   it the bars vanish under prefers-reduced-motion, since the animation is
+   the only thing giving them height otherwise. Real bug in the prototype;
+   stays fixed. */
+.bar {
+  width: 5px;
+  border-radius: 1px;
+  animation: fgBar 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--fg-font-mono);
+  font-size: 11.5px;
+  color: #536478;
+}
+
+.legendDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+@keyframes fgBar {
+  0% { height: 22%; }
+  100% { height: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip { animation: none; opacity: 1; }
+  .bar { animation: none; height: 40% !important; }
+}

@@ -1,15 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { isPersonalEmail, PERSONAL_EMAIL_ERROR } from '@/lib/email-validation'
+
+export const runtime = 'nodejs'
 
 /**
- * Server-side HubSpot form submission handler.
+ * Server-side HubSpot demo-request submission handler.
  *
- * Environment variables required (set in Vercel — never expose HUBSPOT_PRIVATE_TOKEN client-side):
+ * Uses HubSpot's legacy "Submit data to a form" endpoint
+ * (forms.hubspot.com/uploads/form/v2/{portalId}/{formId}) rather than the v3
+ * Forms API — it doesn't require legalConsentOptions/GDPR config to match the
+ * form's HubSpot-side setup, and silently ignores field names that aren't
+ * configured as contact properties rather than rejecting the whole
+ * submission. Simpler and more forgiving for a custom-built form UI.
+ *
+ * Environment variables required (set in Vercel — never expose anything
+ * server-only client-side):
  *   NEXT_PUBLIC_HUBSPOT_PORTAL_ID  — your HubSpot portal ID (safe to be public)
  *   NEXT_PUBLIC_HUBSPOT_FORM_ID    — the form GUID from HubSpot (safe to be public)
- *   HUBSPOT_PRIVATE_TOKEN          — private app token for API auth (server-side only)
  *
- * If any var is unset, the route returns { ok: true, mode: 'unconfigured' }.
- * The client treats this as success and falls back to the booking calendar link.
+ * If either is unset (or left at its .env.example placeholder), the route
+ * returns a clear failure so the UI can point the visitor at a direct email
+ * fallback instead of silently pretending success.
  */
 
 interface DemoFormPayload {
@@ -24,6 +35,13 @@ interface DemoFormPayload {
   // Honeypot: a real form field a screen-reader/keyboard user never reaches.
   // Bots that blindly fill every input trip it; real submissions leave it empty.
   website?: string
+}
+
+const FALLBACK_ERROR =
+  'Demo request could not be submitted right now. Please email contact@getfintegrity.com directly.'
+
+function isConfigured(value: string | undefined): value is string {
+  return !!value && !value.startsWith('your_')
 }
 
 // ── Rate limiting ────────────────────────────────────────────────────────
@@ -68,10 +86,6 @@ function getClientKey(req: NextRequest): string {
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const portalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID
-  const formId = process.env.NEXT_PUBLIC_HUBSPOT_FORM_ID
-  const token = process.env.HUBSPOT_PRIVATE_TOKEN
-
   if (isRateLimited(getClientKey(req))) {
     return NextResponse.json({ ok: false, error: 'Too many requests' }, { status: 429 })
   }
@@ -80,7 +94,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     body = await req.json()
   } catch {
-    return NextResponse.json({ ok: false, error: 'Invalid request body' }, { status: 400 })
+    return NextResponse.json({ ok: false, error: 'Invalid request body.' }, { status: 400 })
   }
 
   // Honeypot tripped: pretend success so the bot doesn't learn it was caught,
@@ -89,56 +103,65 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ ok: true })
   }
 
-  // Graceful degradation: succeed without HubSpot so the UX still works
-  if (!portalId || !formId || !token) {
+  const { firstName, lastName, email, company, role, product, challenge, pageUri } = body
+
+  if (!firstName || !lastName || !email || !company) {
+    return NextResponse.json({ ok: false, error: 'Missing required fields.' }, { status: 400 })
+  }
+
+  if (isPersonalEmail(email)) {
+    return NextResponse.json({ ok: false, error: PERSONAL_EMAIL_ERROR }, { status: 400 })
+  }
+
+  const portalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID
+  const formId = process.env.NEXT_PUBLIC_HUBSPOT_FORM_ID
+
+  if (!isConfigured(portalId) || !isConfigured(formId)) {
+    console.error('[api/demo] HubSpot portal/form ID not configured — set NEXT_PUBLIC_HUBSPOT_PORTAL_ID and NEXT_PUBLIC_HUBSPOT_FORM_ID')
+    // Deliberately graceful (not an error response): the demo form's success
+    // panel still shows and falls back to the booking-calendar link, so an
+    // unconfigured preview/staging deploy never shows visitors a broken form.
     return NextResponse.json({ ok: true, mode: 'unconfigured' })
   }
 
-  // Basic server-side validation — do not pass raw user input beyond these fields
-  const email = (body.email ?? '').trim()
-  if (!email || !email.includes('@')) {
-    return NextResponse.json({ ok: false, error: 'Valid email required' }, { status: 400 })
-  }
+  const hutk = req.cookies.get('hubspotutk')?.value
 
-  const fields = [
-    { name: 'firstname', value: (body.firstName ?? '').trim() },
-    { name: 'lastname', value: (body.lastName ?? '').trim() },
-    { name: 'email', value: email },
-    { name: 'company', value: (body.company ?? '').trim() },
-    { name: 'jobtitle', value: (body.role ?? '').trim() },
-    // Map to a HubSpot custom property if configured; otherwise it goes in the message field
-    { name: 'message', value: [body.product, body.challenge].filter(Boolean).join('\n\n') },
-  ].filter((f) => f.value !== '')
+  const params = new URLSearchParams()
+  params.set('email', email)
+  params.set('firstname', firstName)
+  params.set('lastname', lastName)
+  params.set('company', company)
+  if (role) params.set('jobtitle', role)
+  if (product) params.set('use_case', product)
+  if (challenge) params.set('compliance_challenge', challenge)
+  params.set(
+    'hs_context',
+    JSON.stringify({
+      pageName: 'Book a Demo — Fintegrity',
+      ...(pageUri ? { pageUri } : { pageUri: 'https://www.getfintegrity.com/demo' }),
+      ...(hutk ? { hutk } : {}),
+    }),
+  )
 
-  let hsRes: Response
   try {
-    hsRes = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+    const hsRes = await fetch(
+      `https://forms.hubspot.com/uploads/form/v2/${portalId}/${formId}`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          fields,
-          context: {
-            pageUri: body.pageUri ?? 'https://www.getfintegrity.com/demo',
-            pageName: 'Book a Demo — Fintegrity',
-          },
-        }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString(),
       },
     )
+
+    if (!hsRes.ok) {
+      const errBody = await hsRes.text()
+      console.error('[api/demo] HubSpot submission failed:', hsRes.status, errBody)
+      return NextResponse.json({ ok: false, error: FALLBACK_ERROR }, { status: 502 })
+    }
+
+    return NextResponse.json({ ok: true, mode: 'hubspot' })
   } catch (err) {
-    console.error('[demo/route] HubSpot fetch failed:', err)
-    return NextResponse.json({ ok: false, error: 'Upstream error' }, { status: 502 })
+    console.error('[api/demo] HubSpot submission error:', err)
+    return NextResponse.json({ ok: false, error: FALLBACK_ERROR }, { status: 502 })
   }
-
-  if (!hsRes.ok) {
-    const detail = await hsRes.text().catch(() => '')
-    console.error('[demo/route] HubSpot rejected submission:', hsRes.status, detail)
-    return NextResponse.json({ ok: false, error: 'CRM submission failed' }, { status: 500 })
-  }
-
-  return NextResponse.json({ ok: true, mode: 'hubspot' })
 }

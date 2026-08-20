@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import { CONTACT_EMAIL, SITE_URL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -165,17 +166,17 @@ export default function SecurityPage() {
             <p className={styles.disclosureBody}>
               If you believe you&rsquo;ve found a security issue in our platform or website, tell
               us before telling anyone else. Email{' '}
-              <a href={`mailto:${CONTACT_EMAIL}`} className={styles.disclosureLink}>
+              <TrackedLink href={`mailto:${CONTACT_EMAIL}`} className={styles.disclosureLink} event="Contact Link Clicked" eventProps={{ method: 'email', location: 'security-disclosure-body' }}>
                 {CONTACT_EMAIL}
-              </a>{' '}
+              </TrackedLink>{' '}
               with what you found and how to reproduce it, and give us a reasonable window to
               investigate and fix it before any public disclosure. Please don&rsquo;t access,
               modify, or exfiltrate data that isn&rsquo;t yours while testing.
             </p>
             <div className={styles.disclosureActions}>
-              <a href={`mailto:${CONTACT_EMAIL}`} className={styles.btnBone}>
+              <TrackedLink href={`mailto:${CONTACT_EMAIL}`} className={styles.btnBone} event="Contact Link Clicked" eventProps={{ method: 'email', location: 'security-disclosure-cta' }}>
                 Report an issue <span aria-hidden="true">→</span>
-              </a>
+              </TrackedLink>
               <Link href="/demo" className={styles.btnGhost}>
                 Security review request
               </Link>
@@ -196,9 +197,9 @@ export default function SecurityPage() {
             <Link href="/demo" className={styles.btnPrimary}>
               Book a demo <span aria-hidden="true">→</span>
             </Link>
-            <a href={`mailto:${CONTACT_EMAIL}`} className={styles.btnWhite}>
+            <TrackedLink href={`mailto:${CONTACT_EMAIL}`} className={styles.btnWhite} event="Contact Link Clicked" eventProps={{ method: 'email', location: 'security-closing-cta' }}>
               Email us
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

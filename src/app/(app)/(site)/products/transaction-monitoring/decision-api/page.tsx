@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import CodePanel from '@/components/product/CodePanel'
 import { DEVELOPER_DOCS_URL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -102,14 +103,16 @@ export default function DecisionApiPage() {
             </p>
 
             <div className={styles.ctaRow}>
-              <a
+              <TrackedLink
                 href={DEVELOPER_DOCS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.btnBone}
+                event="API Documentation CTA Clicked"
+                eventProps={{ location: 'decision-api-hero' }}
               >
                 Read the API docs <span aria-hidden="true">↗</span>
-              </a>
+              </TrackedLink>
               <Link href="/demo" className={styles.btnOutline}>
                 Book a demo
               </Link>

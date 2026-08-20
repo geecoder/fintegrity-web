@@ -1,5 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import { CONTACT_EMAIL, LINKEDIN_URL } from '@/lib/config'
+import { trackMarketingEvent } from '@/lib/analytics'
+import TrackedLink from '@/components/analytics/TrackedLink'
 import styles from './Footer.module.css'
 
 const USE_CASES = [
@@ -54,12 +58,24 @@ export default function Footer() {
             </Link>
             <p className={styles.brandBlurb}>Embedded compliance decisioning for regulated African fintechs.</p>
             <div className={styles.brandActions}>
-              <Link href="/demo" className={styles.brandCta}>
+              <Link
+                href="/demo"
+                className={styles.brandCta}
+                onClick={() => trackMarketingEvent('Primary CTA Clicked', { location: 'footer' })}
+              >
                 Book a demo <span aria-hidden="true">→</span>
               </Link>
-              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="Fintegrity on LinkedIn" className={styles.socialButton}>
+              <TrackedLink
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Fintegrity on LinkedIn"
+                className={styles.socialButton}
+                event="Outbound Link Clicked"
+                eventProps={{ destination: LINKEDIN_URL, location: 'footer' }}
+              >
                 <LinkedInIcon />
-              </a>
+              </TrackedLink>
             </div>
           </div>
 
@@ -110,7 +126,14 @@ export default function Footer() {
         <div className={styles.bottomBar}>
           <p className={styles.legalLine}>
             © {year} Fintegrity Technologies Limited. Registered in Nigeria. Lagos, Nigeria. Regulatory references are not legal advice.{' '}
-            <a href={`mailto:${CONTACT_EMAIL}`} className={styles.legalMail}>{CONTACT_EMAIL}</a>
+            <TrackedLink
+              href={`mailto:${CONTACT_EMAIL}`}
+              className={styles.legalMail}
+              event="Contact Link Clicked"
+              eventProps={{ method: 'email', location: 'footer' }}
+            >
+              {CONTACT_EMAIL}
+            </TrackedLink>
           </p>
           <p className={styles.positioningLine}>We don&rsquo;t sell checks. We sell defensible compliance decisions.</p>
         </div>

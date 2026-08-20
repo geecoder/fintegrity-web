@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
+import TrackOnMount from '@/components/analytics/TrackOnMount'
 import { CONTACT_EMAIL, SITE_URL } from '@/lib/config'
 import styles from './page.module.css'
 
@@ -102,6 +103,7 @@ export default function PricingPage() {
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: 'Pricing', href: '/pricing' }]} />
+      <TrackOnMount event="Pricing Viewed" />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className={styles.hero}>

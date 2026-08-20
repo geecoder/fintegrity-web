@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import { CONTACT_EMAIL, SITE_URL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -85,9 +86,9 @@ export default function AboutPage() {
               <Link href="/demo" className={styles.btnPrimary}>
                 Become a design partner <span aria-hidden="true">→</span>
               </Link>
-              <a href={`mailto:${CONTACT_EMAIL}`} className={styles.btnWhite}>
+              <TrackedLink href={`mailto:${CONTACT_EMAIL}`} className={styles.btnWhite} event="Contact Link Clicked" eventProps={{ method: 'email', location: 'about-hero' }}>
                 Email us
-              </a>
+              </TrackedLink>
             </div>
           </div>
 
@@ -260,9 +261,9 @@ export default function AboutPage() {
               <Link href="/demo" className={styles.btnPrimary}>
                 Apply to be a design partner <span aria-hidden="true">→</span>
               </Link>
-              <a href={`mailto:${CONTACT_EMAIL}`} className={styles.btnWhite}>
+              <TrackedLink href={`mailto:${CONTACT_EMAIL}`} className={styles.btnWhite} event="Contact Link Clicked" eventProps={{ method: 'email', location: 'about-design-partner' }}>
                 Email the founder
-              </a>
+              </TrackedLink>
             </div>
           </div>
         </div>
@@ -280,9 +281,9 @@ export default function AboutPage() {
             <Link href="/demo" className={styles.btnPrimary}>
               Book a conversation <span aria-hidden="true">→</span>
             </Link>
-            <a href={`mailto:${CONTACT_EMAIL}`} className={styles.btnWhite}>
+            <TrackedLink href={`mailto:${CONTACT_EMAIL}`} className={styles.btnWhite} event="Contact Link Clicked" eventProps={{ method: 'email', location: 'about-closing-cta' }}>
               Email us
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

@@ -3,7 +3,9 @@
 import { useState, useRef, useEffect, useCallback, useId, type ReactElement } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { DEVELOPER_DOCS_URL } from '@/lib/config'
+import { API_DOCS_URL, LINKEDIN_URL } from '@/lib/config'
+import { trackMarketingEvent } from '@/lib/analytics'
+import TrackedLink from '@/components/analytics/TrackedLink'
 import styles from './Nav.module.css'
 
 type Product = {
@@ -250,15 +252,17 @@ export default function Nav() {
             <Link href="/pricing" className={styles.navLink} style={activeStyle(isPricingActive)} onMouseEnter={closeAll}>
               Pricing
             </Link>
-            <a
-              href={DEVELOPER_DOCS_URL}
+            <TrackedLink
+              href={API_DOCS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.navLink}
               onMouseEnter={closeAll}
+              event="API Documentation CTA Clicked"
+              eventProps={{ location: 'nav' }}
             >
               Developer
-            </a>
+            </TrackedLink>
             <Link href="/blog" className={styles.navLink} style={activeStyle(isBlogActive)} onMouseEnter={closeAll}>
               Blog
             </Link>
@@ -268,7 +272,11 @@ export default function Nav() {
           </nav>
 
           <div className={styles.actions}>
-            <Link href="/demo" className={styles.cta}>
+            <Link
+              href="/demo"
+              className={styles.cta}
+              onClick={() => trackMarketingEvent('Primary CTA Clicked', { location: 'nav' })}
+            >
               Book a demo <span aria-hidden="true">→</span>
             </Link>
           </div>
@@ -315,23 +323,39 @@ export default function Nav() {
             </div>
             <div className={styles.drawerSection}>
               <Link href="/pricing" className={styles.drawerLink}>Pricing</Link>
-              <a href={DEVELOPER_DOCS_URL} target="_blank" rel="noopener noreferrer" className={styles.drawerLink}>Developer ↗</a>
+              <TrackedLink
+                href={API_DOCS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.drawerLink}
+                event="API Documentation CTA Clicked"
+                eventProps={{ location: 'mobile-drawer' }}
+              >
+                Developer ↗
+              </TrackedLink>
               <Link href="/blog" className={styles.drawerLink}>Blog</Link>
               <Link href="/about" className={styles.drawerLink}>About</Link>
             </div>
             <div className={styles.drawerCta}>
-              <Link href="/demo" className={styles.cta} style={{ width: '100%', justifyContent: 'center' }}>
+              <Link
+                href="/demo"
+                className={styles.cta}
+                style={{ width: '100%', justifyContent: 'center' }}
+                onClick={() => trackMarketingEvent('Primary CTA Clicked', { location: 'mobile-drawer' })}
+              >
                 Book a demo <span aria-hidden="true">→</span>
               </Link>
-              <a
-                href="https://www.linkedin.com/company/getfintegrity/"
+              <TrackedLink
+                href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Fintegrity on LinkedIn"
                 className={styles.drawerSocial}
+                event="Outbound Link Clicked"
+                eventProps={{ destination: LINKEDIN_URL, location: 'mobile-drawer' }}
               >
                 <LinkedInIcon />
-              </a>
+              </TrackedLink>
             </div>
           </div>
         </div>

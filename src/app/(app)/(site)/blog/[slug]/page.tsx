@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { BLOG_POSTS, formatDate, getBlogPost, getRelatedPosts } from '@/lib/blog'
 import { getArticleContent } from '@/content/blog'
-import { SITE_URL, LINKEDIN_URL, DEVELOPER_DOCS_URL } from '@/lib/config'
+import { SITE_URL, LINKEDIN_URL, API_DOCS_URL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import BlogPostingJsonLd from '@/components/json-ld/BlogPostingJsonLd'
 import ArticleBody from '@/components/blog/ArticleBody'
@@ -111,22 +112,26 @@ export default async function BlogArticlePage({ params }: Props) {
             <div className={styles.tocLabel}>On this page</div>
             <ArticleScrollUI headings={headings} />
             <div className={styles.tocLinks}>
-              <a
+              <TrackedLink
                 href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.tocSideLink}
+                event="Outbound Link Clicked"
+                eventProps={{ destination: LINKEDIN_URL, location: 'blog-article-toc' }}
               >
                 Share on LinkedIn ↗
-              </a>
-              <a
-                href={DEVELOPER_DOCS_URL}
+              </TrackedLink>
+              <TrackedLink
+                href={API_DOCS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.tocSideLink}
+                event="API Documentation CTA Clicked"
+                eventProps={{ location: 'blog-article-toc' }}
               >
                 Read the API reference ↗
-              </a>
+              </TrackedLink>
             </div>
           </aside>
 

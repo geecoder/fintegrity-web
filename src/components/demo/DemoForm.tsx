@@ -2,8 +2,9 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { BOOKING_URL } from '@/lib/config'
+import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/config'
 import { trackMarketingEvent } from '@/lib/analytics'
+import { isPersonalEmail, PERSONAL_EMAIL_ERROR } from '@/lib/email-validation'
 import styles from './DemoForm.module.css'
 
 const ROLES = [
@@ -59,8 +60,12 @@ export default function DemoForm() {
     switch (field) {
       case 'fullName':
         return fullName.trim().length < 2 ? 'Enter your full name' : undefined
-      case 'email':
-        return EMAIL_RE.test(email.trim()) ? undefined : 'Enter a valid work email'
+      case 'email': {
+        const trimmed = email.trim()
+        if (!EMAIL_RE.test(trimmed)) return 'Enter a valid work email'
+        if (isPersonalEmail(trimmed)) return PERSONAL_EMAIL_ERROR
+        return undefined
+      }
       case 'company':
         return company.trim().length === 0 ? 'Enter your company name' : undefined
       case 'role':
@@ -162,7 +167,7 @@ export default function DemoForm() {
     } catch (err) {
       setStatus('idle')
       setSubmitError(
-        err instanceof Error ? err.message : 'Something went wrong. Please try again or email us directly.',
+        err instanceof Error ? err.message : `Something went wrong. Please try again or email ${CONTACT_EMAIL}.`,
       )
     }
   }

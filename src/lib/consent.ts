@@ -5,6 +5,7 @@
 //   - CMP calls dispatchConsentEvent() so Mixpanel and other listeners react
 
 export type ConsentState = 'granted' | 'denied'
+export type ConsentAction = 'accepted_all' | 'rejected_all' | 'customised'
 
 export interface ConsentPreferences {
   analytics: ConsentState    // Mixpanel, GA4 (via GTM)
@@ -42,25 +43,34 @@ export function saveConsent(
 
 // Push Google Consent Mode v2 update. Works whether GTM is loaded or not —
 // GTM picks up the queued dataLayer entries when it does load.
+// gtag shim is set up via the inline script in layout.tsx, before GTM loads.
 export function applyConsentMode(prefs: ConsentPreferences): void {
+  if (typeof window === 'undefined') return
+  const gt = (window as Window & { gtag?: (...a: unknown[]) => void }).gtag
+  if (typeof gt !== 'function') return
+
+  gt('consent', 'update', {
+    analytics_storage: prefs.analytics,
+    ad_storage: prefs.advertising,
+    ad_user_data: prefs.advertising,
+    ad_personalization: prefs.advertising,
+  })
+}
+
+// Fires once per user interaction (accept / reject / customise) — not on the
+// silent re-apply that runs on every page load, so it doesn't spam dataLayer
+// on every navigation.
+export function pushConsentUpdatedEvent(prefs: ConsentPreferences, action: ConsentAction): void {
+  if (typeof window === 'undefined') return
   const dl = (window as Window & { dataLayer?: unknown[] }).dataLayer
   if (!dl) return
 
   dl.push({
-    event: 'consent_update',
-    // GTM reads the Consent Mode API through the gtag shim we set up in layout
+    event: 'cookie_consent_updated',
+    consent_action: action,
+    analytics_consent: prefs.analytics,
+    advertising_consent: prefs.advertising,
   })
-
-  // gtag shim set up via inline script in layout.tsx
-  const gt = (window as Window & { gtag?: (...a: unknown[]) => void }).gtag
-  if (typeof gt === 'function') {
-    gt('consent', 'update', {
-      analytics_storage: prefs.analytics,
-      ad_storage: prefs.advertising,
-      ad_user_data: prefs.advertising,
-      ad_personalization: prefs.advertising,
-    })
-  }
 }
 
 // Broadcast consent changes so subscribers (Mixpanel, other modules) can react.
@@ -68,8 +78,11 @@ export function dispatchConsentEvent(prefs: ConsentPreferences): void {
   window.dispatchEvent(new CustomEvent('fintegrity:consent', { detail: prefs }))
 }
 
-export function applyAndDispatch(prefs: ConsentPreferences): void {
+// `action` is omitted on the mount-time re-apply (existing stored consent
+// re-sent to GTM on page load) since that isn't a new user interaction.
+export function applyAndDispatch(prefs: ConsentPreferences, action?: ConsentAction): void {
   applyConsentMode(prefs)
+  if (action) pushConsentUpdatedEvent(prefs, action)
   dispatchConsentEvent(prefs)
 }
 

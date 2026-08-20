@@ -2,6 +2,7 @@
 
 import { useId, useRef, useState } from 'react'
 import { DEVELOPER_DOCS_URL } from '@/lib/config'
+import { trackMarketingEvent } from '@/lib/analytics'
 import styles from './CodePanel.module.css'
 
 type Lang = 'curl' | 'node' | 'python'
@@ -79,6 +80,7 @@ export default function CodePanel() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.panelHeaderLink}
+            onClick={() => trackMarketingEvent('API Documentation CTA Clicked', { location: 'decision-api-code-panel' })}
           >
             Request &middot; open in developer portal <span aria-hidden="true">↗</span>
           </a>

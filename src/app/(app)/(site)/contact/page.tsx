@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import BreadcrumbJsonLd from '@/components/json-ld/BreadcrumbJsonLd'
 import { CONTACT_EMAIL, BOOKING_URL } from '@/lib/config'
+import TrackedLink from '@/components/analytics/TrackedLink'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -41,7 +42,7 @@ export default function ContactPage() {
                 <h3 className={styles.methodTitle}>General enquiries</h3>
                 <p className={styles.methodBody}>
                   For partnerships, press, and general questions:{' '}
-                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+                  <TrackedLink href={`mailto:${CONTACT_EMAIL}`} event="Contact Link Clicked" eventProps={{ method: 'email', location: 'contact-general' }}>{CONTACT_EMAIL}</TrackedLink>
                 </p>
               </div>
             </div>
@@ -80,7 +81,7 @@ export default function ContactPage() {
               <div>
                 <h3 className={styles.methodTitle}>Press and media</h3>
                 <p className={styles.methodBody}>
-                  Press enquiries: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Please include your
+                  Press enquiries: <TrackedLink href={`mailto:${CONTACT_EMAIL}`} event="Contact Link Clicked" eventProps={{ method: 'email', location: 'contact-press' }}>{CONTACT_EMAIL}</TrackedLink>. Please include your
                   publication and deadline.
                 </p>
               </div>

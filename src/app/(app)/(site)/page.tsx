@@ -5,6 +5,9 @@ import HeroSwirl from '@/components/home/HeroSwirl'
 import LiveStrip from '@/components/home/LiveStrip'
 import DecisionTheatre from '@/components/home/DecisionTheatre'
 import BusinessModelTabs from '@/components/home/BusinessModelTabs'
+import TrackedCtaLink from '@/components/analytics/TrackedCtaLink'
+import TrackedLink from '@/components/analytics/TrackedLink'
+import { CONTACT_EMAIL } from '@/lib/config'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -58,9 +61,14 @@ export default function HomePage() {
             </p>
 
             <div className={styles.heroCta}>
-              <Link href="/demo" className={styles.heroBtnPrimary}>
+              <TrackedCtaLink
+                href="/demo"
+                className={styles.heroBtnPrimary}
+                event="Primary CTA Clicked"
+                eventProps={{ location: 'home-hero' }}
+              >
                 Book a demo <span aria-hidden="true">→</span>
-              </Link>
+              </TrackedCtaLink>
               <a href="#how-it-works" className={styles.heroBtnSecondary}>
                 Watch a decision
               </a>
@@ -249,12 +257,22 @@ export default function HomePage() {
                 infrastructure ahead of the curve.
               </p>
               <div className={styles.ctaRow}>
-                <Link href="/demo" className={styles.btnPrimary}>
+                <TrackedCtaLink
+                  href="/demo"
+                  className={styles.btnPrimary}
+                  event="Primary CTA Clicked"
+                  eventProps={{ location: 'home-closing-cta' }}
+                >
                   Book a demo <span aria-hidden="true">→</span>
-                </Link>
-                <a href="mailto:contact@getfintegrity.com" className={styles.btnWhite}>
+                </TrackedCtaLink>
+                <TrackedLink
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className={styles.btnWhite}
+                  event="Contact Link Clicked"
+                  eventProps={{ method: 'email', location: 'home-closing-cta' }}
+                >
                   Talk to the founder
-                </a>
+                </TrackedLink>
               </div>
               <p className={styles.ctaNote}>Design partnerships are free. Limited spots.</p>
             </div>

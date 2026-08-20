@@ -94,7 +94,14 @@
 .megaMenu {
   position: absolute;
   left: 50%;
-  top: 68px;
+  /* Flush against the trigger's own bottom edge (not the header's), with a
+     1px overlap. top:68px measured a gap from .navItem's *own* box — but
+     navItem is vertically centered inside the 68px header, so its real
+     bottom edge sits well above y=68, leaving a dead zone the cursor had to
+     cross to reach the menu. Crossing it left both .navItem and headerWrap's
+     hover boxes, firing the mouseleave close before the menu could be
+     reached — the reported "menu closes before I can click it" bug. */
+  top: calc(100% - 1px);
   transform: translateX(-50%);
   background: var(--fg-white);
   border: 1px solid var(--fg-line);
